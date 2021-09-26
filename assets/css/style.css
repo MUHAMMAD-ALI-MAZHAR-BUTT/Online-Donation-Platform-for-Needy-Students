@@ -1012,10 +1012,10 @@ section {
 --------------------------------------------------------------*/
 .news .icon-box {
   text-align: center;
-  border: 1px solid #e2eefd;
-  padding: 80px 20px;
+  border: 1px solid #fff;
+  padding: 45px 20px;
   transition: all ease-in-out 0.3s;
-  background: #fff;
+  background: #ad1deb;
 }
 
 .news .icon-box .icon {
@@ -1067,7 +1067,7 @@ section {
 
 }
 
-.services .icon-box:hover .icon {
+.news .icon-box:hover .icon {
   border-color: #ad1deb;
 }
 
