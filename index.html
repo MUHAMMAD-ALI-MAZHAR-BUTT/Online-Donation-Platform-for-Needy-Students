@@ -38,6 +38,23 @@
       font-size: 20px;
       color: white;
     }
+
+    .glow {
+      font-size: 45px;
+      color: rgb(0, 0, 0);
+      text-align: center;
+      animation: glow 0.5s ease-in-out infinite alternate;
+    }
+
+    @-webkit-keyframes glow {
+      from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #46014d, 0 0 40px #46014d, 0 0 50px #46014d, 0 0 60px #46014d, 0 0 70px #46014d;
+      }
+
+      to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #9d2ec9, 0 0 40px #9d2ec9, 0 0 50px #9d2ec9, 0 0 60px #9d2ec9, 0 0 70px #9d2ec9, 0 0 80px #9d2ec9;
+      }
+    }
   </style>
 
 </head>
@@ -380,8 +397,58 @@
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section>
+    <!--Latest new Section -->
+    <section id="news" class="news">
+      <div class="container" data-aos="fade-up">
 
+
+        <div class="section-title">
+          <h6>Latest News</h6>
+          <br><br>
+          <h1 class="glow">Check out latest updates on <span>Donation</span></h1>
+
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <h4><a href="#">Buy Recycle Products</a></h4>
+              <p>The company also sale the Recycle Products on very cheap prices.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-file"></i></div>
+              <h4><a href="">Sale Recycle Products</a></h4>
+              <p>The company also sale the Recycle Products on very cheap prices.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 d-flex align-items-stretch " data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-tachometer"></i></div>
+              <h4><a href="">Picking up Waste</a></h4>
+              <p>Our company give hundred percent guarantee and ensure the satisfcation of the consumers and customers.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 d-flex align-items-stretch " data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-world"></i></div>
+              <h4><a href="">Enterpunership</a></h4>
+              <p>Our company also provides the opportunity to Enterpuners to work with our company.</p>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
 
 
     <!-- ======= Team Section ======= -->
@@ -518,16 +585,6 @@
               </li>
 
               <li>
-                <div data-bs-toggle="collapse" href="#faq4" class="collapsed question"> <i
-                    class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-                <div id="faq4" class="collapse" data-bs-parent=".faq-list">
-                  <p>
-                    Feel free to contact us .Our misssion is to clean Pakistan from diseases.
-                  </p>
-                </div>
-              </li>
-
-              <li>
                 <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">What can be done for waste
                   management?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i>
                 </div>
@@ -576,7 +633,7 @@
             <div class="info-box mb-4">
               <i class="bx bx-map"></i>
               <h3>Our Address</h3>
-              <p>Pakistan, Lahore head office block c</p>
+              <p>Pakistan, Lahore G.T Road University Of Engineering and Technology, CS Department</p>
             </div>
           </div>
 
@@ -584,7 +641,7 @@
             <div class="info-box  mb-4">
               <i class="bx bx-envelope"></i>
               <h3>Email Us</h3>
-              <p>wastemanagement@gmail.com</p>
+              <p>OnlineDonationPlatform@gmail.com</p>
             </div>
           </div>
 
@@ -601,9 +658,32 @@
         <div class="row" data-aos="fade-up" data-aos-delay="100">
 
           <div class="col-lg-6 ">
-            <iframe class="mb-4 mb-lg-0"
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
-              frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
+
+            <div class="mapouter">
+              <div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no"
+                  marginheight="0" marginwidth="0"
+                  src="https://maps.google.com/maps?width=600&amp;height=384&amp;hl=en&amp;q=UET,LAHORE&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a
+                  href="https://www.fnfgo.com/">FNF</a></div>
+              <style>
+                .mapouter {
+                  position: relative;
+                  text-align: right;
+                  width: 100%;
+                  height: 384px;
+                }
+
+                .gmap_canvas {
+                  overflow: hidden;
+                  background: none !important;
+                  width: 100%;
+                  height: 384px;
+                }
+
+                .gmap_iframe {
+                  height: 384px !important;
+                }
+              </style>
+            </div>
           </div>
 
           <div class="col-lg-6">
@@ -653,9 +733,10 @@
           <div class="col-lg-3 col-md-6 footer-contact">
             <h3>Pakistan<span>.</span></h3>
             <p>
-              A108 Adam Street <br>
-              Lahore, NY 535022<br>
-              Johar Town <br><br>
+              G. T. Road <br>
+              Staff Houses Engineering University Lahore<br>
+              Lahore, Punjab 39161<br>
+                
               <strong>Phone:</strong> +92 03035024309<br>
               <strong>Email:</strong> OnlineDonationPlatform@gmail<br>
             </p>
@@ -665,9 +746,10 @@
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#news">Latest News</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#gallery">Gallery</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
             </ul>
           </div>
@@ -675,17 +757,17 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Waste Management</a></li>
+              <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Waste Management</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Sale Recycle Items</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">ECONOMIC DEVELOPMENT</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Clean Conutry</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Delivery of Waste</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Delivery of Waste</a></li> -->
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Social Networks</h4>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+            <p>Do follow us on these accounts to stay up to date</p>
             <div class="social-links mt-3">
               <a href="https://twitter.com/?lang=en" class="twitter"><i class="bx bxl-twitter"></i></a>
               <a href="https://www.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -702,7 +784,7 @@
 
     <div class="container py-4">
       <div class="copyright">
-        &copy; Copyright <strong><span>Waste Management System</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>Online Donation Platform</span></strong>. All Rights Reserved
       </div>
     </div>
   </footer><!-- End Footer -->
