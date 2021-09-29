@@ -1,6 +1,8 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
@@ -25,6 +27,16 @@ h5,
 h6 {
   font-family: "Roboto", sans-serif;
 }
+
+.carousel-item,
+.carousel-item img {
+  max-height: 83vh;
+}
+
+#log span {
+  font-family: 'Lobster';
+}
+
 
 /*--------------------------------------------------------------
 # Preloader
