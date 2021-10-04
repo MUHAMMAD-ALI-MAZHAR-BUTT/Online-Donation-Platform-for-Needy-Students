@@ -725,6 +725,7 @@
             <h3><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback Form</b></h3>
             <br>
+
             <form action="feed.php" method="post" role="form">
               <div class="row">
                 <div class="col form-group">
@@ -741,7 +742,8 @@
                 <textarea class="form-control" name="message" rows="5" placeholder="Enter Message" required></textarea>
               </div>
               <br>
-              <div class="text-center group"> <input class="button" type="submit" value="Send Feedback"> </div>
+              <div class="text-center group" id="fed"> <input class="btn btn-primary"
+                  style="background-color: #ad1deb; border: #ad1deb; " type="submit" value="Send Feedback"> </div>
               <!--    <div class="text-center"><button type="submit" onClick="refreshPage()">Send Message</button></div>-->
             </form>
             <script>
