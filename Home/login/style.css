@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Playfair Display', serif;
+}
+
+header {
+  background-image: url("img/4.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  background-attachment: fixed;
+}
+
+.box {
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-top: 5.5rem;
+  width: 82%;
+  height: 515px;
+  border-radius: 20px;
+  border: 3px solid #4634A7;
+  /* box-shadow: -1px 4px 28px 0px rgba(176, 38, 255, 0.75); */
+}
+
+.NameDetails {
+  border-radius: 20px;
+  width: 16rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: transparent;
+  color: white;
+  font-size: 18px;
+}
+
+.NameDetails:focus {
+  outline: none;
+}
+
+.NameDetails:hover {
+  width: 20rem;
+  font-size: 20px;
+}
+
+.NameDetails::placeholder {
+  color: white;
+  font-size: 18px;
+}
+
+.EmailDetails {
+  border-radius: 20px;
+  width: 16rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: transparent;
+  color: white;
+  font-size: 18px;
+}
+
+.EmailDetails:hover {
+  width: 20rem;
+  font-size: 20px;
+}
+
+.EmailDetails:focus {
+  outline: none;
+}
+
+.EmailDetails::placeholder {
+  color: white;
+  font-size: 18px;
+}
+
+.PassDetails {
+  border-radius: 20px;
+  width: 16rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: transparent;
+  color: white;
+  font-size: 18px;
+}
+
+.PassDetails:hover {
+  width: 20rem;
+  font-size: 20px;
+}
+
+.PassDetails:focus {
+  outline: none;
+}
+
+.PassDetails::placeholder {
+  color: white;
+  font-size: 18px;
+}
+
+.AddressDetails {
+  border-radius: 20px;
+  width: 16rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background: transparent;
+  color: white;
+  font-size: 18px;
+}
+
+.AddressDetails:hover {
+  width: 20rem;
+  font-size: 20px;
+}
+
+.AddressDetails:focus {
+  outline: none;
+}
+
+.AddressDetails::placeholder {
+  color: white;
+  font-size: 18px;
+}
+
+.Opt {
+  font-size: 18px;
+}
+
+.btn {
+  background: linear-gradient(60deg, rgb(176, 38, 255), #1F51FF);
+  /* margin-left: 16rem; */
+  width: 130px;
+  border-radius: 20px;
+  font-size: 18px;
+  color: white;
+}
+
+.btn:hover {
+  background: transparent;
+  color: white;
+  font-size: 18px;
+  width: 135px;
+  border: 1px solid #B026FF;
+}
+
+.Optional a {
+  text-decoration: none;
+}
