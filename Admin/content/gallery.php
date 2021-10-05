@@ -5,20 +5,21 @@
 <div class="content-wrapper">
 
 
-    <div class="table-wrapper" style="background-color: #435d7d; color:white; ">
-
-        <div class="row">
-            <div class="col-sm-4">
-                <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gallery On Home Page</h2>
-            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div class="col-sm-4">
-                <a href="#addpickerModal" class="btn btn-success" style="background-color:#ad1deb; border:#ad1deb;" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i> <span>Add Image</span></a>
+    <div class="table-wrapper" style="background-color: #6e72fc;
+  background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 104%); color:white; ">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2 style="font-family: sans-serif; font-weight:bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gallery On Home Page</h2>
+                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class=" col-sm-4">
+                    <a href="#addpickerModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus" aria-hidden="true"></i> <span>Add Image</span></a>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                </div>
 
             </div>
-
         </div>
-
 
 
     </div>
