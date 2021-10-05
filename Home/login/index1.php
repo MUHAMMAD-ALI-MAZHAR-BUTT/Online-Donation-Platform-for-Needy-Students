@@ -31,8 +31,7 @@
                                     <input type="text" placeholder="Username or Email" class="w-75 py-1 text-start"><br>
                                     <!-- Password -->
                                     <span id="Lock" class="fa fa-lock fa-2x"></span>
-                                    <input type="password" placeholder="LogIn Password"
-                                        class="w-75 py-1 text-start mt-3">
+                                    <input type="password" placeholder="LogIn Password" class="w-75 py-1 text-start mt-3">
                                     <!-- category -->
                                     <select class="form-select mt-3 w-75" id="category" placeholder="Category">
                                         <option hidden>Select Category</option>
@@ -54,7 +53,7 @@
                                     <!-- other login options -->
                                     <p class="text-center mt-4 text-white" style="font-size: 18px;">Don't have an
                                         account? </p>
-                                    <a href="index.html" rel="noopener noreferrer" id="OptLink"> Sign-Up
+                                    <a href="index.php" rel="noopener noreferrer" id="OptLink"> Sign-Up
                                         Now</a>
 
                                 </div>

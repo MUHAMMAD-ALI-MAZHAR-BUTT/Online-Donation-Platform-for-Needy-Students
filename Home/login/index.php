@@ -24,22 +24,18 @@
                         <form action="">
                             <div class="row text-center">
                                 <h2 class="my-3 text-white fw-bold">Register Here</h2>
-                                <hr class="m-auto fw-bolder text-white w-75"
-                                    style="color: white; background-color: white" />
+                                <hr class="m-auto fw-bolder text-white w-75" style="color: white; background-color: white" />
                                 <div class="col-12 my-4">
                                     <!-- name  -->
                                     <input type="text" placeholder="Name" class="NameDetails text-center" />
                                     <!-- email  -->
-                                    <input type="email" name="" id="" placeholder="E-mail"
-                                        class="EmailDetails text-center my-3 mb-2" />
+                                    <input type="email" name="" id="" placeholder="E-mail" class="EmailDetails text-center my-3 mb-2" />
                                     <!-- address -->
                                     <input type="text" placeholder="Address" class="AddressDetails text-center my-1" />
                                     <!-- password  -->
-                                    <input type="password" name="" id="" placeholder="Password"
-                                        class="PassDetails text-center my-2" />
+                                    <input type="password" name="" id="" placeholder="Password" class="PassDetails text-center my-2" />
                                     <!-- confirm password  -->
-                                    <input type="password" name="" id="" placeholder="Confirm Password"
-                                        class="PassDetails text-center my-2" />
+                                    <input type="password" name="" id="" placeholder="Confirm Password" class="PassDetails text-center my-2" />
                                     <!-- option  -->
                                     <br />
                                     <div class="text-white my-2 Opt">
@@ -50,7 +46,7 @@
                                     </div>
                                     <a href="http://"><button type="button" class="btn my-2">Sign Up</button></a>
                                     <p class="text-white Optional">Already have an account?
-                                        <a href="index1.html" rel="noopener noreferrer"> Log In</a>
+                                        <a href="index1.php" rel="noopener noreferrer"> Log In</a>
                                         here.
                                     </p>
                                 </div>
