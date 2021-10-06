@@ -702,28 +702,82 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback Form</b></h3>
                         <br>
 
-                        <form action="feed.php" method="post" role="form">
+                        <form id="sample_form">
                             <div class="row">
                                 <div class="col form-group">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                    <input type="text" name="name" class="form-control form_data" id="name" placeholder="Your Name " required>
+                                    <span id="name_error" class="text-danger"></span>
                                 </div>
                                 <div class="col form-group">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                                    <input type="email" class="form-control form_data" name="email" id="email" placeholder="Your Email" required>
+                                    <span id="email_error" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                <input type="text" class="form-control form_data" name="subject" id="subject" placeholder="Subject" required>
+                                <span id="subject_error" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" name="message" rows="5" placeholder="Enter Message" required></textarea>
+                                <textarea class="form-control form_data" name="message" id="message" rows="5" placeholder="Enter Message" required></textarea>
+                                <span id="message_error" class="text-danger"></span>
                             </div>
                             <br>
-                            <div class="text-center group" id="fed"> <input class="btn btn-primary" style="background-color: #ad1deb; border: #ad1deb; " type="submit" value="Send Feedback"> </div>
+                            <div class="text-center group" id="fed">
+                                <input class="btn btn-primary" onclick="save_feedback(); return false;" style="background-color: #ad1deb; border: #ad1deb; " type="submit" id="submit" value="Send Feedback">
+                            </div>
                             <!--    <div class="text-center"><button type="submit" onClick="refreshPage()">Send Message</button></div>-->
                         </form>
                         <script>
-                            function refreshPage() {
-                                window.location.reload();
+                            function save_feedback() {
+                                var form_element = document.getElementsByClassName('form_data');
+
+                                var form_data = new FormData();
+
+                                for (var count = 0; count < form_element.length; count++) {
+                                    form_data.append(form_element[count].name, form_element[count].value);
+                                }
+
+                                document.getElementById('submit').disabled = true;
+
+                                var ajax_request = new XMLHttpRequest();
+
+                                ajax_request.open('POST', 'feed.php');
+
+                                ajax_request.send(form_data);
+
+                                ajax_request.onreadystatechange = function() {
+                                    if (ajax_request.readyState == 4 && ajax_request.status == 200) {
+                                        document.getElementById('submit').disabled = false;
+
+                                        var response = JSON.parse(ajax_request.responseText);
+
+                                        if (response.success != '') {
+                                            document.getElementById('sample_form').reset();
+
+                                            document.getElementById('message').innerHTML = response.success;
+
+                                            setTimeout(function() {
+
+                                                document.getElementById('message').innerHTML = '';
+
+                                            }, 5000);
+
+                                            document.getElementById('name_error').innerHTML = '';
+
+                                            document.getElementById('email_error').innerHTML = '';
+                                            document.getElementById('subject_error').innerHTML = '';
+
+                                            document.getElementById('message_error').innerHTML = '';
+
+                                        } else {
+                                            //display validation error
+                                            document.getElementById('name_error').innerHTML = response.name_error;
+                                            document.getElementById('email_error').innerHTML = response.email_error;
+                                            document.getElementById('subject_error').innerHTML = response.name_error;
+                                            document.getElementById('message_error').innerHTML = response.email_error;
+                                        }
+                                    }
+                                }
                             }
                         </script>
 

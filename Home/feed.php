@@ -1,30 +1,95 @@
+
+
 <?php
-$Username_from_form = $_POST['name'];
-$subject_from_form = $_POST['subject'];
-$gmail_from_form = $_POST['email'];
-$messagee_from_form = $_POST['message'];
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "base";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+//process_data.php
+
+if (isset($_POST["name"])) {
+    sleep(3);
+    $connect = new PDO("mysql:host=localhost; dbname=base", "root", "");
+
+    $success = '';
+
+    $name = $_POST["name"];
+
+    $email = $_POST["email"];
+    $subject = $_POST["subject"];
+
+    $message = $_POST["message"];
+
+    $name_error = '';
+    $email_error = '';
+    $subject_error = '';
+    $message_error = '';
+
+
+    if (empty($name)) {
+        $name_error = 'Name is Required';
+    } else {
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
+            $name_error = 'Only Letters and White Space Allowed';
+        }
+    }
+
+    if (empty($email)) {
+        $email_error = 'Email is Required';
+    } else {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $email_error = 'Email is invalid';
+        }
+    }
+
+    if (empty($subject)) {
+        $subject_error = 'Subject is Required';
+    } else {
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $subject)) {
+            $subject_error = 'Only Letters and White Space Allowed';
+        }
+    }
+
+    if (empty($message)) {
+        $message_error = 'Message is Required Field';
+    }
+
+    if ($name_error == '' && $email_error == '' && $subject_error == '' && $message_error == '') {
+        //put insert data code here 
+
+        $data = array(
+            ':name'            =>    $name,
+            ':email'        =>    $email,
+            ':subject'        =>    $subject,
+            ':message'        =>    $message,
+
+        );
+
+        $query = "
+		INSERT INTO feedback 
+		(name, email, subject, message) 
+		VALUES (:name, :email, :subject, :message)
+		";
+
+        $statement = $connect->prepare($query);
+
+        $statement->execute($data);
+
+        if ($connect->query($query) === TRUE) {
+            echo '<script language="javascript">';
+            echo 'alert("message successfully sent")';
+            echo '</script>';
+        }
+    }
+
+    $output = array(
+        'success'        =>    $success,
+        'name_error'    =>    $name_error,
+        'email_error'    =>    $email_error,
+        'subject_error'    =>    $subject_error,
+        'message_error'    =>    $message_error,
+
+    );
+
+    echo json_encode($output);
 }
 
-$sql = "INSERT INTO feedback(Name,Email,Subject,Message)
-VALUES ('$Username_from_form','$gmail_from_form','$subject_from_form',  '$messagee_from_form')";
+?>
 
-if ($conn->query($sql) === TRUE) {
-
-    echo "<script>alert('Your feedback has been successfully submitted')</script>";
-    echo "<script>window.open('index.php','_self')</script>";
-} else {
-    echo "<script>alert('Some error occured!!!')</script>";
-    echo "<script>window.open('index.php','_self')</script>";
-}
-
-$conn->close();
