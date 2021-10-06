@@ -389,27 +389,80 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 d-flex align-items-stretch " data-aos="zoom-in" data-aos-delay="300">
+                    <div class="col-lg-4 col-md-4  " data-aos="zoom-in" data-aos-delay="300">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-tachometer"></i></div>
-                            <!-- <h4><a href="">Picking up Waste</a></h4>
-              <p>Our company give hundred percent guarantee and ensure the satisfcation of the consumers and customers.
-              </p> -->
+                            <?php
+                            include 'db_connection.php';
+                            $cat = "Education";
+                            // $selectquery = "select * from latest_news where category=$cat";
+                            $selectquery = "select * from latest_news where category='Education'";
+                            $query = mysqli_query($con, $selectquery);
+
+                            $nums = mysqli_num_rows($query);
+
+                            while ($res = mysqli_fetch_array($query)) {
+
+                            ?>
+                                <h4 class="card-title"><?php echo $res['category']; ?></h4>
+
+                                <marquee width="100%" direction="right" height="100px">
+                                    <?php echo $res['message']; ?>
+                                </marquee>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-4 d-flex align-items-stretch " data-aos="zoom-in" data-aos-delay="100">
+                    <div class="col-lg-4 col-md-4  " data-aos="zoom-in" data-aos-delay="100">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-world"></i></div>
-                            <!-- <h4><a href="">Enterpunership</a></h4>
-              <p>Our company also provides the opportunity to Enterpuners to work with our company.</p> -->
+                            <?php
+                            include 'db_connection.php';
+                            $cat = "Education";
+                            // $selectquery = "select * from latest_news where category=$cat";
+                            $selectquery = "select * from latest_news where category='Health'";
+                            $query = mysqli_query($con, $selectquery);
+
+                            $nums = mysqli_num_rows($query);
+
+                            while ($res = mysqli_fetch_array($query)) {
+
+                            ?>
+                                <h4 class="card-title"><?php echo $res['category']; ?></h4>
+
+                                <marquee width="100%" direction="right" height="100px">
+                                    <?php echo $res['message']; ?>
+                                </marquee>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 d-flex align-items-stretch " data-aos="zoom-in" data-aos-delay="100">
+                    <div class="col-lg-4 col-md-4  " data-aos="zoom-in" data-aos-delay="100">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-world"></i></div>
-                            <!-- <h4><a href="">Enterpunership</a></h4>
-              <p>Our company also provides the opportunity to Enterpuners to work with our company.</p> -->
+                            <?php
+                            include 'db_connection.php';
+                            $cat = "Education";
+                            // $selectquery = "select * from latest_news where category=$cat";
+                            $selectquery = "select * from latest_news where category='Other Expenses'";
+                            $query = mysqli_query($con, $selectquery);
+
+                            $nums = mysqli_num_rows($query);
+
+                            while ($res = mysqli_fetch_array($query)) {
+
+                            ?>
+                                <h4 class="card-title"><?php echo $res['category']; ?> </h4>
+
+                                <marquee width="100%" direction="right" height="100px">
+                                    <?php echo $res['message']; ?>
+                                </marquee>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
