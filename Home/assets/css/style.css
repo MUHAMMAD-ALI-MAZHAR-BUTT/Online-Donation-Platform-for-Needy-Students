@@ -659,6 +659,9 @@ section {
   border-radius: 50px;
 }
 
+#ak span {
+  color: #ad1deb;
+}
 
 .section-title h3 {
   margin: 15px 0 0 0;
@@ -679,6 +682,10 @@ section {
 }
 
 .section-title h3 span {
+  color: #ad1deb;
+}
+
+.card-title span {
   color: #ad1deb;
 }
 

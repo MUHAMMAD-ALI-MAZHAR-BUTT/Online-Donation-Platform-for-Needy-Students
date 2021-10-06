@@ -1,3 +1,8 @@
+<?php
+include('db_connection.php');
+
+$result = $con->query("SELECT img_path from gallery_img")
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -390,8 +395,8 @@
                 <br>
                 <div class="row">
                     <div class="col-lg-4 col-md-4  " data-aos="zoom-in" data-aos-delay="300">
-                        <div class="icon-box">
-                            <div class="icon"><i class="bx bx-tachometer"></i></div>
+                        <div class="icon-box" style="height: 300px;">
+                            <!-- <div class="icon"><i class="bx bx-tachometer"></i></div> -->
                             <?php
                             include 'db_connection.php';
                             $cat = "Education";
@@ -404,9 +409,12 @@
                             while ($res = mysqli_fetch_array($query)) {
 
                             ?>
-                                <h4 class="card-title"><?php echo $res['category']; ?></h4>
 
-                                <marquee width="100%" direction="right" height="100px">
+                                <h4 class="card-title"><span style="  color: #ad1deb;">Updated on </span><?php echo $res['date']; ?></h4></i>
+                                <br>
+                                <h4 class="card-title"><?php echo $res['category']; ?></h4>
+                                <br><br>
+                                <marquee width="100%" direction="left" height="100px">
                                     <?php echo $res['message']; ?>
                                 </marquee>
                             <?php
@@ -415,9 +423,9 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-4  " data-aos="zoom-in" data-aos-delay="100">
-                        <div class="icon-box">
-                            <div class="icon"><i class="bx bx-world"></i></div>
+                    <div class="col-lg-4 col-md-4  " data-aos="zoom-in" data-aos-delay="300">
+                        <div class="icon-box" style="height: 300px;">
+                            <!-- <div class="icon"><i class="bx bx-tachometer"></i></div> -->
                             <?php
                             include 'db_connection.php';
                             $cat = "Education";
@@ -430,9 +438,12 @@
                             while ($res = mysqli_fetch_array($query)) {
 
                             ?>
-                                <h4 class="card-title"><?php echo $res['category']; ?></h4>
 
-                                <marquee width="100%" direction="right" height="100px">
+                                <h4 class="card-title"><span style="  color: #ad1deb;">Updated on </span><?php echo $res['date']; ?></h4></i>
+                                <br>
+                                <h4 class="card-title"><?php echo $res['category']; ?></h4>
+                                <br><br>
+                                <marquee width="100%" direction="left" height="100px">
                                     <?php echo $res['message']; ?>
                                 </marquee>
                             <?php
@@ -440,9 +451,9 @@
                             ?>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4  " data-aos="zoom-in" data-aos-delay="100">
-                        <div class="icon-box">
-                            <div class="icon"><i class="bx bx-world"></i></div>
+                    <div class="col-lg-4 col-md-4  " data-aos="zoom-in" data-aos-delay="300">
+                        <div class="icon-box" style="height: 300px;">
+                            <!-- <div class="icon"><i class="bx bx-tachometer"></i></div> -->
                             <?php
                             include 'db_connection.php';
                             $cat = "Education";
@@ -455,9 +466,12 @@
                             while ($res = mysqli_fetch_array($query)) {
 
                             ?>
-                                <h4 class="card-title"><?php echo $res['category']; ?> </h4>
 
-                                <marquee width="100%" direction="right" height="100px">
+                                <h4 class="card-title"><span style="  color: #ad1deb;">Updated on </span><?php echo $res['date']; ?></h4></i>
+                                <br>
+                                <h4 class="card-title"><?php echo $res['category']; ?></h4>
+                                <br><br>
+                                <marquee width="100%" direction="left" height="100px">
                                     <?php echo $res['message']; ?>
                                 </marquee>
                             <?php
@@ -472,43 +486,62 @@
         </section><!-- End Services Section -->
 
         <section id="gallery">
-            <div class="container" data-aos="fade-up">
-                <div id="carouselExampleControls" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" data-bs-interval="2000">
-                            <img src="assets/images/slider-1.jpg" class="d-block w-100" alt="1">
+
+            <div class="row justify-content-center mt-2" data-aos="fade-up">
+                <div class="col-lg-10">
+                    <div id="demo" class="carousel slide" data-ride="carousel">
+
+                        <!-- Indicators -->
+                        <ul class="carousel-indicators">
+                            <?php
+                            $i = 0;
+                            foreach ($result as $row) {
+                                $actives = '';
+                                if ($i == 0) {
+                                    $actives = 'active';
+                                }
+
+                            ?>
+                                <li data-target="#demo" data-slide-to="<?= $i; ?>" class="<? $actives ?>"></li>
+                            <?php
+                                $i++;
+                            }
+                            ?>
+
+                        </ul>
+
+                        <!-- The slideshow -->
+                        <div class="carousel-inner">
+                            <?php
+                            $i = 0;
+                            foreach ($result as $row) {
+                                $actives = '';
+                                if ($i == 0) {
+                                    $actives = 'active';
+                                }
+
+                            ?>
+                                <div class="carousel-item <?= $actives; ?>">
+                                    <img src="../Admin/<?= $row['img_path'] ?>" width="100%" height="600px">
+                                </div>
+                            <?php
+                                $i++;
+                            }
+                            ?>
                         </div>
-                        <div class="carousel-item ">
-                            <img src="assets/images/slider-2.jpg" class="d-block w-100" alt="1">
-                        </div>
-                        <div class="carousel-item ">
-                            <img src="assets/images/slider-3.jpg" class="d-block w-100" alt="1">
-                        </div>
-                        <div class="carousel-item ">
-                            <img src="assets/images/slider-4.jpg" class="d-block w-100" alt="1">
-                        </div>
-                        <div class="carousel-item ">
-                            <img src="assets/images/slider-5.jpg" class="d-block w-100" alt="1">
-                        </div>
-                        <div class="carousel-item ">
-                            <img src="assets/images/slider-6.jpg" class="d-block w-100" alt="1">
-                        </div>
-                        <div class="carousel-item ">
-                            <img src="assets/images/slider-7.jpg" class="d-block w-100" alt="1">
-                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#demo" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
 
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
-            </div>
+
         </section><!-- End Services Section -->
         <!-- ======= Team Section ======= -->
         <section id="team" class="team section-bg">
