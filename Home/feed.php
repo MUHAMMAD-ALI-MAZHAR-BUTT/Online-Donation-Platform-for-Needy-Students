@@ -2,10 +2,11 @@
 
 <?php
 
-//process_data.php
+
 
 if (isset($_POST["name"])) {
     sleep(3);
+
     $connect = new PDO("mysql:host=localhost; dbname=base", "root", "");
 
     $success = '';
@@ -16,6 +17,7 @@ if (isset($_POST["name"])) {
     $subject = $_POST["subject"];
 
     $message = $_POST["message"];
+
 
     $name_error = '';
     $email_error = '';
@@ -52,13 +54,13 @@ if (isset($_POST["name"])) {
     }
 
     if ($name_error == '' && $email_error == '' && $subject_error == '' && $message_error == '') {
-        //put insert data code here 
+
 
         $data = array(
             ':name'            =>    $name,
             ':email'        =>    $email,
             ':subject'        =>    $subject,
-            ':message'        =>    $message,
+            ':message'        =>    $message
 
         );
 
@@ -72,11 +74,9 @@ if (isset($_POST["name"])) {
 
         $statement->execute($data);
 
-        if ($connect->query($query) === TRUE) {
-            echo '<script language="javascript">';
-            echo 'alert("message successfully sent")';
-            echo '</script>';
-        }
+
+        $success =
+            '<script>alert("Feedback has been successfully submitted")</script>';
     }
 
     $output = array(

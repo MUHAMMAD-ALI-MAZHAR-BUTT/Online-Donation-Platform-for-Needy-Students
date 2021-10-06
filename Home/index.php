@@ -25,7 +25,7 @@
     <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
     <style>
@@ -723,7 +723,7 @@
                             </div>
                             <br>
                             <div class="text-center group" id="fed">
-                                <input class="btn btn-primary" onclick="save_feedback(); return false;" style="background-color: #ad1deb; border: #ad1deb; " type="submit" id="submit" value="Send Feedback">
+                                <input class="btn btn-primary" onclick="save_feedback(); return false;" style="background-color: #ad1deb; border: #ad1deb; " type="submit" id="submit" name="submit" value="Send Feedback">
                             </div>
                             <!--    <div class="text-center"><button type="submit" onClick="refreshPage()">Send Message</button></div>-->
                         </form>
@@ -770,12 +770,14 @@
                                             document.getElementById('message_error').innerHTML = '';
 
                                         } else {
-                                            //display validation error
                                             document.getElementById('name_error').innerHTML = response.name_error;
                                             document.getElementById('email_error').innerHTML = response.email_error;
-                                            document.getElementById('subject_error').innerHTML = response.name_error;
-                                            document.getElementById('message_error').innerHTML = response.email_error;
+                                            document.getElementById('subject_error').innerHTML = response.subject_error;
+                                            document.getElementById("message_error").innerHTML = response.message_error;
                                         }
+
+
+
                                     }
                                 }
                             }
