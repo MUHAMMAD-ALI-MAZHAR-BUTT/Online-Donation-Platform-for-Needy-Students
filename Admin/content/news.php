@@ -1,7 +1,23 @@
-<!-- Main Sidebar Container -->
+<?php
+include("db_connection.php");
+if (isset($_POST['user_save'])) {
+    $id = $_GET['id'];
+
+    $message = $_POST['message'];
+
+    $id = $_POST['id'];
 
 
-<!-- Content Wrapper. Contains page content -->
+    $update_profile = "update latest_news set message='$message' id='$id'";
+    if (mysqli_query($dbcon, $update_profile)) {
+        echo "<script>alert('Account successfully updated!')</script>";
+        echo "<script>window.open('index.php','_self')</script>";
+    } else {
+        echo "<script>alert('Error Found!')</script>";
+    }
+}
+
+?>
 <div class="content-wrapper">
 
 
@@ -52,9 +68,9 @@
 
 
                         <div class="card-tools">
-                            <input type="button" name="edit" value="Edit" id="<?php echo $res["id"]; ?>" class="btn btn-info btn-xs edit_data" />
-                            <!-- <button type="button" class="btn btn-tool" name="edit" title="Edit News" id="<?php echo $res["id"]; ?>"><i class="fas fa-edit edit_data"></i>
-                            </button> -->
+
+
+                            <a data-toggle="modal" type="button" name="edit" id="<?php echo $res["id"]; ?>" data-target="#setAccount"> <i class="fas fa-edit "></i> </a>
                         </div>
                         <!-- /.card-tools -->
                     </div>
@@ -143,29 +159,78 @@
         </div>
     </div>
 </div>
-<div id="add_data_Modal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<div class="modal fade" id="setAccount" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
+    <div class="modal-dialog modal-md">
+        <div style="color:white;background-color:#ad1deb" class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Update Message</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
             </div>
             <div class="modal-body">
-                <form method="post" id="insert_form">
-                    <label>Message</label>
-                    <textarea name="message" id="message" class="form-control" rows="4" cols="50"></textarea>/>
-                    <br />
 
-                    <input type="hidden" name="id" id="id" />
-                    <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
-                </form>
+
+                <form enctype="multipart/form-data" method="post" action="">
+                    <fieldset>
+
+
+                        <p>Edit Message</p>
+                        <div class="form-group">
+
+                            <textarea class="form-control" placeholder="Message" name="message" type="text" value="<?php echo $message; ?>" required></textarea>
+
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <input class="form-control hide" name="id" type="text" value="<?php echo $id; ?>" required>
+
+
+                        </div>
+
+
+
+
+
+
+
+
+                    </fieldset>
+
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                <button class="btn btn-block btn-success btn-md" name="user_save">Save</button>
+
+                <button type="button" class="btn btn-block btn-danger btn-md" data-dismiss="modal">Cancel</button>
+
+
+                </form>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#priceinput').keypress(function(event) {
+            return isNumber(event, this)
+        });
+    });
+
+    function isNumber(evt, element) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode
+
+        if (
+            (charCode != 45 || $(element).val().indexOf('-') != -1) &&
+            (charCode != 46 || $(element).val().indexOf('.') != -1) &&
+            (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
 <scrip src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
     </script>
 

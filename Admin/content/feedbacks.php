@@ -65,7 +65,7 @@
                             <td><?php echo $res['name']; ?></td>
                             <td><?php echo $res['email']; ?></td>
                             <td>
-                                <a href="OnlineServiceUpdate.php?id=<?php echo $res['P_ID']; ?>"> <i class="fa fa-envelope" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Reply"></i></a>
+                                <a href="#reply?id=<?php echo $res['feedback_id']; ?>"> <i class="fa fa-envelope" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Reply"></i></a>
 
                             </td>
 
@@ -91,5 +91,70 @@
 
 </div>
 
+<div id="reply" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="myform" action="" method="POST">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Employee</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!--<div class="form-group">
+            <label>ID</label>
+            <input type="text" name="employee_id" class="form-control" required>
+          </div>-->
+                    <div class="form-group">
+                        <label>Employee Name</label>
+                        <input type="text" name="name" class="form-control" required="">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label>Employee Phone</label>
+                            <input type="number" name="phone" class="form-control" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Employee Email</label>
+                            <input type="email" name="email" class="form-control" required="">
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+
+                        <input type="submit" name="submit" id="submit" class="btn btn-success" value="Add">
+
+
+                    </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        var form = $('#myform');
+
+        $('#submit').click(function() {
+
+            $.ajax({
+
+                url: form.attr("action"),
+                type: 'post',
+                data: $("#myform input").serialize(),
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+
+        });
+
+
+    });
+</script>
 <!-- ./wrapper -->
