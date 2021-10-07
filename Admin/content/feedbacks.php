@@ -16,51 +16,76 @@
                 </div>
             </div>
         </div>
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
+        <?php
+        include('db_connection.php');
+        $selectquery = "select * from feedback";
+        $res = mysqli_query($con, $selectquery);
+        if (mysqli_num_rows($res) == 0) {
+        ?>
+            <div class="container">
+                <div class="row justify-content-centre">
+                    <div class="col-lg-6 col-md-6">
+                        <h2 class="text-center p-1">No Feedbacks </h2>
+                    </div>
+                </div>
 
-                    <th>Subject</th>
-                    <th>Message</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <?php
-                include 'db_connection.php';
-                $selectquery = "select * from feedback";
-
-                $query = mysqli_query($con, $selectquery);
-
-                $nums = mysqli_num_rows($query);
-
-                while ($res = mysqli_fetch_array($query)) {
-
-                ?>
-
+            </div>
+        <?php
+        } else {
+        ?>
+            <table class=" table table-striped table-hover">
+                <thead>
                     <tr>
 
-                        <td><?php echo $res['subject']; ?></td>
-                        <td><?php echo $res['message']; ?></td>
-                        <td><?php echo $res['name']; ?></td>
-                        <td><?php echo $res['email']; ?></td>
-
-
+                        <th>Subject</th>
+                        <th>Message</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
                     </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+                    include 'db_connection.php';
+                    $selectquery = "select * from feedback";
+
+                    $query = mysqli_query($con, $selectquery);
+
+                    $nums = mysqli_num_rows($query);
+
+                    while ($res = mysqli_fetch_array($query)) {
+
+                    ?>
+
+                        <tr>
+
+                            <td><?php echo $res['subject']; ?></td>
+                            <td><?php echo $res['message']; ?></td>
+                            <td><?php echo $res['name']; ?></td>
+                            <td><?php echo $res['email']; ?></td>
+                            <td>
+                                <a href="OnlineServiceUpdate.php?id=<?php echo $res['P_ID']; ?>"> <i class="fa fa-envelope" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Reply"></i></a>
+
+                            </td>
+
+                        </tr>
 
 
 
-                <?php
-                }
-                ?>
+                    <?php
+                    }
+                    ?>
 
 
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        <?php
+        }
+
+        ?>
+
 
     </div>
 

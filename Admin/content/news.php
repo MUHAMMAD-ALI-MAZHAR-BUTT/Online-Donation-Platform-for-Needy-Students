@@ -52,8 +52,9 @@
 
 
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" title="Edit News"><i class="fas fa-edit"></i>
-                            </button>
+                            <input type="button" name="edit" value="Edit" id="<?php echo $res["id"]; ?>" class="btn btn-info btn-xs edit_data" />
+                            <!-- <button type="button" class="btn btn-tool" name="edit" title="Edit News" id="<?php echo $res["id"]; ?>"><i class="fas fa-edit edit_data"></i>
+                            </button> -->
                         </div>
                         <!-- /.card-tools -->
                     </div>
@@ -86,9 +87,9 @@
 
 
                             <div class="card-tools">
-                                <!-- <button type="button" class="btn btn-tool" title="Edit News"><i class="fas fa-edit"></i>
-                                </button> -->
-                                <a href="?id=<?php echo $res['id']; ?>" title="Edit news" data-target="#editnews"> <i class="fas fa-edit"></i></a>
+                                <button type="button" class="btn btn-tool" title="Edit News"><i class="fas fa-edit"></i>
+                                </button>
+
                             </div>
                         <?php
                         }
@@ -142,109 +143,31 @@
         </div>
     </div>
 </div>
-<div id="editnews" class="modal fade">
-
-    <?php
-
-    include 'connection.php';
-
-    $ids = $_GET['id'];
-
-    $showquery = "select * from realemployees where employee_id={$ids}";
-
-    $showdata = mysqli_query($con, $showquery);
-
-    $arrdata = mysqli_fetch_array($showdata);
-
-    if (isset($_POST['edit'])) {
-        $employeename = $_POST['employee_name'];
-        $employeemobilenumber = $_POST['employee_mobile_number'];
-        $employeejoindate = $_POST['employee_join_date'];
-        $employeeemail = $_POST['employee_email'];
-        $employeesalary = $_POST['employee_salary'];
-
-        //$insertquery="insert into realemployees(employee_id,employee_name,employee_gender,employee_mobile_number,employee_join_date, employee_email,employee_shift_type,employee_salary) values('$employeeid', '$employeename','$employeegender', '$employeemobilenumber', '$employeejoindate','$employeeemail', '$employeeshifttype', '$employeesalary')";
-
-
-
-        $query = "update realemployees set employee_name='$employeename', employee_mobile_number='$employeemobilenumber',employee_join_date='$employeejoindate', employee_email='$employeeemail', employee_salary='$employeesalary' where employee_id=$ids";
-
-        $res = mysqli_query($con, $query);
-        if ($res) {
-    ?>
-            <script>
-                alert("Employee updated successfully");
-                window.location.href = "employeescreen1.php";
-            </script>
-        <?php
-        } else {
-
-        ?>
-            <script>
-                alert("data NOT entered properly");
-            </script>
-    <?php
-        }
-    }
-
-
-
-    ?>
-
-
-
-
-
+<div id="add_data_Modal" class="modal fade">
     <div class="modal-dialog">
-
         <div class="modal-content">
-            <form method="POST">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Employee</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <!--<div class="form-group">
-            <label>ID</label>
-            <input type="text" name="employee_id" value="<? //php echo $arrdata['employee_id']; 
-                                                            ?>" class="form-control" required>
-          </div>-->
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="employee_name" value="<?php echo $arrdata['employee_name']; ?>" class="form-control" required="">
-                    </div>
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" name="employee_mobile_number" value="<?php echo $arrdata['employee_mobile_number']; ?>" class="form-control" required="">
-                        </div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Message</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="insert_form">
+                    <label>Message</label>
+                    <textarea name="message" id="message" class="form-control" rows="4" cols="50"></textarea>/>
+                    <br />
 
-                        <div class="form-group">
-                            <label>Join Date</label>
-                            <input type="text" name="employee_join_date" value="<?php echo $arrdata['employee_join_date']; ?>" class="form-control" required="">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" name="employee_email" value="<?php echo $arrdata['employee_email']; ?>" class="form-control" required="">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Salary (in Rupees)</label>
-                            <input type="number" name="employee_salary" value="<?php echo $arrdata['employee_salary']; ?>" class="form-control" required="">
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <input formaction="employeescreen1.php" type="button" class="btn btn-default" data-dismiss="modal" value="Back">
-
-                        <input type="submit" name="edit" class="btn btn-success" value="Save">
-
-
-                    </div>
-            </form>
+                    <input type="hidden" name="id" id="id" />
+                    <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
-<!-- ./wrapper -->
+<scrip src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
+    </script>
+
+
+    <!-- ./wrapper -->
