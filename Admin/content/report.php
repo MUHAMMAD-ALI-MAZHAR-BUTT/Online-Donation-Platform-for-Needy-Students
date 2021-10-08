@@ -25,12 +25,19 @@
           <div class="small-box bg-info">
             <div class="inner">
 
-              <h3>3</h3>
+              <?php
+              include 'db_connection.php';
+              $sql = "select total as tot from balance where id=1";
+              $query = mysqli_query($con, $sql);
+              $values = mysqli_fetch_assoc($query);
+              $num_rows = $values['tot'];
+              echo '<h3>' . $num_rows . ' Pkr</h3>';
+              ?>
 
-              <p>Total Employees</p>
+              <p>Total Money received by donators</p>
             </div>
             <div class="icon">
-              <i class="fa fa-user" aria-hidden="true"></i>
+              <i class="fa fa-money" aria-hidden="true"></i>
             </div>
             <a href="employeescreen1.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
@@ -40,12 +47,19 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>3</h3>
+              <?php
+              include 'db_connection.php';
+              $sql = "select available as tot from balance where id=1";
+              $query = mysqli_query($con, $sql);
+              $values = mysqli_fetch_assoc($query);
+              $num_rows = $values['tot'];
+              echo '<h3>' . $num_rows . ' Pkr</h3>';
+              ?>
 
-              <p>Total Employees</p>
+              <p>Available Money</p>
             </div>
             <div class="icon">
-              <i class="fa fa-user" aria-hidden="true"></i>
+              <i class="fa fa-money" aria-hidden="true"></i>
             </div>
             <a href="../Customm/customerjee/Admin/customers.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
@@ -55,12 +69,19 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3 style="color:white;">3</h3>
+              <?php
+              include 'db_connection.php';
+              $sql = "select donated as tot from balance where id=1";
+              $query = mysqli_query($con, $sql);
+              $values = mysqli_fetch_assoc($query);
+              $num_rows = $values['tot'];
+              echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
+              ?>
 
-              <p style="color:white;">Total Employees</p>
+              <p style="color:white">Total Money donated to students</p>
             </div>
             <div class="icon">
-              <i class="fa fa-user" aria-hidden="true"></i>
+              <i class="fa fa-money" aria-hidden="true"></i>
             </div>
             <a href="productsscreen1.php" class="small-box-footer" style="color:white !important">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>

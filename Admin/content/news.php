@@ -1,23 +1,3 @@
-<?php
-include("db_connection.php");
-if (isset($_POST['user_save'])) {
-    $id = $_GET['id'];
-
-    $message = $_POST['message'];
-
-    $id = $_POST['id'];
-
-
-    $update_profile = "update latest_news set message='$message' id='$id'";
-    if (mysqli_query($dbcon, $update_profile)) {
-        echo "<script>alert('Account successfully updated!')</script>";
-        echo "<script>window.open('index.php','_self')</script>";
-    } else {
-        echo "<script>alert('Error Found!')</script>";
-    }
-}
-
-?>
 <div class="content-wrapper">
 
 
@@ -70,14 +50,30 @@ if (isset($_POST['user_save'])) {
                         <div class="card-tools">
 
 
-                            <a data-toggle="modal" type="button" name="edit" id="<?php echo $res["id"]; ?>" data-target="#setAccount"> <i class="fas fa-edit "></i> </a>
+                            <a href="news.php?id=<?php echo $res['id']; ?>" data-toggle="modal" type="button" name="edit" data-target="#setAccount"> <i class="fas fa-edit "></i> </a>
                         </div>
                         <!-- /.card-tools -->
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
-                        The body of the card
-                    </div>
+                    <?php
+                    include 'db_connection.php';
+
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $selectquery = "select * from latest_news where category='Education'";
+                    $query = mysqli_query($con, $selectquery);
+
+                    $nums = mysqli_num_rows($query);
+
+                    while ($res = mysqli_fetch_array($query)) {
+
+                    ?>
+                        <div class="card-body">
+                            <?php echo $res['message']; ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
                     <!-- /.card-body -->
                 </div>
 
@@ -159,55 +155,108 @@ if (isset($_POST['user_save'])) {
         </div>
     </div>
 </div>
-<div class="modal fade" id="setAccount" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
-    <div class="modal-dialog modal-md">
-        <div style="color:white;background-color:#ad1deb" class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<div id="setAccount" class="modal fade">
 
-            </div>
-            <div class="modal-body">
+    <?php
+
+    include 'connection.php';
+
+    $ids = $_GET['id'];
+
+    $showquery = "select * from realemployees where employee_id={$ids}";
+
+    $showdata = mysqli_query($con, $showquery);
+
+    $arrdata = mysqli_fetch_array($showdata);
+
+    if (isset($_POST['edit'])) {
+        $employeename = $_POST['employee_name'];
+        $employeemobilenumber = $_POST['employee_mobile_number'];
+        $employeejoindate = $_POST['employee_join_date'];
+        $employeeemail = $_POST['employee_email'];
+        $employeesalary = $_POST['employee_salary'];
+
+        //$insertquery="insert into realemployees(employee_id,employee_name,employee_gender,employee_mobile_number,employee_join_date, employee_email,employee_shift_type,employee_salary) values('$employeeid', '$employeename','$employeegender', '$employeemobilenumber', '$employeejoindate','$employeeemail', '$employeeshifttype', '$employeesalary')";
 
 
-                <form enctype="multipart/form-data" method="post" action="">
-                    <fieldset>
+
+        $query = "update realemployees set employee_name='$employeename', employee_mobile_number='$employeemobilenumber',employee_join_date='$employeejoindate', employee_email='$employeeemail', employee_salary='$employeesalary' where employee_id=$ids";
+
+        $res = mysqli_query($con, $query);
+        if ($res) {
+    ?>
+            <script>
+                alert("Employee updated successfully");
+                window.location.href = "employeescreen1.php";
+            </script>
+        <?php
+        } else {
+
+        ?>
+            <script>
+                alert("data NOT entered properly");
+            </script>
+    <?php
+        }
+    }
 
 
-                        <p>Edit Message</p>
+
+    ?>
+
+
+
+
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <form method="POST">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Employee</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!--<div class="form-group">
+            <label>ID</label>
+            <input type="text" name="employee_id" value="<? //php echo $arrdata['employee_id']; 
+                                                            ?>" class="form-control" required>
+          </div>-->
+                    <div class="form-group" action="news.php">
+                        <label>Name</label>
+                        <input type="text" name="employee_name" value="<?php echo $arrdata['employee_name']; ?>" class="form-control" required="">
+                    </div>
+                    <div class="form-group">
                         <div class="form-group">
-
-                            <textarea class="form-control" placeholder="Message" name="message" type="text" value="<?php echo $message; ?>" required></textarea>
-
-
+                            <label>Phone</label>
+                            <input type="text" name="employee_mobile_number" value="<?php echo $arrdata['employee_mobile_number']; ?>" class="form-control" required="">
                         </div>
 
                         <div class="form-group">
+                            <label>Join Date</label>
+                            <input type="text" name="employee_join_date" value="<?php echo $arrdata['employee_join_date']; ?>" class="form-control" required="">
+                        </div>
 
-                            <input class="form-control hide" name="id" type="text" value="<?php echo $id; ?>" required>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="employee_email" value="<?php echo $arrdata['employee_email']; ?>" class="form-control" required="">
+                        </div>
 
-
+                        <div class="form-group">
+                            <label>Salary (in Rupees)</label>
+                            <input type="number" name="employee_salary" value="<?php echo $arrdata['employee_salary']; ?>" class="form-control" required="">
                         </div>
 
 
+                    </div>
+                    <div class="modal-footer">
+                        <input formaction="employeescreen1.php" type="button" class="btn btn-default" data-dismiss="modal" value="Back">
+
+                        <input type="submit" name="edit" class="btn btn-success" value="Save">
 
 
-
-
-
-
-                    </fieldset>
-
-
-            </div>
-            <div class="modal-footer">
-
-                <button class="btn btn-block btn-success btn-md" name="user_save">Save</button>
-
-                <button type="button" class="btn btn-block btn-danger btn-md" data-dismiss="modal">Cancel</button>
-
-
-                </form>
-            </div>
+                    </div>
+            </form>
         </div>
     </div>
 </div>

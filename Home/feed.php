@@ -76,7 +76,7 @@ if (isset($_POST["name"])) {
 
 
         $success =
-            '<script>alert("Feedback has been successfully submitted")</script>';
+            "Feedback has been successfully submitted";
     }
 
     $output = array(

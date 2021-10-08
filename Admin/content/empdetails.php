@@ -1,8 +1,7 @@
 <?php
 
 include 'connection.php';
-$con = mysqli_connect('localhost', 'root');
-mysqli_select_db($con, 'test');
+
 
 
 if (isset($_POST['submit'])) {
@@ -13,21 +12,28 @@ if (isset($_POST['submit'])) {
 
     $query = "SELECT * FROM emp where emp_phone=$emp_phone";
     $qu = mysqli_query($con, $query);
-    if (mysqli_num_rows($qu) > 0) {
+    if (mysqli_num_rows($qu) != 0) {
         echo "<script>alert('This Mobile Number already exists!')</script>";
-        echo "<script>window.open('wastepickers.php','_self')</script>";
+        echo "<script>window.open('empdetails.php','_self')</script>";
     } else {
-        $query = "SELECT * FROM emp where emp_mail=$emp_mail";
+        $query = "SELECT * FROM emp where emp_email=$emp_email";
         $qu = mysqli_query($con, $query);
-        if (mysqli_num_rows($qu) > 0) {
+        if (mysqli_num_rows($qu) != 0) {
             echo "<script>alert('This Email already exists!')</script>";
-            echo "<script>window.open('wastepickers.php','_self')</script>";
+            echo "<script>window.open('empdetails.php','_self')</script>";
         } else {
 
-            $q = "insert into emp(Picker_Name,Picker_Phone,Picker_JoinDate,Picker_Salary) values ('$Picker_Name','$Picker_Phone','$Picker_JoinDate','$Picker_Salary')";
+            $str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            $str = str_shuffle($str);
+            $str = substr($str, 0, 10);
+            $today = date("Y/m/d");
+            $q = "INSERT into emp(emp_name,emp_email,emp_phone,username) values 
+            ('$emp_name','$emp_email','$emp_phone','$emp_name')";
 
-            $query = mysqli_query($con, $q);
-            header('location: wastepickers.php');
+            if ($query = mysqli_query($con, $q) == 0) {
+                echo "<script>alert('This Email already exists!')</script>";
+            }
+            echo "<script>window.open('empdetails.php','_self')</script>";
         }
     }
 };
@@ -92,6 +98,7 @@ if (isset($_POST['submit'])) {
                         <th>Emp. Email</th>
                         <th>Emp. Phone</th>
                         <th>Join Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -146,17 +153,17 @@ if (isset($_POST['submit'])) {
           </div>-->
                     <div class="form-group">
                         <label>Employee Name</label>
-                        <input type="text" name="name" class="form-control" required="">
+                        <input type="text" name="emp_name" class="form-control" required="">
                     </div>
                     <div class="form-group">
                         <div class="form-group">
                             <label>Employee Phone</label>
-                            <input type="number" name="phone" class="form-control" required="">
+                            <input type="number" name="emp_phone" class="form-control" required="">
                         </div>
 
                         <div class="form-group">
                             <label>Employee Email</label>
-                            <input type="email" name="email" class="form-control" required="">
+                            <input type="email" name="emp_email" class="form-control" required="">
                         </div>
 
 

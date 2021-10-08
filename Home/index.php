@@ -787,10 +787,11 @@ $result = $con->query("SELECT img_path from gallery_img")
                         <h3><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback Form</b></h3>
                         <br>
-
+                        <span id="suc" class="text-success"></span>
                         <form id="sample_form">
                             <div class="row">
                                 <div class="col form-group">
+
                                     <input type="text" name="name" class="form-control form_data" id="name" placeholder="Your Name " required>
                                     <span id="name_error" class="text-danger"></span>
                                 </div>
@@ -840,16 +841,16 @@ $result = $con->query("SELECT img_path from gallery_img")
                                         if (response.success != '') {
                                             document.getElementById('sample_form').reset();
 
-                                            document.getElementById('message').innerHTML = response.success;
+                                            document.getElementById('suc').innerHTML = response.success;
 
                                             setTimeout(function() {
 
                                                 document.getElementById('message').innerHTML = '';
 
-                                            }, 5000);
+                                            }, 6000);
 
                                             document.getElementById('name_error').innerHTML = '';
-
+                                            document.getElementById('suc').innerHTML = '';
                                             document.getElementById('email_error').innerHTML = '';
                                             document.getElementById('subject_error').innerHTML = '';
 
