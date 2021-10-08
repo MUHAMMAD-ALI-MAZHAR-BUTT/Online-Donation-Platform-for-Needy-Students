@@ -787,7 +787,7 @@ $result = $con->query("SELECT img_path from gallery_img")
                         <h3><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback Form</b></h3>
                         <br>
-                        <span id="suc" class="text-success"></span>
+
                         <form id="sample_form">
                             <div class="row">
                                 <div class="col form-group">
@@ -811,6 +811,7 @@ $result = $con->query("SELECT img_path from gallery_img")
                             <br>
                             <div class="text-center group" id="fed">
                                 <input class="btn btn-primary" onclick="save_feedback(); return false;" style="background-color: #ad1deb; border: #ad1deb; " type="submit" id="submit" name="submit" value="Send Feedback">
+                                <span id="success" class="text-success"></span>
                             </div>
                             <!--    <div class="text-center"><button type="submit" onClick="refreshPage()">Send Message</button></div>-->
                         </form>
@@ -841,13 +842,13 @@ $result = $con->query("SELECT img_path from gallery_img")
                                         if (response.success != '') {
                                             document.getElementById('sample_form').reset();
 
-                                            document.getElementById('suc').innerHTML = response.success;
+                                            document.getElementById('success').innerHTML = response.success;
 
-                                            setTimeout(function() {
+                                            // setTimeout(function() {
 
-                                                document.getElementById('message').innerHTML = '';
+                                            //     document.getElementById('suc').innerHTML = '';
 
-                                            }, 6000);
+                                            // }, 5000);
 
                                             document.getElementById('name_error').innerHTML = '';
                                             document.getElementById('suc').innerHTML = '';
