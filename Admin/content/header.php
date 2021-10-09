@@ -1,3 +1,10 @@
+<?php
+session_start();
+if ($_SESSION['status'] != true) {
+    header("Location: /dist/adminn.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

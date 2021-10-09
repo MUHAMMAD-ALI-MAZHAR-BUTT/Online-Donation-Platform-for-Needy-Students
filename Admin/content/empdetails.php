@@ -1,43 +1,3 @@
-<?php
-
-include 'connection.php';
-
-
-
-if (isset($_POST['submit'])) {
-    $emp_name = $_POST['emp_name'];
-    $emp_email = $_POST['emp_email'];
-    $emp_phone = $_POST['emp_phone'];
-
-
-    $query = "SELECT * FROM emp where emp_phone=$emp_phone";
-    $qu = mysqli_query($con, $query);
-    if (mysqli_num_rows($qu) != 0) {
-        echo "<script>alert('This Mobile Number already exists!')</script>";
-        echo "<script>window.open('empdetails.php','_self')</script>";
-    } else {
-        $query = "SELECT * FROM emp where emp_email=$emp_email";
-        $qu = mysqli_query($con, $query);
-        if (mysqli_num_rows($qu) != 0) {
-            echo "<script>alert('This Email already exists!')</script>";
-            echo "<script>window.open('empdetails.php','_self')</script>";
-        } else {
-
-            $str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            $str = str_shuffle($str);
-            $str = substr($str, 0, 10);
-            $today = date("Y/m/d");
-            $q = "INSERT into emp(emp_name,emp_email,emp_phone,username) values 
-            ('$emp_name','$emp_email','$emp_phone','$emp_name')";
-
-            if ($query = mysqli_query($con, $q) == 0) {
-                echo "<script>alert('This Email already exists!')</script>";
-            }
-            echo "<script>window.open('empdetails.php','_self')</script>";
-        }
-    }
-};
-?>
 <div class="content-wrapper">
 
     <div class="table-wrapper">
@@ -122,6 +82,10 @@ if (isset($_POST['submit'])) {
                             <td><?php echo $res['emp_email']; ?></td>
                             <td><?php echo $res['emp_phone']; ?></td>
                             <td><?php echo $res['emp_joindate']; ?></td>
+                            <td>
+                                <a href="updateemp.php?id=<?php echo $res['emp_id']; ?>" title="Edit Employee"> <i class="fas fa-edit" style="color:#ad1deb"></i></a>
+
+                            </td>
                         </tr>
 
                     <?php
@@ -141,7 +105,7 @@ if (isset($_POST['submit'])) {
 <div id="addpickerModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="myform" action="" method="POST">
+            <form id="myform" action="insertemp.php" method="POST">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Employee</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

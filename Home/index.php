@@ -807,11 +807,12 @@ $result = $con->query("SELECT img_path from gallery_img")
                             <div class="form-group">
                                 <textarea class="form-control form_data" name="message" id="message" rows="5" placeholder="Enter Message" required></textarea>
                                 <span id="message_error" class="text-danger"></span>
+                                <span id="suc" class="text-success"></span>
                             </div>
                             <br>
                             <div class="text-center group" id="fed">
                                 <input class="btn btn-primary" onclick="save_feedback(); return false;" style="background-color: #ad1deb; border: #ad1deb; " type="submit" id="submit" name="submit" value="Send Feedback">
-                                <span id="success" class="text-success"></span>
+
                             </div>
                             <!--    <div class="text-center"><button type="submit" onClick="refreshPage()">Send Message</button></div>-->
                         </form>
@@ -842,16 +843,16 @@ $result = $con->query("SELECT img_path from gallery_img")
                                         if (response.success != '') {
                                             document.getElementById('sample_form').reset();
 
-                                            document.getElementById('success').innerHTML = response.success;
+                                            document.getElementById('suc').innerHTML = response.success;
 
-                                            // setTimeout(function() {
+                                            setTimeout(function() {
 
-                                            //     document.getElementById('suc').innerHTML = '';
+                                                document.getElementById('suc').innerHTML = '';
 
-                                            // }, 5000);
+                                            }, 5000);
 
                                             document.getElementById('name_error').innerHTML = '';
-                                            document.getElementById('suc').innerHTML = '';
+                                            document.getElementById('success').innerHTML = '';
                                             document.getElementById('email_error').innerHTML = '';
                                             document.getElementById('subject_error').innerHTML = '';
 
