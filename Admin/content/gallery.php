@@ -60,7 +60,17 @@ $result = $con->query("SELECT img_path from gallery_img")
                         <input type="file" name="image" class="form-control p-1" required>
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="upload" class="btn btn-success btn-block" value="Upload">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="submit" name="upload" class="btn btn-success btn-block" value="Upload">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" name="upload" class="btn btn-success btn-block" value="Upload">
+                            </div>
+
+                        </div>
+
+
                     </div>
 
                 </form>
@@ -68,6 +78,7 @@ $result = $con->query("SELECT img_path from gallery_img")
         </div>
         <div class="row justify-content-center mt-2">
             <div class="col-lg-10">
+
                 <div id="demo" class="carousel slide" data-ride="carousel">
 
                     <!-- Indicators -->
@@ -82,6 +93,7 @@ $result = $con->query("SELECT img_path from gallery_img")
 
                         ?>
                             <li data-target="#demo" data-slide-to="<?= $i; ?>" class="<? $actives ?>"></li>
+
                         <?php
                             $i++;
                         }
