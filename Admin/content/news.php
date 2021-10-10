@@ -85,7 +85,7 @@
 
                         <?php
                         include 'db_connection.php';
-                        $cat = "Education";
+
                         // $selectquery = "select * from latest_news where category=$cat";
                         $selectquery = "select * from latest_news where category='Health'";
                         $query = mysqli_query($con, $selectquery);
@@ -100,9 +100,9 @@
 
 
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" title="Edit News"><i class="fas fa-edit"></i>
-                                </button>
 
+
+                                <a href="updatenews.php?id=<?php echo $res['id']; ?>" type="button" name="edit"> <i class="fas fa-edit "></i> </a>
                             </div>
                         <?php
                         }
@@ -110,9 +110,25 @@
                         <!-- /.card-tools -->
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
-                        The body of the card
-                    </div>
+                    <?php
+                    include 'db_connection.php';
+
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $selectquery = "select * from latest_news where category='Health'";
+                    $query = mysqli_query($con, $selectquery);
+
+                    $nums = mysqli_num_rows($query);
+
+                    while ($res = mysqli_fetch_array($query)) {
+
+                    ?>
+                        <div class="card-body">
+                            <?php echo $res['message']; ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
                     <!-- /.card-body -->
                 </div>
 
@@ -134,21 +150,39 @@
 
                         ?>
                             <h3 class="card-title"><?php echo $res['category']; ?> Forms Latest News</h3>
+
+
+
+                            <div class="card-tools">
+
+
+                                <a href="updatenews.php?id=<?php echo $res['id']; ?>" type="button" name="edit"> <i class="fas fa-edit "></i> </a>
+                            </div>
                         <?php
                         }
                         ?>
-
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" title="Edit News"><i class="fas fa-edit"></i>
-                            </button>
-                        </div>
                         <!-- /.card-tools -->
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
-                        The body of the card
-                    </div>
+                    <?php
+                    include 'db_connection.php';
+
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $selectquery = "select * from latest_news where category='Other Expenses'";
+                    $query = mysqli_query($con, $selectquery);
+
+                    $nums = mysqli_num_rows($query);
+
+                    while ($res = mysqli_fetch_array($query)) {
+
+                    ?>
+                        <div class="card-body">
+                            <?php echo $res['message']; ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
                     <!-- /.card-body -->
                 </div>
 
@@ -156,7 +190,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $(document).ready(function() {
         $('#priceinput').keypress(function(event) {

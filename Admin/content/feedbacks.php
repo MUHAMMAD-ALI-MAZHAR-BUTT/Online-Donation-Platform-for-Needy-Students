@@ -65,7 +65,7 @@
                             <td><?php echo $res['name']; ?></td>
                             <td><?php echo $res['email']; ?></td>
                             <td>
-                                <a href="#reply?id=<?php echo $res['feedback_id']; ?>"> <i class="fa fa-envelope" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Reply"></i></a>
+                                <a href="reply.php?id=<?php echo $res['feedback_id']; ?>"> <i class="fa fa-envelope" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Reply"></i></a>
 
                             </td>
 

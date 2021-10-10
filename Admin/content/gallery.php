@@ -61,12 +61,12 @@ $result = $con->query("SELECT img_path from gallery_img")
                     </div>
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <input type="submit" name="upload" class="btn btn-success btn-block" value="Upload">
                             </div>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <input type="submit" name="upload" class="btn btn-success btn-block" value="Upload">
-                            </div>
+                            </div> -->
 
                         </div>
 

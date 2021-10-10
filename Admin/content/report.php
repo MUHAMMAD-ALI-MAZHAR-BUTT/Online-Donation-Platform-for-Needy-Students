@@ -91,7 +91,14 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3 style="color:white;">3</h3>
+              <?php
+              include 'db_connection.php';
+              $sql = "select count(*) as tot from emp";
+              $query = mysqli_query($con, $sql);
+              $values = mysqli_fetch_assoc($query);
+              $num_rows = $values['tot'];
+              echo '<h3 style="color:white">' . $num_rows . ' </h3>';
+              ?>
 
               <p style="color:white;">Total Employees</p>
             </div>

@@ -58,7 +58,7 @@
                   <li class="nav-item">
 
                       <!-- Brand Logo -->
-                      <a href="../dist/adminn.php" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to logout?');">Logout
+                      <a href="logout.php" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to logout?');">Logout
                       </a>
 
                   </li>

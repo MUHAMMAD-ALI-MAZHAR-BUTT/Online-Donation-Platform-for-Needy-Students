@@ -117,17 +117,17 @@
           </div>-->
                     <div class="form-group">
                         <label>Employee Name</label>
-                        <input type="text" name="emp_name" class="form-control" required="">
+                        <input type="text" name="emp_name" class="form-control" value="Name" required="">
                     </div>
                     <div class="form-group">
                         <div class="form-group">
                             <label>Employee Phone</label>
-                            <input type="number" name="emp_phone" class="form-control" required="">
+                            <input type="text" name="emp_phone" class="form-control" value="03XX-XXXXXXX" required="">
                         </div>
 
                         <div class="form-group">
                             <label>Employee Email</label>
-                            <input type="email" name="emp_email" class="form-control" required="">
+                            <input type="email" name="emp_email" class="form-control" value="email@domain.com" required="">
                         </div>
 
 
