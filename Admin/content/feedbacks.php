@@ -65,7 +65,18 @@
                             <td><?php echo $res['name']; ?></td>
                             <td><?php echo $res['email']; ?></td>
                             <td>
-                                <a href="reply.php?id=<?php echo $res['feedback_id']; ?>"> <i class="fa fa-envelope" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Reply"></i></a>
+                                <?php
+                                if ($res['status'] == 'false') {
+                                ?>
+                                    <a href="reply.php?id=<?php echo $res['feedback_id']; ?>"> <i class="fa fa-envelope" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Reply"></i></a>
+                                <?php
+                                } else {
+                                ?>
+                                    <a href="#"> <i class="fa fa-check" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Replied already"></i></a>
+                                <?php
+                                }
+
+                                ?>
 
                             </td>
 

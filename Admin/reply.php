@@ -66,61 +66,65 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4 mail-form">
-                <h2 class="text-center">Send Message</h2>
-                <p class="text-center">Send mail to anyone from localhost.</p>
+                <h2 class="text-center">Reply Feedback</h2>
+
                 <!-- starting php code -->
                 <?php
-                //first we leave this input field blank
+                include 'db_connection.php';
+
+                $ids = $_GET['id'];
+
+                $showquery = "select * from feedback where feedback_id={$ids}";
+
+                $showdata = mysqli_query($con, $showquery);
+
+                $arrdata = mysqli_fetch_array($showdata);
+
                 $recipient = "";
                 //if user click the send button
                 if (isset($_POST['send'])) {
+                    $ids = $_GET['id'];
                     //access user entered data
                     $recipient = $_POST['email'];
                     $subject = $_POST['subject'];
                     $message = $_POST['message'];
-                    $sender = "From: shahiprem7890@gmail.com";
-                    //if user leave empty field among one of them
+                    $sender = "From: abdullahrasheed937@gmail.com";
+
                     if (empty($recipient) || empty($subject) || empty($message)) {
                 ?>
                         <!-- display an alert message if one of them field is empty -->
                         <div class="alert alert-danger text-center">
                             <?php echo "All inputs are required!" ?>
                         </div>
-                        <?php
+                <?php
                     } else {
                         // PHP function to send mail
                         if (mail($recipient, $subject, $message, $sender)) {
-                        ?>
-                            <!-- display a success message if once mail sent sucessfully -->
-                            <div class="alert alert-success text-center">
-                                <?php echo "Your mail successfully sent to $recipient" ?>
-                            </div>
-                        <?php
-                            $recipient = "";
+                            $showquery = "UPDATE feedback SET status='true' where feedback_id=$ids";
+
+                            $showdata = mysqli_query($con, $showquery);
+                            echo "<script>alert('Feedback Reply Sent Successfully to $recipient')</script>";
+                            // echo "<script>window.open('feedbacks.php','_self')</script>";
                         } else {
-                        ?>
-                            <!-- display an alert message if somehow mail can't be sent -->
-                            <div class="alert alert-danger text-center">
-                                <?php echo "Failed while sending your mail!" ?>
-                            </div>
-                <?php
+                            echo "<script>alert('An error occured while sending message')</script>";
+                            echo "<script>window.open('feedbacks.php','_self')</script>";
                         }
                     }
                 }
                 ?>
                 <!-- end of php code -->
-                <form action="mail.php" method="POST">
+                <form action="" method="POST">
                     <div class="form-group">
-                        <input class="form-control" name="email" type="email" placeholder="Recipients" value="<?php echo $recipient ?>">
+                        <input class="form-control" name="email" type="email" value="<?php echo $arrdata['email']; ?>">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" name="subject" type="text" placeholder="Subject">
+                        <input class="form-control" name="subject" type="text" value="<?php echo $arrdata['subject']; ?>">
                     </div>
                     <div class="form-group">
-                        <textarea cols="30" rows="5" class="form-control textarea" name="message" placeholder="Compose your message.."></textarea>
+                        <textarea cols="30" rows="5" class="form-control textarea" name="message" placeholder="Reply.."></textarea>
                     </div>
                     <div class="form-group">
-                        <input class="form-control button btn-primary" style="background-color: #ad1deb" type="submit" name="send" value="Send Reply" placeholder="Subject">
+                        <input class="form-control button btn-primary" style="background-color: #ad1deb; border:#ad1deb" type="submit" name="send" value="Send Reply" placeholder="Subject">
                     </div>
                 </form>
             </div>
