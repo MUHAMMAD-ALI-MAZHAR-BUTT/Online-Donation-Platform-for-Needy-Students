@@ -152,7 +152,7 @@
             if (isset($_POST['edit']) and ($name_err == "" and $email_err == "" and $phone_err == "")) {
 
 
-                $query = "SELECT * FROM emp where emp_phone='$emp_phone'";
+                $query = "SELECT * FROM emp where emp_phone='$emp_phone' where emp_id<>'$ids'";
                 $qu = mysqli_query(
                     $con,
                     $query
@@ -162,7 +162,7 @@
                     echo "<script>alert('This Mobile Number already exists!, Detail not edited')</script>";
                     echo "<script>window.open('empdetails.php','_self')</script>";
                 } else {
-                    $query = "SELECT * FROM emp where emp_email='$emp_email'";
+                    $query = "SELECT * FROM emp where emp_email='$emp_email' where emp_id<>'$ids'";
                     $qu = mysqli_query($con, $query);
 
                     if (
