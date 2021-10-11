@@ -88,48 +88,142 @@
         include 'db_connection.php';
 
         $ids = $_GET['id'];
-
+        extract($_POST);
         $showquery = "select * from emp where emp_id={$ids}";
 
         $showdata = mysqli_query($con, $showquery);
 
         $arrdata = mysqli_fetch_array($showdata);
+        function test_input($data)
+        {
 
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+        //initialize variables for value as well as errors
+        $emp_name = $emp_email = $emp_phone = "";
+        $name_err = $email_err = $phone_err  = "";
+
+        // Check if coming from submitted form and do the validations on user inputs in form
         if (isset($_POST['edit'])) {
-            $emp_name = $_POST['emp_name'];
-            $emp_phone = $_POST['emp_phone'];
-            $emp_email = $_POST['emp_email'];
-
-
-            $query = "SELECT * FROM emp where emp_phone=$emp_phone where emp_id<>$ids";
-            $qu = mysqli_query($con, $query);
-
-            if (mysqli_num_rows($qu) > 0) {
-                echo "<script>alert('This Mobile Number already exists, Data not changed!')</script>";
+            $pattern = '/^((?:00|\+)92)?(0?3(?:[0-46]\d|55)\d{7})$/';
+            if (empty($_POST["emp_name"])) {
+                $name_err = 'bbb';
+                echo "<script>alert('Name should not be empty, Detail not edited')</script>";
                 echo "<script>window.open('empdetails.php','_self')</script>";
             } else {
-                $query = "SELECT * FROM emp where emp_email=$emp_email where emp_id<>$ids";
-                $qu = mysqli_query($con, $query);
-
-                if (mysqli_num_rows($qu) > 0) {
-                    echo "<script>alert('This Email already exists, Data not changed!')</script>";
-                    echo "<script>window.open('empdetails.php','_self')</script>";
-                } else {
-
-
-                    $query = "update emp set emp_name='$emp_name', emp_phone='$emp_phone', emp_email='$emp_email' where emp_id=$ids";
-
-
-                    if ($query = mysqli_query($con, $query)) {
-                        echo "<script>alert('Employee data successfully edited')</script>";
-                    } else {
-                        echo "<script>alert('Error occured')</script>";
-                    }
-
+                $emp_name = test_input($_POST["emp_name"]);
+                // check for correctness of name or validate our name test_input
+                if (!preg_match("/^[a-zA-z ]*$/", $emp_name)) {
+                    $name_err = "Name is not in valid format, can contain only letters.";
+                    echo "<script>alert('Name is not in valid format, can contain only letters. Detail not edited')</script>";
                     echo "<script>window.open('empdetails.php','_self')</script>";
                 }
             }
+            if (empty($_POST["emp_phone"])) {
+                $name_err = 'bbb';
+                echo "<script>alert('Phone number should not be empty, Detail not edited')</script>";
+                echo "<script>window.open('empdetails.php','_self')</script>";
+            } else {
+                $emp_phone = test_input($_POST["emp_phone"]);
+                // check for correctness of name or validate our name test_input
+                if (!preg_match($pattern, $emp_phone)) {
+                    $phone_err = "Phone Number is not in valid format, follow 03XXXXXXXXX format";
+                    echo "<script>alert('Phone Number is not in valid format, follow 03XXXXXXXXX format, Detail not edited')</script>";
+                    echo "<script>window.open('empdetails.php','_self')</script>";
+                }
+            }
+
+            if (empty($_POST["emp_email"])) {
+                $email_err = "Email cannot be left blank.";
+                echo "<script>alert('Email cannot be left blank.')</script>";
+                echo "<script>window.open('empdetails.php','_self')</script>";
+            } else {
+                $emp_email = test_input($_POST["emp_email"]);
+                if (!filter_var($emp_email, FILTER_VALIDATE_EMAIL)) {
+                    $email_err = "Email format is not correct, Detail not edited";
+                    echo "<script>alert('Email format is not correct, Detail not edited')</script>";
+                    echo "<script>window.open('empdetails.php','_self')</script>";
+                }
+            }
+
+            if (isset($_POST['edit']) and ($name_err == "" and $email_err == "" and $phone_err == "")) {
+
+
+                $query = "SELECT * FROM emp where emp_phone='$emp_phone'";
+                $qu = mysqli_query(
+                    $con,
+                    $query
+                );
+
+                if (mysqli_num_rows($qu) != 0) {
+                    echo "<script>alert('This Mobile Number already exists!, Detail not edited')</script>";
+                    echo "<script>window.open('empdetails.php','_self')</script>";
+                } else {
+                    $query = "SELECT * FROM emp where emp_email='$emp_email'";
+                    $qu = mysqli_query($con, $query);
+
+                    if (
+                        mysqli_num_rows($qu) != 0
+                    ) {
+                        echo "<script>alert('This Email already exists!, Detail not edited')</script>";
+                        echo "<script>window.open('empdetails.php','_self')</script>";
+                    } else {
+
+
+                        $q = "UPDATE emp set emp_phone='$emp_phone',emp_email='$emp_email' where emp_id='$ids'";
+
+                        if ($query = mysqli_query($con, $q)) {
+                            echo "<script>alert('Details of employee $emp_name successfully edited')</script>";
+                        } else {
+                            echo "<script>alert('Error occured')</script>";
+                        }
+
+                        echo "<script>window.open('empdetails.php','_self')</script>";
+                    }
+                }
+            }
         }
+
+
+
+        // if (isset($_POST['edit'])) {
+        //     $emp_name = $_POST['emp_name'];
+        //     $emp_phone = $_POST['emp_phone'];
+        //     $emp_email = $_POST['emp_email'];
+
+
+        //     $query = "SELECT * FROM emp where emp_phone=$emp_phone where emp_id<>$ids";
+        //     $qu = mysqli_query($con, $query);
+
+        //     if (mysqli_num_rows($qu) > 0) {
+        //         echo "<script>alert('This Mobile Number already exists, Data not changed!')</script>";
+        //         echo "<script>window.open('empdetails.php','_self')</script>";
+        //     } else {
+        //         $query = "SELECT * FROM emp where emp_email=$emp_email where emp_id<>$ids";
+        //         $qu = mysqli_query($con, $query);
+
+        //         if (mysqli_num_rows($qu) > 0) {
+        //             echo "<script>alert('This Email already exists, Data not changed!')</script>";
+        //             echo "<script>window.open('empdetails.php','_self')</script>";
+        //         } else {
+
+
+        //             $query = "update emp set emp_name='$emp_name', emp_phone='$emp_phone', emp_email='$emp_email' where emp_id=$ids";
+
+
+        //             if ($query = mysqli_query($con, $query)) {
+        //                 echo "<script>alert('Employee data successfully edited')</script>";
+        //             } else {
+        //                 echo "<script>alert('Error occured')</script>";
+        //             }
+
+        //             echo "<script>window.open('empdetails.php','_self')</script>";
+        //         }
+        //     }
+        // }
 
 
 
@@ -151,7 +245,7 @@
 
                         <div class="form-group">
                             <label>Employee Name</label>
-                            <input type="text" name="emp_name" value="<?php echo $arrdata['emp_name']; ?>" class="form-control" required="">
+                            <input type="text" name="emp_name" value="<?php echo $arrdata['emp_name']; ?>" class="form-control" required="" readonly>
                         </div>
                         <div class="form-group">
                             <div class="form-group">

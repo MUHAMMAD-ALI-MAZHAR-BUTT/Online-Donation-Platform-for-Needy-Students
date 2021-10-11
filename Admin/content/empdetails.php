@@ -35,18 +35,6 @@
 
             </div>
         <?php
-        } else if (mysqli_num_rows($res) >= 10) {
-        ?>
-            <div class="container">
-                <div class="row justify-content-centre">
-                    <div class="col-lg-6 col-md-6">
-                        <h2 class="text-center p-1">Maximum already done
-                        </h2>
-                    </div>
-                </div>
-
-            </div>
-        <?php
         } else {
         ?>
             <table class=" table table-striped table-hover">
@@ -57,7 +45,7 @@
                         <th>Emp. Name</th>
                         <th>Emp. Email</th>
                         <th>Emp. Phone</th>
-                        <th>Join Date</th>
+                        <th>Entry Date</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -80,7 +68,7 @@
                             <td><?php echo $res['emp_id']; ?></td>
                             <td><?php echo $res['emp_name']; ?></td>
                             <td><?php echo $res['emp_email']; ?></td>
-                            <td><?php echo $res['emp_phone']; ?></td>
+                            <td>0<?php echo $res['emp_phone']; ?></td>
                             <td><?php echo $res['emp_joindate']; ?></td>
                             <td>
                                 <a href="updateemp.php?id=<?php echo $res['emp_id']; ?>" title="Edit Employee"> <i class="fas fa-edit" style="color:#ad1deb"></i></a>
@@ -102,6 +90,7 @@
     </div>
 
 </div>
+
 <div id="addpickerModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -118,16 +107,19 @@
                     <div class="form-group">
                         <label>Employee Name</label>
                         <input type="text" name="emp_name" class="form-control" value="Name" required="">
+
                     </div>
                     <div class="form-group">
                         <div class="form-group">
                             <label>Employee Phone</label>
-                            <input type="text" name="emp_phone" class="form-control" value="03XX-XXXXXXX" required="">
+                            <input type="text" name="emp_phone" class="form-control" value="03XXXXXXXXX" required="">
+
                         </div>
 
                         <div class="form-group">
                             <label>Employee Email</label>
                             <input type="email" name="emp_email" class="form-control" value="email@domain.com" required="">
+
                         </div>
 
 
@@ -145,6 +137,7 @@
         </div>
     </div>
 </div>
+
 
 <script type="text/javascript">
     $(document).ready(function() {

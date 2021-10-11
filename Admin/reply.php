@@ -63,62 +63,63 @@
 </style>
 
 <body>
+    <?php
+    include 'db_connection.php';
+
+    $ids = $_GET['id'];
+
+    $showquery = "select * from feedback where feedback_id={$ids}";
+
+    $showdata = mysqli_query($con, $showquery);
+
+    $arrdata = mysqli_fetch_array($showdata);
+
+    $recipient = "";
+    //if user click the send button
+    if (isset($_POST['send'])) {
+        $ids = $_GET['id'];
+        //access user entered data
+        $recipient = $_POST['email'];
+        $subject = $_POST['subject'];
+        $message = $_POST['message'];
+        $sender = "From: abdullahrasheed937@gmail.com";
+
+        if (empty($recipient) || empty($subject) || empty($message)) {
+    ?>
+            <!-- display an alert message if one of them field is empty -->
+            <div class="alert alert-danger text-center">
+                <?php echo "All inputs are required!" ?>
+            </div>
+    <?php
+        } else {
+            // PHP function to send mail
+            if (mail($recipient, $subject, $message, $sender)) {
+                $showquery = "UPDATE feedback SET status='true' ,reply='$message' where feedback_id=$ids";
+
+                $showdata = mysqli_query($con, $showquery);
+                echo "<script>alert('Feedback Reply Sent Successfully to $recipient')</script>";
+                echo "<script>window.open('feedbacks.php','_self')</script>";
+            } else {
+                echo "<script>alert('An error occured while sending message')</script>";
+                echo "<script>window.open('feedbacks.php','_self')</script>";
+            }
+        }
+    }
+    ?>
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4 mail-form">
                 <h2 class="text-center">Reply Feedback</h2>
 
                 <!-- starting php code -->
-                <?php
-                include 'db_connection.php';
 
-                $ids = $_GET['id'];
-
-                $showquery = "select * from feedback where feedback_id={$ids}";
-
-                $showdata = mysqli_query($con, $showquery);
-
-                $arrdata = mysqli_fetch_array($showdata);
-
-                $recipient = "";
-                //if user click the send button
-                if (isset($_POST['send'])) {
-                    $ids = $_GET['id'];
-                    //access user entered data
-                    $recipient = $_POST['email'];
-                    $subject = $_POST['subject'];
-                    $message = $_POST['message'];
-                    $sender = "From: abdullahrasheed937@gmail.com";
-
-                    if (empty($recipient) || empty($subject) || empty($message)) {
-                ?>
-                        <!-- display an alert message if one of them field is empty -->
-                        <div class="alert alert-danger text-center">
-                            <?php echo "All inputs are required!" ?>
-                        </div>
-                <?php
-                    } else {
-                        // PHP function to send mail
-                        if (mail($recipient, $subject, $message, $sender)) {
-                            $showquery = "UPDATE feedback SET status='true' where feedback_id=$ids";
-
-                            $showdata = mysqli_query($con, $showquery);
-                            echo "<script>alert('Feedback Reply Sent Successfully to $recipient')</script>";
-                            // echo "<script>window.open('feedbacks.php','_self')</script>";
-                        } else {
-                            echo "<script>alert('An error occured while sending message')</script>";
-                            echo "<script>window.open('feedbacks.php','_self')</script>";
-                        }
-                    }
-                }
-                ?>
                 <!-- end of php code -->
                 <form action="" method="POST">
                     <div class="form-group">
-                        <input class="form-control" name="email" type="email" value="<?php echo $arrdata['email']; ?>">
+                        <input class="form-control" name="email" type="email" value="<?php echo $arrdata['email']; ?>" readonly>
                     </div>
                     <div class="form-group">
-                        <input class="form-control" name="subject" type="text" value="<?php echo $arrdata['subject']; ?>">
+                        <input class="form-control" name="subject" type="text" value="<?php echo $arrdata['subject']; ?>" readonly>
                     </div>
                     <div class="form-group">
                         <textarea cols="30" rows="5" class="form-control textarea" name="message" placeholder="Reply.."></textarea>
