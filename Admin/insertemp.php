@@ -99,6 +99,19 @@ if (isset($_POST['submit'])) {
                 ('$emp_name','$emp_email','$emp_phone','$str','$today')";
 
                     if ($query = mysqli_query($con, $q)) {
+                        $recipient = $_POST['emp_email'];
+                        $subject = "Your Initial password for log-in";
+                        $message = "Greetings! Your password for SOP website is: $str";
+                        $sender = "From: abdullahrasheed937@gmail.com";
+                        // PHP function to send mail
+                        if (mail($recipient, $subject, $message, $sender)) {
+
+
+                            echo "<script>alert('Initial Password for log-in sent to $recipient')</script>";
+                        } else {
+                            echo "<script>alert('An error occured while sending message')</script>";
+                        }
+
                         echo "<script>alert('Employee $emp_name successfully added')</script>";
                     } else {
                         echo "<script>alert('Error occured')</script>";
