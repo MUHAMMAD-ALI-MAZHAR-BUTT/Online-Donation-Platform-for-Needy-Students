@@ -122,7 +122,7 @@ session_start();
       </div>
     </div>
   </div>
-  <!-- Script -->
+   Script -->
 
   <!-- 
   <div class="modal fade" id="ln" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
@@ -161,7 +161,7 @@ session_start();
         </div>
       </div>
     </div>
-  </div> --> -->
+  </div> -->
 
   <div class="modal fade" id="an" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
     <div class="modal-dialog modal-sm">
@@ -262,7 +262,5 @@ if (isset($_POST['admin_login'])) {
 
     exit();
   }
-} else {
-  echo "fail";
 }
 ?>

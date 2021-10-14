@@ -239,7 +239,12 @@
                 <form method="POST">
                     <div class="modal-header">
                         <h4 class="modal-title">Edit Employee</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <button type="button" class="close" onClick="my()" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <script>
+                            function my() {
+                                window.location.href = "empdetails.php";
+                            }
+                        </script>
                     </div>
                     <div class="modal-body">
 
@@ -250,7 +255,7 @@
                         <div class="form-group">
                             <div class="form-group">
                                 <label>Employee Phone</label>
-                                <input type="number" name="emp_phone" value="<?php echo $arrdata['emp_phone']; ?>" class="form-control" required="">
+                                <input type="number" name="emp_phone" value="0<?php echo $arrdata['emp_phone']; ?>" class="form-control" required="">
                             </div>
 
                             <div class="form-group">

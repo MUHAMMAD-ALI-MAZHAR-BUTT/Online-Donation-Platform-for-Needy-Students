@@ -106,19 +106,19 @@
           </div>-->
                     <div class="form-group">
                         <label>Employee Name</label>
-                        <input type="text" name="emp_name" class="form-control" value="Name" required="">
+                        <input type="text" name="emp_name" class="form-control" placeholder="Name" required="">
 
                     </div>
                     <div class="form-group">
                         <div class="form-group">
                             <label>Employee Phone</label>
-                            <input type="text" name="emp_phone" class="form-control" value="03XXXXXXXXX" required="">
+                            <input type="text" name="emp_phone" class="form-control" placeholder="03XXXXXXXXX" required="">
 
                         </div>
 
                         <div class="form-group">
                             <label>Employee Email</label>
-                            <input type="email" name="emp_email" class="form-control" value="email@domain.com" required="">
+                            <input type="email" name="emp_email" class="form-control" placeholder="email@domain.com" required="">
 
                         </div>
 

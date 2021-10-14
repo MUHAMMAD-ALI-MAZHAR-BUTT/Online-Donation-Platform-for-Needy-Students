@@ -104,15 +104,26 @@ $result = $con->query("SELECT img_path from gallery_img")
                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
                     <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact us</a></li>
-                    <li class="dropdown"><a href="login/index1.php"><span>Login</span>
-                            <!--<i class="bi bi-chevron-down"></i>-->
-                        </a>
+                    <li class="dropdown"><a href="#"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
+
+                        <ul>
+
+                            <li><a href="#">As Employee</a></li>
+                            <li><a href="#">As Donor</a></li>
+                            <li><a href="#">As Student</a></li>
+                        </ul>
 
                     </li>
-                    <li class="dropdown"><a href="login/index.php"><span>Register</span>
-                            <!--<i class="bi bi-chevron-down"></i>-->
-                        </a>
+                    <li class="dropdown"><a href="#"><span>Register</span> <i class="bi bi-chevron-down"></i></a>
+
+                        <ul>
+
+                            <li><a href="#">As Donor</a></li>
+                            <li><a href="#">As Student</a></li>
+                        </ul>
+
                     </li>
+
 
 
                     <!-- <li><a href="Login_page\aa.php" class="aa"class="btn btn-primary btn-lg active" role="button" target="_blank" aria-pressed="true">Login</a></li>-->
