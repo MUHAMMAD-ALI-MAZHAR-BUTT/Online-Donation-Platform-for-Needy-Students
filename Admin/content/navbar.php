@@ -9,7 +9,7 @@
 
 
       < <!-- Navbar -->
-          <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+          <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="padding-top:0%">
               <!-- Left navbar links -->
               <ul class="navbar-nav">
                   <li class="nav-item">
@@ -22,9 +22,6 @@
 
               <!-- Right navbar links -->
               <ul class="navbar-nav ml-auto">
-
-
-
 
                   <li class="nav-item dropdown">
                       <a class="nav-link" data-toggle="dropdown" href="#">
