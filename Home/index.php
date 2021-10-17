@@ -863,11 +863,11 @@ $result = $con->query("SELECT img_path from gallery_img")
                                             }, 5000);
 
                                             document.getElementById('name_error').innerHTML = '';
-                                            document.getElementById('success').innerHTML = '';
+
                                             document.getElementById('email_error').innerHTML = '';
                                             document.getElementById('subject_error').innerHTML = '';
-
                                             document.getElementById('message_error').innerHTML = '';
+
 
                                         } else {
                                             document.getElementById('name_error').innerHTML = response.name_error;

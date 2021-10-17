@@ -4,17 +4,35 @@
         <div class="table-title">
             <div class="row" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 104%); color:white; ">
-                <div class="col-sm-4">
-                    <h2 style="font-family: sans-serif; padding-top:2%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> Employee Details</b></h2>
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <div class="col-sm-8 " style="text-align: center;">
+                    <h2 style="font-family: sans-serif; padding-top:1%; padding-bottom:1%"><b> Employee Details</b></h2>
+
                     <!-- -->
                 </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                 <div class="col-sm-4" style="padding-top: 1%;">
-                    <a href="#addpickerModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus"></i> <span>Add Employee</span></a>
+                    <?php
+                    include('db_connection.php');
+                    $query = "SELECT * FROM emp ";
+                    $qu = mysqli_query(
+                        $con,
+                        $query
+                    );
+                    if (mysqli_num_rows($qu) < 10) {
+                    ?>
+                        <a href="#addpickerModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus"></i> <span>Add Employee</span></a>
+                    <?php
+                    } else {
+                    ?>
+                        <a href="#" onclick="my();" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus"></i> <span>Add Employee</span></a>
+                        <script>
+                            function my() {
+                                alert("Maximum Employees already added");
+                            }
+                        </script>
+                    <?php
+                    }
+                    ?>
 
                 </div>
             </div>
@@ -46,14 +64,16 @@
                         <th>Emp. Email</th>
                         <th>Emp. Phone</th>
                         <th>Entry Date</th>
-                        <th>Actions</th>
+                        <th>Total Students</th>
+                        <th>Active Students</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <?php
                     include 'db_connection.php';
-                    $selectquery = "select * from emp";
+                    $selectquery = "select * from emp ";
 
                     $query = mysqli_query($con, $selectquery);
 
@@ -70,8 +90,22 @@
                             <td><?php echo $res['emp_email']; ?></td>
                             <td>0<?php echo $res['emp_phone']; ?></td>
                             <td><?php echo $res['emp_joindate']; ?></td>
-                            <td>
+                            <td><?php echo $res['total_students']; ?></td>
+                            <td><?php echo $res['active_students']; ?></td>
+                            <!-- <td>
                                 <a href="updateemp.php?id=<?php echo $res['emp_id']; ?>" title="Edit Employee"> <i class="fas fa-edit" style="color:#ad1deb"></i></a>
+                            </td> -->
+                            <td>
+                                <?php
+                                if ($res['emp_leftdate'] == NULL) {
+                                ?>
+                                    <a href="delemp.php?id=<?php echo $res['emp_id']; ?>" onclick="return confirm('Are you sure you want to remove this employee?');"> <i class="fa fa-trash" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Delete Employee"></i></a>
+                                    <?php
+                                } else {
+                                    ?>Left on <?php echo $res['emp_leftdate']; ?>
+                                <?php
+                                }
+                                ?>
 
                             </td>
                         </tr>
@@ -89,77 +123,103 @@
 
     </div>
 
+
 </div>
+
+
+
+<?php include('./content/footer.php'); ?>
 
 <div id="addpickerModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="myform" action="insertemp.php" method="POST">
+            <form id="addform">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Employee</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" onclick="location.reload();" class=" close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <!--<div class="form-group">
-            <label>ID</label>
-            <input type="text" name="employee_id" class="form-control" required>
-          </div>-->
-                    <div class="form-group">
+                    <div class="form-group ">
                         <label>Employee Name</label>
-                        <input type="text" name="emp_name" class="form-control" placeholder="Name" required="">
-
+                        <input type="text" name="emp_name" id="emp_name" class="form-control form_data" placeholder="Name">
+                        <span id="name_error" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
-                        <div class="form-group">
-                            <label>Employee Phone</label>
-                            <input type="text" name="emp_phone" class="form-control" placeholder="03XXXXXXXXX" required="">
-
-                        </div>
-
-                        <div class="form-group">
-                            <label>Employee Email</label>
-                            <input type="email" name="emp_email" class="form-control" placeholder="email@domain.com" required="">
-
-                        </div>
-
-
-
+                        <label>Employee Phone</label>
+                        <input type="text" name="emp_phone" id="emp_phone" class="form-control form_data" placeholder="03XXXXXXXXX">
+                        <span id="phone_error" class="text-danger"></span>
                     </div>
 
+                    <div class="form-group">
+                        <label>Employee Email</label>
+                        <input type="email" name="emp_email" id="emp_email" class="form-control form_data" placeholder="email@domain.com">
+                        <span id="email_error" class="text-danger"></span>
+                        <span id="suc" class="text-success"></span>
+                        <span id="mail_error" class="text-success"></span>
+                    </div>
                     <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="button" onclick="location.reload(); return false;" class="btn btn-default" data-dismiss="modal" value="Cancel">
 
-                        <input type="submit" name="submit" id="submit" class="btn btn-success" value="Add">
-
-
+                        <input onclick="save_emp(); return false;" type="submit" name="submit" id="submit" class="btn btn-success" value="Add">
                     </div>
             </form>
         </div>
     </div>
 </div>
+<script>
+    function save_emp() {
+        var form_element = document.getElementsByClassName('form_data');
 
+        var form_data = new FormData();
 
-<script type="text/javascript">
-    $(document).ready(function() {
+        for (var count = 0; count < form_element.length; count++) {
+            form_data.append(form_element[count].name, form_element[count].value);
+        }
 
-        var form = $('#myform');
+        document.getElementById('submit').disabled = true;
 
-        $('#submit').click(function() {
+        var ajax_request = new XMLHttpRequest();
 
-            $.ajax({
+        ajax_request.open('POST', 'insertemp.php');
 
-                url: form.attr("action"),
-                type: 'post',
-                data: $("#myform input").serialize(),
-                success: function(data) {
-                    console.log(data);
+        ajax_request.send(form_data);
+
+        ajax_request.onreadystatechange = function() {
+            if (ajax_request.readyState == 4 && ajax_request.status == 200) {
+                document.getElementById('submit').disabled = false;
+
+                var response = JSON.parse(ajax_request.responseText);
+
+                if (response.success != '') {
+                    document.getElementById('addform').reset();
+
+                    // document.getElementById('suc').innerHTML = response.success;
+
+                    // setTimeout(function() {
+
+                    //     document.getElementById('suc').innerHTML = '';
+
+                    // }, 5000);
+
+                    document.getElementById('name_error').innerHTML = '';
+                    document.getElementById('email_error').innerHTML = '';
+                    document.getElementById('phone_error').innerHTML = '';
+                    document.getElementById('mail_error').innerHTML = '';
+                    $('#addPickerModal').modal('hide');
+                    alert(response.success);
+                    location.reload();
+
+                } else {
+                    document.getElementById('name_error').innerHTML = response.name_error;
+                    document.getElementById('email_error').innerHTML = response.email_error;
+                    document.getElementById('phone_error').innerHTML = response.phone_error;
+                    document.getElementById('mail_error').innerHTML = response.mail_error;
                 }
-            });
-
-        });
 
 
-    });
+
+            }
+        }
+    }
 </script>
-
-<!-- ./wrapper -->

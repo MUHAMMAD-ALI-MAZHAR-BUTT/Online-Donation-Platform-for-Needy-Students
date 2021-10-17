@@ -4,17 +4,18 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <div class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0">Reports</h1>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+  <div class="table-title">
+    <div class="row" style="  background-color: #6e72fc;
+  background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 104%); color:white; ">
+      <div class="col-sm-10 " style="text-align: center;">
+        <h2 style="font-family: sans-serif; padding-top:1%; padding-bottom:1%"><b> Reports</b></h2>
+
+        <!-- -->
+      </div>
+    </div>
   </div>
   <!-- /.content-header -->
-
+  <br>
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">

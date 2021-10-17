@@ -1,3 +1,12 @@
+  <?php
+    include('functions.php');
+    ?>
+  <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+
+
+
   <div class="wrapper">
 
       <!-- Preloader -->
@@ -15,38 +24,59 @@
                   <li class="nav-item">
                       <a class="nav-link" style="color:black" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                   </li>
-                  <li class="nav-item d-none d-sm-inline-block">
+                  <!-- <li class="nav-item d-none d-sm-inline-block">
                       <a href="../index.html" class="nav-link" style="color:black">Home</a>
-                  </li>
+                  </li> -->
+
               </ul>
 
               <!-- Right navbar links -->
               <ul class="navbar-nav ml-auto">
 
                   <li class="nav-item dropdown">
-                      <a class="nav-link" data-toggle="dropdown" href="#">
-                          <i class="far fa-bell"></i>
-                          <span class="badge badge-warning navbar-badge">15</span>
+                      <a class="nav-link" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="far fa-bell warning"></i>
+                          <span class="badge badge-warning navbar-badge"></span><b>Notifications</b>
+
+                          <?php
+                            $query = "SELECT * from `notifications` where `status` = 'unread' order by `date` DESC";
+                            if (count(fetchAll($query)) > 0) {
+                            ?>
+                              <span class="badge badge-warning"><?php echo count(fetchAll($query)); ?></span>
+                          <?php
+                            }
+                            ?>
                       </a>
-                      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                          <span class="dropdown-item dropdown-header">15 Notifications</span>
-                          <div class="dropdown-divider"></div>
-                          <a href="#" class="dropdown-item">
-                              <i class="fas fa-envelope mr-2"></i> 4 new messages
-                              <span class="float-right text-muted text-sm">3 mins</span>
-                          </a>
-                          <div class="dropdown-divider"></div>
-                          <a href="#" class="dropdown-item">
-                              <i class="fas fa-users mr-2"></i> 8 friend requests
-                              <span class="float-right text-muted text-sm">12 hours</span>
-                          </a>
-                          <div class="dropdown-divider"></div>
-                          <a href="#" class="dropdown-item">
-                              <i class="fas fa-file mr-2"></i> 3 new reports
-                              <span class="float-right text-muted text-sm">2 days</span>
-                          </a>
-                          <div class="dropdown-divider"></div>
-                          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdown01">
+                          <?php
+                            $query = "SELECT * from `notifications` order by `date` DESC";
+                            if (count(fetchAll($query)) > 0) {
+                                foreach (fetchAll($query) as $i) {
+                            ?>
+                                  <a style="
+                         <?php
+                                    if ($i['status'] == 'unread') {
+                                        echo "font-weight:bold;";
+                                    }
+                            ?>
+                         " class="dropdown-item" href="view.php?id=<?php echo $i['id'] ?>">
+                                      <small><i><?php echo date('F j, Y, g:i a', strtotime($i['date'])) ?></i></small><br />
+                                      <?php
+
+                                        if ($i['type'] == 'comment') {
+                                            echo "Someone commented on your post.";
+                                        } else if ($i['type'] == 'like') {
+                                            echo ucfirst($i['name']) . " liked your post.";
+                                        }
+
+                                        ?>
+                                  </a>
+                                  <div class="dropdown-divider"></div>
+                          <?php
+                                }
+                            } else {
+                                echo "No Records yet.";
+                            }
+                            ?>
                       </div>
                   </li>
 
@@ -61,4 +91,8 @@
                   </li>
               </ul>
           </nav>
+          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
           <!-- /.navbar -->
