@@ -147,7 +147,15 @@
                 </p>
               </a>
             </li>
-
+            <li class="nav-item">
+              <a href="notification.php?id=1" class="nav-link">
+                <i class="fa fa-bell" aria-hidden="true"></i>
+                <p>
+                  All notifications
+                  <!-- <span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
 
           </ul>
         </nav>

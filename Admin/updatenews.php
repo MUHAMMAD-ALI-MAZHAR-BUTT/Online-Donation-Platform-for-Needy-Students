@@ -97,7 +97,7 @@
             $message = $_POST['message'];
             $today = date("Y/m/d");
 
-            $query = "update latest_news set message='$message',date=$today where id=$ids ";
+            $query = "update latest_news set message='$message', date='$today' where id=$ids ";
 
 
             if ($query = mysqli_query($con, $query)) {

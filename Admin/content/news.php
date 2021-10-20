@@ -21,7 +21,6 @@
 
     <div class="container" style="padding-top:1%">
         <div class="row">
-
             <!-- /.col -->
             <div class="col-md-4">
                 <div class="card card-success">
@@ -56,7 +55,6 @@
                     <!-- /.card-header -->
                     <?php
                     include 'db_connection.php';
-
                     // $selectquery = "select * from latest_news where category=$cat";
                     $selectquery = "select * from latest_news where category='Education'";
                     $query = mysqli_query($con, $selectquery);
@@ -68,6 +66,24 @@
                     ?>
                         <div class="card-body">
                             <?php echo $res['message']; ?>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    include 'db_connection.php';
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $selectquery = "select * from latest_news where category='Education'";
+                    $query = mysqli_query($con, $selectquery);
+
+                    $nums = mysqli_num_rows($query);
+
+                    while ($res = mysqli_fetch_array($query)) {
+
+                    ?>
+                        <div class="card-body">
+                            <hr><u>
+                                Last Updated on <?php echo $res['date']; ?></u>
                         </div>
                     <?php
                     }
@@ -126,7 +142,24 @@
                     <?php
                     }
                     ?>
+                    <?php
+                    include 'db_connection.php';
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $selectquery = "select * from latest_news where category='Education'";
+                    $query = mysqli_query($con, $selectquery);
 
+                    $nums = mysqli_num_rows($query);
+
+                    while ($res = mysqli_fetch_array($query)) {
+
+                    ?>
+                        <div class="card-body">
+                            <hr><u>
+                                Last Updated on <?php echo $res['date']; ?></u>
+                        </div>
+                    <?php
+                    }
+                    ?>
                     <!-- /.card-body -->
                 </div>
 
@@ -180,7 +213,24 @@
                     <?php
                     }
                     ?>
+                    <?php
+                    include 'db_connection.php';
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $selectquery = "select * from latest_news where category='Education'";
+                    $query = mysqli_query($con, $selectquery);
 
+                    $nums = mysqli_num_rows($query);
+
+                    while ($res = mysqli_fetch_array($query)) {
+
+                    ?>
+                        <div class="card-body">
+                            <hr><u>
+                                Last Updated on <?php echo $res['date']; ?></u>
+                        </div>
+                    <?php
+                    }
+                    ?>
                     <!-- /.card-body -->
                 </div>
 
