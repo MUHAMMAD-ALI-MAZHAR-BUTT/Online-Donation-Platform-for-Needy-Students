@@ -63,15 +63,15 @@
                                         echo "font-weight:bold;";
                                     }
                             ?>
-                         " class="dropdown-item" href="view.php?id=<?php echo $i['id'] ?>">
+                         " class="dropdown-item" href="notification.php?id=1">
                                       <small><i><?php echo date('F j, Y, g:i a', strtotime($i['date'])) ?></i></small><br />
                                       <?php
 
-                                        if ($i['type'] == 'comment') {
-                                            echo "Someone commented on your post.";
-                                        } else if ($i['type'] == 'like') {
-                                            echo ucfirst($i['name']) . " liked your post.";
-                                        }
+                                        // if ($i['type'] == 'comment') {
+                                        echo "Someone commented on your post.";
+                                        // } else if ($i['type'] == 'like') {
+                                        //     echo ucfirst($i['name']) . " liked your post.";
+                                        // }
 
                                         ?>
                                   </a>

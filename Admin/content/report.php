@@ -94,7 +94,7 @@
             <div class="inner">
               <?php
               include 'db_connection.php';
-              $sql = "select count(*) as tot from emp";
+              $sql = "select count(*) as tot from emp where emp_leftdate='0000-00-00'";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
               $num_rows = $values['tot'];

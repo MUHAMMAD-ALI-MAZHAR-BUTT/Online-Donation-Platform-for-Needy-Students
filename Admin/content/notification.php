@@ -29,7 +29,7 @@
             mysqli_select_db($conn, "base");
 
             $start = 0;
-            $limit = 9;
+            $limit = 1;
 
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
@@ -81,7 +81,7 @@
             }
 
             echo "<div class='container'>";
-            echo "</div>";
+
             $rows = mysqli_num_rows(mysqli_query($conn, "select * from notifications"));
             $total = ceil($rows / $limit);
             echo "<br /><ul class='pager'>";
@@ -103,6 +103,7 @@
                 }
             }
             echo "</ul></center>";
+            echo "</div>";
             ?>
         </div>
     </div>

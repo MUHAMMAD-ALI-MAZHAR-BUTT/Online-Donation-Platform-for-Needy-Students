@@ -80,7 +80,8 @@
                     $nums = mysqli_num_rows($query);
 
                     while ($res = mysqli_fetch_array($query)) {
-
+                        $date = date('F j, Y', strtotime($res['emp_joindate']));
+                        $date1 = date('F j, Y', strtotime($res['emp_leftdate']));
                     ?>
 
                         <tr>
@@ -89,20 +90,22 @@
                             <td><?php echo $res['emp_name']; ?></td>
                             <td><?php echo $res['emp_email']; ?></td>
                             <td>0<?php echo $res['emp_phone']; ?></td>
-                            <td><?php echo $res['emp_joindate']; ?></td>
+                            <td><?php echo $date ?></td>
                             <td><?php echo $res['total_students']; ?></td>
                             <td><?php echo $res['active_students']; ?></td>
+
                             <!-- <td>
                                 <a href="updateemp.php?id=<?php echo $res['emp_id']; ?>" title="Edit Employee"> <i class="fas fa-edit" style="color:#ad1deb"></i></a>
                             </td> -->
                             <td>
                                 <?php
-                                if ($res['emp_leftdate'] == NULL) {
+                                if ($res['emp_leftdate'] == '0000-00-00') {
                                 ?>
                                     <a href="delemp.php?id=<?php echo $res['emp_id']; ?>" onclick="return confirm('Are you sure you want to remove this employee?');"> <i class="fa fa-trash" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Delete Employee"></i></a>
                                     <?php
                                 } else {
-                                    ?>Left on <?php echo $res['emp_leftdate']; ?>
+
+                                    ?>Left on <?php echo $date1 ?>
                                 <?php
                                 }
                                 ?>
