@@ -29,7 +29,7 @@
             mysqli_select_db($conn, "base");
 
             $start = 0;
-            $limit = 1;
+            $limit = 6;
 
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
@@ -53,7 +53,7 @@
                             " . $query2['message'] . "
           </div>
             <div class='card-body'>
-                            <hr><u>
+                            <hr>Dated :<u>
                                " . $date . "</u>
                         </div>
           </div>
@@ -72,7 +72,7 @@
                             " . $query2['message'] . "
           </div>
             <div class='card-body'>
-                            <hr><u>
+                            <hr>Dated :<u>
                                " . $date . "</u>
                         </div>
           </div>
@@ -84,28 +84,36 @@
 
             $rows = mysqli_num_rows(mysqli_query($conn, "select * from notifications"));
             $total = ceil($rows / $limit);
-            echo "<br /><ul class='pager'>";
+            // echo "<br /><ul class='pager'>";
+            // if ($id > 1) {
+            //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+            // }
+            // if ($id != $total) {
+            //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+            // }
+            // echo "</ul>";
+
+
+            echo "<ul class='pagination justify-content-center'>";
             if ($id > 1) {
-                echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+                echo "<li class='page-item'><a style='color:#ad1deb ' class='page-link' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
             }
-            if ($id != $total) {
-                echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
-            }
-            echo "</ul>";
-
-
-            echo "<center><ul class='pagination pagination-lg'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $id) {
-                    echo "<li class='pagination active'><a style='color:white;background-color : #ad1deb'>" . $i . "</a></li>";
+                    echo "<li class='page-item active'><a style='background-color:#ad1deb; border-color:#ad1deb' class='page-link' >" . $i . "</a></li>";
                 } else {
-                    echo "<li><a href='?id=" . $i . "'>" . $i . "</a></li>";
+                    echo "<li class='page-item'><a style='color:#ad1deb; ' class='page-link' href='?id=" . $i . "'>" . $i . "</a></li>";
                 }
             }
-            echo "</ul></center>";
+            if ($id != $total) {
+                echo "<li class='page-item'><a style='color:#ad1deb;' class='page-link' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+            }
+            echo "</ul>";
             echo "</div>";
             ?>
+
         </div>
+
     </div>
 </div>
 <script>

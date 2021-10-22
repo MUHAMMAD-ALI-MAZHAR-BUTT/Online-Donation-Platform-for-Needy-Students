@@ -51,11 +51,15 @@
                             }
                             ?>
                       </a>
+
                       <div class="dropdown-menu" aria-labelledby="dropdown01">
                           <?php
                             $query = "SELECT * from `notifications` order by `date` DESC";
                             if (count(fetchAll($query)) > 0) {
+                                $count = 0;
                                 foreach (fetchAll($query) as $i) {
+                                    if ($count == 7)
+                                        break;
                             ?>
                                   <a style="
                          <?php
@@ -63,7 +67,7 @@
                                         echo "font-weight:bold;";
                                     }
                             ?>
-                         " class="dropdown-item" href="notification.php?id=1">
+                         " class="dropdown-item" href="#" onclick=my();>
                                       <small><i><?php echo date('F j, Y, g:i a', strtotime($i['date'])) ?></i></small><br />
                                       <?php
 
@@ -77,11 +81,17 @@
                                   </a>
                                   <div class="dropdown-divider"></div>
                           <?php
+                                    $count = $count + 1;
                                 }
                             } else {
-                                echo "No Records yet.";
+                                echo "Notification is empty";
                             }
                             ?>
+                          <script>
+                              function my() {
+                                  location.href = "notification.php?id=1";
+                              }
+                          </script>
                       </div>
                   </li>
                   <li class="nav-item d-none d-sm-inline-block">
