@@ -36,7 +36,7 @@
                 $start = ($id - 1) * $limit;
             }
 
-            $query = mysqli_query($conn, "select * from notifications LIMIT $start, $limit");
+            $query = mysqli_query($conn, "select * from notifications order by `date` DESC LIMIT $start, $limit");
 
             while ($query2 = mysqli_fetch_array($query)) {
 
