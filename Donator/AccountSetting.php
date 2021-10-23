@@ -1,4 +1,19 @@
-<?php include("../LoginSystem/auth_session.php"); ?>
+﻿<?php
+session_start();
+if (!$_SESSION['username']) {
+
+    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+}
+?>
+<?php
+include("config.php");
+extract($_SESSION);
+$stmt_edit = $DB_con->prepare('SELECT * FROM donators WHERE username =:username');
+$stmt_edit->execute(array(':username' => $username));
+$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+extract($edit_row);
+
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -19,24 +34,6 @@
             font-size: 20px;
             color: blue;
         }
-        
-        h4:hover {
-            color: rgb(255, 4, 4);
-        }
-        
-        h2:hover {
-            color: rgb(50, 4, 255);
-        }
-        
-        a:hover {
-            color: rgb(33, 255, 4);
-        }
-        
-        h2 {
-            text-align: center;
-            font-size: 50px;
-            color: #fc0303;
-        }
     </style>
 </head>
 
@@ -50,14 +47,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Donator</a>
+                <a class="navbar-brand" href="index.php">Donator</a>
             </div>
-            <div style="color: yellow;
+            <div style="color:green;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;">
-                <?php echo $_SESSION['username']; ?>&nbsp;Donation System for Needy Students &nbsp;
-                <a href="../LoginSystem/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+font-size: 16px;"><?php echo $_SESSION['username']; ?>&nbsp; Online Donation System for Needy Students &nbsp;
+                <a href="./LoginSystem/logout.php" class="btn btn-danger square-btn-adjust">Logout</a>
+            </div>
         </nav>
         <!-- /. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
@@ -69,7 +66,7 @@ font-size: 16px;">
 
 
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
 
                     <li>
@@ -87,13 +84,13 @@ font-size: 16px;">
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="expensescreditcard/index.html">Fee</a>
+                                        <a href="expensescreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
-                                        <a href="healthcreditcard/index.html">Health</a>
+                                        <a href="healthcreditcard/index.php">Health</a>
                                     </li>
                                     <li>
-                                        <a href="expensescreditcard/index.html">Study Expenses</a>
+                                        <a href="expensescreditcard/index.php">Study Expenses</a>
                                     </li>
 
                                 </ul>
@@ -135,10 +132,10 @@ font-size: 16px;">
                     </li>
 
                     <li>
-                        <a href="blank.html"><i class="fa fa-square-o fa-3x"></i>About us</a>
+                        <a href="blank.php"><i class="fa fa-square-o fa-3x"></i>About us</a>
                     </li>
                     <li>
-                        <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> Feedback</a>
+                        <a href="feedback.php"><i class="fa fa-desktop fa-3x"></i> Feedback</a>
                     </li>
                 </ul>
 
@@ -152,8 +149,7 @@ font-size: 16px;">
                 <div class="row">
                     <div class="col-md-12">
                         <h2 style="text-align: center;"><strong>Account Setting</strong></h2>
-                        <h4 style="text-align: center;color:blue;">Hello
-                            <?php echo $_SESSION['username']; ?>
+                        <h4 style="text-align: center;color:blue;">Hello <?php echo $_SESSION['username']; ?>
                             <strong> Welcome to Donator's Dashboard </strong></h5>
 
                     </div>
@@ -161,11 +157,38 @@ font-size: 16px;">
                 <!-- /. ROW  -->
                 <hr />
 
-                <h2><strong>Your Account Information has been successfully Updated</strong></h2>
-                <br><br><br><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="AccountSetting.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="text-align: center;" ;>Click Here to change Account Setting</a>
+                <form action="account.php" method="post">
+                    <div class="form-row">
+
+                        <div class="form-group col-md-12">
+                            <label for="inputEmail4">Username</label>
+                            <input type="text" class="form-control" id="inputEmail4" readonly="readonly" placeholder="<?php echo $username; ?>">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" class="form-control" id="inputEmail4" name="a" value="<?php echo $email; ?>" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputPassword4">Password</label>
+                            <input type="password" class="form-control" id="inputPassword4" name="b" value="<?php echo $password; ?>" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="inputPassword4">Confirm Password</label>
+                            <input type="password" class="form-control" id="inputPassword5" name="c" value="<?php echo $password; ?>" required>
+                        </div>
+                    </div>
+
+                    <br><br><br><br><br>
+                    <div class="form-group col-md-4">
+                        <button type="reset" class="btn btn-primary btn-lg">Clear Values </button>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Reset Details</button>
+                    </div>
+
+
+                </form>
+
             </div>
             <!-- /. PAGE INNER  -->
         </div>

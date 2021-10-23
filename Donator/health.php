@@ -1,4 +1,19 @@
-﻿<?php include("../LoginSystem/auth_session.php"); ?>
+﻿<?php
+session_start();
+if (!$_SESSION['username']) {
+
+    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+}
+?>
+<?php
+include("config.php");
+extract($_SESSION);
+$stmt_edit = $DB_con->prepare('SELECT * FROM donators WHERE username =:username');
+$stmt_edit->execute(array(':username' => $username));
+$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+extract($edit_row);
+
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -30,14 +45,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><?php echo $_SESSION['username']; ?></a>
+                <a class="navbar-brand" href="index.php"><?php echo $_SESSION['username']; ?></a>
             </div>
             <div style="color: yellow;
 padding: 15px 50px 5px 50px;
 float: right;
 font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nbsp;</b> <?php echo date('Y-m-d'); ?>
 
-</b>&nbsp; <a href="../LoginSystem/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+                </b>&nbsp; <a href="./LoginSystem/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
         </nav>
         <!-- /. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
@@ -49,7 +64,7 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
 
 
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
 
                     <li>
@@ -67,13 +82,13 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="expensescreditcard/index.html">Fee</a>
+                                        <a href="expensescreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
-                                        <a href="healthcreditcard/index.html">Health</a>
+                                        <a href="healthcreditcard/index.php">Health</a>
                                     </li>
                                     <li>
-                                        <a href="expensescreditcard/index.html">Study Expenses</a>
+                                        <a href="expensescreditcard/index.php">Study Expenses</a>
                                     </li>
 
                                 </ul>
@@ -93,10 +108,10 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                             </li>
                         -->
                             <li>
-                                <a href="#" class="active-menu" >Categories<span class="fa arrow"></span></a>
+                                <a href="#" class="active-menu">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="fee.php" class="active-menu" >Fee</a>
+                                        <a href="fee.php" class="active-menu">Fee</a>
                                     </li>
                                     <li>
                                         <a href="health.php">Health</a>
@@ -115,10 +130,10 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                         <a href="AccountSetting.php"><i class="fa fa-edit fa-3x"></i>Account Setting</a>
                     </li>
                     <li>
-                        <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> Feedback</a>
+                        <a href="feedback.php"><i class="fa fa-desktop fa-3x"></i> Feedback</a>
                     </li>
                     <li>
-                        <a href="blank.html"><i class="fa fa-square-o fa-3x"></i>About us</a>
+                        <a href="blank.php"><i class="fa fa-square-o fa-3x"></i>About us</a>
                     </li>
                 </ul>
 
@@ -127,15 +142,16 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" style="background-image: url(2.jpg);">
-            <div id="page-inner" >
+            <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
                         <style>
-                            h2{
-                               text-align:"center";}
-                            </style>
-                        <h2 ><b> &nbsp; &nbsp; &nbsp; &nbsp; Donation History of Fee Category</b></h2>
-                       
+                            h2 {
+                                text-align: "center";
+                            }
+                        </style>
+                        <h2><b> &nbsp; &nbsp; &nbsp; &nbsp; Donation History of Health Category</b></h2>
+
 
                     </div>
                 </div>
@@ -145,26 +161,24 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Advanced Tables -->
-                  
+
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                            <marquee width="100%" direction="right" height="17px" onmousedown="this.stop();" class="bb" onmouseup="this.start();">
-        <strong style="font-weight: bold;color:blue"> 
-        &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
-        &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
-        This is the history of your donation for fee category.
-        &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
-        &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
-    </strong>
-        </marquee>
+                                <marquee width="100%" direction="right" height="17px" onmousedown="this.stop();" class="bb" onmouseup="this.start();">
+                                    <strong style="font-weight: bold;color:blue">
+                                        &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
+                                        &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
+                                        This is the history of your donation for fee category.
+                                        &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
+                                        &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
+                                    </strong>
+                                </marquee>
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example" 
-                                    
-                                    >
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
-                                            <tr >
+                                            <tr>
                                                 <th>Name</th>
                                                 <th>Card No</th>
                                                 <th>Cvc</th>
@@ -174,41 +188,42 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                             </tr>
                                         </thead>
                                         <tbody>
-                                      
-                        <?php 
-                        $servername = "localhost";
-                        $username = "root";
-                        $password = "";
-                        $db = "base";
-                        // Create connection
-                        $conn =new mysqli($servername, $username, $password,$db);
-                       // Check connection
-                      if ($conn->connect_error) {
-                           die("Connection failed: " . $conn->connect_error);
-                         }
-                         $d=$_SESSION['username'];
-                        $sql = "SELECT * FROM studyexpenses where DonatorName='$d'";
-                        $result = $conn->query($sql);
-//mdo
+
+                                            <?php
+                                            $servername = "localhost";
+                                            $username = "root";
+                                            $password = "";
+                                            $db = "base";
+                                            // Create connection
+                                            $conn = new mysqli($servername, $username, $password, $db);
+                                            // Check connection
+                                            if ($conn->connect_error) {
+                                                die("Connection failed: " . $conn->connect_error);
+                                            }
+                                            $d = $_SESSION['username'];
+                                            $sql = "SELECT * FROM health where DonatorName='$d'";
+                                            $result = $conn->query($sql);
+                                            //mdo
 
 
-//kmdjmewo
-                        
-                        if ($result->num_rows >0) {
+                                            //kmdjmewo
 
-                            while($row = $result->fetch_assoc()) {      
-                                      
-                        ?>
-                        <tr class="odd gradeX">
-                                                <td>  <?php echo $row['Holder_Name']; ?></td>
-                                                <td>  <?php echo $row['Card_Number']; ?></td>
-                                                <td>  <?php echo $row['Cvc']; ?></td>
-                                                <td>  <?php echo $row['Amount']; ?></td>
-                                                <td>  <?php echo $row['Date']; ?></td>
-                                                <td>  <?php echo $row['Time']; ?></td>
-                                            </tr>
-                                             <?php } } ?>
-                       
+                                            if ($result->num_rows > 0) {
+
+                                                while ($row = $result->fetch_assoc()) {
+
+                                            ?>
+                                                    <tr class="odd gradeX">
+                                                        <td> <?php echo $row['Holder_Name']; ?></td>
+                                                        <td> <?php echo $row['Card_Number']; ?></td>
+                                                        <td> <?php echo $row['Cvc']; ?></td>
+                                                        <td> <?php echo $row['Amount']; ?></td>
+                                                        <td> <?php echo $row['Date']; ?></td>
+                                                        <td> <?php echo $row['Time']; ?></td>
+                                                    </tr>
+                                            <?php }
+                                            } ?>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -219,15 +234,15 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                     </div>
                 </div>
                 <!-- /. ROW  -->
-               
+
                 <!-- /. ROW  -->
-       
+
                 <!-- /. ROW  -->
                 <!--
                 <div class="row">
                     <div class="col-md-6">
                      <!--    Hover Rows  -->
-                        <!--
+                <!--
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 Hover Rows
@@ -268,8 +283,9 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                             </div>
                         </div>
                          End  Hover Rows  -->
-                    <!--</div>
-                            --><!--
+                <!--</div>
+                            -->
+                <!--
                     <div class="col-md-6">
                           Context Classes  
                         <div class="panel panel-default">
@@ -322,12 +338,12 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                        end  Context Classes 
                     </div>
                             -->
-                </div>
-                <!-- /. ROW  -->
             </div>
-
+            <!-- /. ROW  -->
         </div>
-        <!-- /. PAGE INNER  -->
+
+    </div>
+    <!-- /. PAGE INNER  -->
     </div>
     <!-- /. PAGE WRAPPER  -->
     <!-- /. WRAPPER  -->

@@ -18,12 +18,10 @@ if ($conn->connect_error) {
 $sql = "Update donators set email='$a',password='$b'";
 
 if ($conn->query($sql) === TRUE) {
- header("Location:dd.html");
+ header("Location:dd.php");
 } 
 else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 $conn->close();
-
-?>

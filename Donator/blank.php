@@ -1,3 +1,19 @@
+<?php
+session_start();
+if (!$_SESSION['username']) {
+
+    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+}
+?>
+<?php
+include("config.php");
+extract($_SESSION);
+$stmt_edit = $DB_con->prepare('SELECT * FROM donators WHERE username =:username');
+$stmt_edit->execute(array(':username' => $username));
+$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+extract($edit_row);
+
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -24,36 +40,36 @@
             margin: 1em 0;
             padding: 0;
         }
-        
+
         .team_member {
             background: rgba(199, 201, 209, .09);
             padding-bottom: 50px;
             overflow: hidden;
         }
-        
+
         .single_team_content {
             padding: 45px;
             margin-top: 60px;
         }
-        
+
         .single_team_content h1 {
             font-size: 50px;
             font-weight: 600;
             line-height: 60px;
         }
-        
+
         .single_team_content p {}
-        
+
         .our-team {
             margin-bottom: 30px;
             box-shadow: 0 10px 40px -10px rgba(0, 64, 128, .09);
         }
-        
+
         .our-team .team_img {
             position: relative;
             overflow: hidden;
         }
-        
+
         .our-team .team_img:after {
             content: "";
             width: 100%;
@@ -64,24 +80,24 @@
             left: 0;
             transition: all 0.3s ease 0s;
         }
-        
+
         h1:hover {
             color: rgb(4, 0, 255);
         }
-        
+
         p:hover {
             color: rgb(38, 0, 255);
         }
-        
+
         .our-team:hover .team_img:after {
             bottom: 0;
         }
-        
+
         .our-team img {
             width: 100%;
             height: auto;
         }
-        
+
         .our-team .social {
             padding: 0 0 18px 0;
             margin: 0;
@@ -94,27 +110,27 @@
             z-index: 1;
             transition: all 0.3s ease 0s;
         }
-        
+
         .our-team:hover .social {
             top: 0;
         }
-        
+
         .our-team .social li a {
             display: block;
             padding: 15px;
             font-size: 15px;
             color: #232434;
         }
-        
+
         .our-team:hover .social li a:hover {
             color: #fff;
         }
-        
+
         .our-team .team-content {
             padding: 20px 0;
             background: #fff;
         }
-        
+
         .our-team .title {
             font-size: 18px;
             font-weight: bold;
@@ -123,7 +139,7 @@
             margin: 0 0 20px;
             position: relative;
         }
-        
+
         .our-team .title:before {
             content: "";
             width: 25px;
@@ -135,7 +151,7 @@
             margin-right: 9px;
             transition-duration: 0.25s;
         }
-        
+
         .our-team .title:after {
             content: "";
             width: 25px;
@@ -147,18 +163,18 @@
             margin-left: 9px;
             transition-duration: 0.25s;
         }
-        
+
         .our-team:hover .title:before,
         .our-team:hover .title:after {
             width: 50px;
         }
-        
+
         .our-team .post {
             display: inline-block;
             font-size: 15px;
             text-transform: capitalize;
         }
-        
+
         .our-team .post:before {
             content: "";
             display: block;
@@ -170,7 +186,7 @@
             position: relative;
             top: -13px;
         }
-        
+
         @media only screen and (max-width: 990px) {
             .our-team {
                 margin-bottom: 30px;
@@ -190,7 +206,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Donator</a>
+                <a class="navbar-brand" href="index.php">Donator</a>
             </div>
             <div style="color: white;
 padding: 15px 50px 5px 50px;
@@ -207,7 +223,7 @@ font-size: 16px;"> Online Donation System for Needy Students &nbsp; <a href="../
 
 
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-sitemap fa-3x"></i>Donate<span class="fa arrow"></span></a>
@@ -224,13 +240,13 @@ font-size: 16px;"> Online Donation System for Needy Students &nbsp; <a href="../
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="expensescreditcard/index.html">Fee</a>
+                                        <a href="expensescreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
-                                        <a href="healthcreditcard/index.html">Health</a>
+                                        <a href="healthcreditcard/index.php">Health</a>
                                     </li>
                                     <li>
-                                        <a href="expensescreditcard/index.html">Study Expenses</a>
+                                        <a href="expensescreditcard/index.php">Study Expenses</a>
                                     </li>
 
                                 </ul>
@@ -274,10 +290,10 @@ font-size: 16px;"> Online Donation System for Needy Students &nbsp; <a href="../
                     </li>
 
                     <li>
-                        <a class="active-menu" href="blank.html"><i class="fa fa-square-o fa-3x"></i>About us</a>
+                        <a class="active-menu" href="blank.php"><i class="fa fa-square-o fa-3x"></i>About us</a>
                     </li>
                     <li>
-                        <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> Feedback</a>
+                        <a href="feedback.php"><i class="fa fa-desktop fa-3x"></i> Feedback</a>
                     </li>
                 </ul>
 

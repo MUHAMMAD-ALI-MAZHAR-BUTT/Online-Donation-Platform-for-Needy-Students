@@ -1,3 +1,19 @@
+<?php
+session_start();
+if (!$_SESSION['username']) {
+
+    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+}
+?>
+<?php
+include("config.php");
+extract($_SESSION);
+$stmt_edit = $DB_con->prepare('SELECT * FROM donators WHERE username =:username');
+$stmt_edit->execute(array(':username' => $username));
+$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+extract($edit_row);
+
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -13,6 +29,30 @@
     <link href="assets/css/custom.css" rel="stylesheet" />
     <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <style>
+        label {
+            font-size: 20px;
+            color: blue;
+        }
+
+        h4:hover {
+            color: rgb(255, 4, 4);
+        }
+
+        h2:hover {
+            color: rgb(50, 4, 255);
+        }
+
+        a:hover {
+            color: rgb(33, 255, 4);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 50px;
+            color: #fc0303;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,12 +65,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Donator</a>
+                <a class="navbar-brand" href="index.php">Donator</a>
             </div>
             <div style="color: yellow;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;">Online Donation System for Needy Students &nbsp; <a href="../LoginSystem/logout.php" class="btn btn-danger square-btn-adjust">Logout</a> </div>
+font-size: 16px;">
+                <?php echo $_SESSION['username']; ?>&nbsp;Donation System for Needy Students &nbsp;
+                <a href="./LoginSystem/logout.php" class="btn btn-danger square-btn-adjust">Logout</a>
+            </div>
         </nav>
         <!-- /. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
@@ -42,7 +85,7 @@ font-size: 16px;">Online Donation System for Needy Students &nbsp; <a href="../L
 
 
                     <li>
-                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
 
                     <li>
@@ -60,13 +103,13 @@ font-size: 16px;">Online Donation System for Needy Students &nbsp; <a href="../L
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="feecreditcard/index.html">Fee</a>
+                                        <a href="expensescreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
-                                        <a href="healthcreditcard/index.html">Health</a>
+                                        <a href="healthcreditcard/index.php">Health</a>
                                     </li>
                                     <li>
-                                        <a href="expensescreditcard/index.html">Study Expenses</a>
+                                        <a href="expensescreditcard/index.php">Study Expenses</a>
                                     </li>
 
                                 </ul>
@@ -103,15 +146,15 @@ font-size: 16px;">Online Donation System for Needy Students &nbsp; <a href="../L
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a class="active-menu" href="AccountSetting.php"><i class="fa fa-edit fa-3x"></i>Account Setting</a>
+                    </li>
 
                     <li>
-                        <a href="AccountSetting.php"><i class="fa fa-edit fa-3x"></i>Account Setting</a>
+                        <a href="blank.php"><i class="fa fa-square-o fa-3x"></i>About us</a>
                     </li>
                     <li>
-                        <a href="ui.html"><i class="fa fa-desktop fa-3x"></i> Feedback</a>
-                    </li>
-                    <li>
-                        <a href="blank.html"><i class="fa fa-square-o fa-3x"></i>About us</a>
+                        <a href="feedback.php"><i class="fa fa-desktop fa-3x"></i> Feedback</a>
                     </li>
                 </ul>
 
@@ -121,69 +164,24 @@ font-size: 16px;">Online Donation System for Needy Students &nbsp; <a href="../L
 
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" style="background-image: url(2.jpg);">
-            <div id="page-inner" style="background-image: url(2.jpg);">
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 style="text-align: center;"><strong>Account Setting</strong></h2>
+                        <h4 style="text-align: center;color:blue;">Hello
+                            <?php echo $_SESSION['username']; ?>
+                            <strong> Welcome to Donator's Dashboard </strong></h5>
 
-                <!--Slider -->
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                        <li data-target="#myCarousel" data-slide-to="3"></li>
-                        <li data-target="#myCarousel" data-slide-to="4"></li>
-                    </ol>
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="assets/1.png" alt="Donation System">
-                            <div class="carousel-caption">
-                                <h3>Donation System</h3>
-                                <p>We are thankful to you for your interest in our Platform</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="assets/7.jpg" alt="Donation Platform">
-                        </div>
-                        <div class="item">
-                            <img src="assets/3.jpg" alt="Donation System">
-                            <div class="carousel-caption">
-                                <h3>Donate Money for Needy Students</h3>
-                                <p>Education is the power</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="assets/4.jpg" alt="Donation System">
-                            <div class="carousel-caption">
-                                <h3>Donation Platform</h3>
-                                <p>Donate Money!</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="assets/5.png" alt="Donation Platform">
-                            <div class="carousel-caption">
-                                <h3>Donate Money</h3>
-                                <p>Thank you for you interest</p>
-                            </div>
-                        </div>
                     </div>
-
-                    <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
                 </div>
+                <!-- /. ROW  -->
+                <hr />
 
-                <!--Slider end-->
-
-
-
+                <h2><strong>Your Account Information has been successfully Updated</strong></h2>
+                <br><br><br><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="AccountSetting.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" style="text-align: center;" ;>Click Here to change Account Setting</a>
             </div>
             <!-- /. PAGE INNER  -->
         </div>
