@@ -116,7 +116,7 @@
             <div style="color:white;  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);" class="modal-content">
                 <div class="modal-header">
-                    <h4 style="color:white" class="modal-title" id="myModalLabel">Edit Message</h4>
+                    <h4 style="color:white" class="modal-title" id="myModalLabel">Edit Message of <?php echo $arrdata['category']; ?> Category</h4>
                 </div>
 
                 <div class="modal-body">
@@ -124,7 +124,6 @@
 
                     <form role="form" method="post" action="">
                         <fieldset>
-
 
                             <div class=" form-group">
 

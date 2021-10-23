@@ -21,6 +21,7 @@
 
     <div class="container" style="padding-top:1%">
         <div class="row">
+
             <!-- /.col -->
             <div class="col-md-4">
                 <div class="card card-success">
@@ -194,6 +195,7 @@
                         ?>
                         <!-- /.card-tools -->
                     </div>
+
                     <!-- /.card-header -->
                     <?php
                     include 'db_connection.php';
@@ -238,7 +240,13 @@
         </div>
     </div>
 </div>
+
 <script>
+    $(".pass").click(function() {
+        // var ids = $(this).attr('data-id');
+        // $("#idkl").val(ids);
+        $('#updaterealEmployeeModal').modal('show');
+    });
     $(document).ready(function() {
         $('#priceinput').keypress(function(event) {
             return isNumber(event, this)
