@@ -107,7 +107,7 @@ $result = $con->query("SELECT img_path from gallery_img")
                     <li class="dropdown"><a href="#"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
 
                         <ul>
-
+                            <li><a href="../Admin/dist/adminn.php">As Admin</a></li>
                             <li><a href="#">As Employee</a></li>
                             <li><a href="#">As Donor</a></li>
                             <li><a href="#">As Student</a></li>
