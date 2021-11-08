@@ -1,10 +1,3 @@
-<?php
-include('header.php');
-include('navbar.php');
-include('sidebar.php');
-?>
-
-
 <div class="content-wrapper">
 
     <div class="table-wrapper">
@@ -12,7 +5,7 @@ include('sidebar.php');
             <div class="row" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 104%); color:white; ">
                 <div class="col-sm-4">
-                    <h2 style="font-family: sans-serif; padding-top:2%; padding-left:2% " ><b> Accepted Student Details</b></h2>
+                    <h2 style="font-family: sans-serif; padding-top:2%; padding-left:2% "><b> Accepted Student Details</b></h2>
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     <!-- -->
                 </div>
@@ -20,7 +13,7 @@ include('sidebar.php');
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               
+
             </div>
         </div>
         <?php
@@ -47,11 +40,11 @@ include('sidebar.php');
 
                         <th>Id</th>
                         <th>Student Name</th>
-                        
+
                         <th>Student Email</th>
-                        
-                        
-                        
+
+
+
                     </tr>
                 </thead>
                 <tbody>
@@ -72,10 +65,10 @@ include('sidebar.php');
 
                             <td><?php echo $res['id']; ?></td>
                             <td><?php echo $res['username']; ?></td>
-                            
+
                             <td><?php echo $res['email']; ?></td>
-                            
-                           
+
+
                         </tr>
 
                     <?php

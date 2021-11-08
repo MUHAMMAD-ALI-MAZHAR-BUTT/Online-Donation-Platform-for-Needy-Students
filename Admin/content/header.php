@@ -1,9 +1,18 @@
 <?php
 session_start();
-if ($_SESSION['status'] != true) {
+if (!$_SESSION['admin_username']) {
     echo "<script>alert('Log in to access admin dashboard')</script>";
     echo "<script>window.open('./dist/adminn.php','_self')</script>";
 }
+?>
+<?php
+include("config.php");
+extract($_SESSION);
+$stmt_edit = $DB_con->prepare('SELECT * FROM admin WHERE admin_username =:admin_username');
+$stmt_edit->execute(array(':admin_username' => $admin_username));
+$edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
+extract($edit_row);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

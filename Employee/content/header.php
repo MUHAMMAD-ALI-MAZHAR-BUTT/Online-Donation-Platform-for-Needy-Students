@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['status'] != true) {
+if (!$_SESSION['emp_email']) {
 
     echo "<script>window.open('./login/index1.php','_self')</script>";
 }
@@ -10,8 +10,8 @@ if ($_SESSION['status'] != true) {
 <?php
 include("config.php");
 extract($_SESSION);
-$stmt_edit = $DB_con->prepare('SELECT * FROM users WHERE user_email =:user_email');
-$stmt_edit->execute(array(':user_email' => $user_email));
+$stmt_edit = $DB_con->prepare('SELECT * FROM emp WHERE emp_email =:emp_email');
+$stmt_edit->execute(array(':emp_email' => $emp_email));
 $edit_row = $stmt_edit->fetch(PDO::FETCH_ASSOC);
 extract($edit_row);
 

@@ -41,7 +41,7 @@
             <!-- Add icons to the links using the .nav-icon class
         with font-awesome or any other icon font library -->
 
-          
+
             <li class="nav-item">
               <a href="donordetails.php" class="nav-link">
                 <i class="fas fa-donate"></i>
@@ -59,7 +59,7 @@
                 </p>
               </a>
             </li>
-         
+
             <li class="nav-item">
               <a href="https://www.gmail.com" class="nav-link">
                 <i class="fas fa-sticky-note"></i>
@@ -69,11 +69,11 @@
                 </p>
               </a>
             </li>
-            
-            
-            
-            
-            
+
+
+
+
+
             <li class="nav-item">
               <a href="accepted.php" class="nav-link">
                 <i class="fas fa-user-graduate"></i>
@@ -83,17 +83,17 @@
                 </p>
               </a>
             </li>
-            
+
             <li class="nav-item">
-            <a data-toggle="modal" data-target="#setAccount">
+              <a data-toggle="modal" class='nav-link' data-target="#setAccount">
                 <i class="fas fa-cogs"></i>
-                
+                <p>
                   Account Settings
                   <!-- <span class="right badge badge-danger">New</span>-->
-                
+                </p>
               </a>
             </li>
-          
+
 
           </ul>
         </nav>
@@ -102,83 +102,82 @@
     </aside>
 
 
-     <!-- Mediul Modal -->
-     <div class="modal fade" id="setAccount" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
-        <div class="modal-dialog modal-sm">
-            <div style="color:white;background-color:#008CBA" class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h2 style="color:white" class="modal-title" id="myModalLabel">Account Settings</h2>
-                </div>
-                <div class="modal-body">
+    <!-- Mediul Modal -->
+    <div class="modal fade" id="setAccount" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
+      <div class="modal-dialog modal-md">
+        <div style="color:white;background-color:#ad1deb" class="modal-content">
+          <div class="modal-header">
+            <h2 style="color:white" class="modal-title" id="myModalLabel">Account Settings</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+          </div>
+          <div class="modal-body">
+            <form enctype="multipart/form-data" method="post" action="settings.php">
+              <fieldset>
 
 
+                <p>Name:</p>
+                <div class="form-group">
 
-
-                    <form enctype="multipart/form-data" method="post" action="settings.php">
-                        <fieldset>
-
-
-                            <p>Firstname:</p>
-                            <div class="form-group">
-
-                                <input class="form-control" placeholder="Firstname" name="user_firstname" type="text" value="<?php echo $user_firstname; ?>" required>
-
-
-                            </div>
-
-
-                            <p>Lastname:</p>
-                            <div class="form-group">
-
-                                <input class="form-control" placeholder="Lastname" name="user_lastname" type="text" value="<?php echo $user_lastname; ?>" required>
-
-
-                            </div>
-
-                            <p>Address:</p>
-                            <div class="form-group">
-
-                                <input class="form-control" placeholder="Address" name="user_address" type="text" value="<?php echo $user_address; ?>" required>
-
-
-                            </div>
-
-                            <p>Password:</p>
-                            <div class="form-group">
-
-                                <input class="form-control" placeholder="Password" name="user_password" type="password" value="<?php echo $user_password; ?>" required>
-
-
-                            </div>
-                            <p>ID:</p>
-                            <div class="form-group">
-
-                                <input class="form-control hide" name="user_id" type="text" value="<?php echo $user_id; ?>" readonly>
-
-
-                            </div>
-
-
-
-
-
-
-
-
-                        </fieldset>
+                  <input class="form-control" placeholder="Firstname" name="emp_name" type="text" value="<?php echo $emp_name; ?>" required>
 
 
                 </div>
-                <div class="modal-footer">
-
-                    <button class="btn btn-block btn-success btn-md" name="user_save">Save</button>
-
-                    <button type="button" class="btn btn-block btn-danger btn-md" data-dismiss="modal">Cancel</button>
 
 
-                    </form>
+                <p>Email:</p>
+                <div class="form-group">
+
+                  <input class="form-control" placeholder="Lastname" name="emp_email" type="text" value="<?php echo $emp_email; ?>" required>
+
+
                 </div>
-            </div>
+
+                <p>Phone:</p>
+                <div class="form-group">
+
+                  <input class="form-control" placeholder="Address" name="emp_phone" type="text" value="0<?php echo $emp_phone; ?>" required>
+
+
+                </div>
+
+                <p>Password:</p>
+                <div class="form-group">
+
+                  <input class="form-control" placeholder="Password" name="pass" id='pass' type="password" value="<?php echo $pass; ?>" required>
+                  <input type="checkbox" onclick="myFunction()">Show Password
+                  <script>
+                    function myFunction() {
+                      var x = document.getElementById("pass");
+                      if (x.type === "password") {
+                        x.type = "text";
+                      } else {
+                        x.type = "password";
+                      }
+                    }
+                  </script>
+                </div>
+                <p>ID:</p>
+                <div class="form-group">
+
+                  <input class="form-control hide" name="emp_id" type="text" value="<?php echo $emp_id; ?>" readonly>
+
+
+                </div>
+
+              </fieldset>
+
+
+          </div>
+          <div class="modal-footer">
+
+            <button class="btn btn-block btn-success btn-md" name="user_save">Save</button>
+
+            <button type="button" class="btn btn-block btn-danger btn-md" data-dismiss="modal">Cancel</button>
+
+
+            </form>
+          </div>
         </div>
+      </div>
     </div>

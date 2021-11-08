@@ -183,9 +183,20 @@ session_start();
               </div>
 
               <div class="form-group">
-                <input class="form-control" placeholder="Password" name="admin_password" type="password">
-              </div>
+                <input class="form-control" placeholder="Password" name="admin_password" id="pass" type="password">
 
+              </div>
+              <input type="checkbox" onclick="myFunction()">Show Password
+              <script>
+                function myFunction() {
+                  var x = document.getElementById("pass");
+                  if (x.type === "password") {
+                    x.type = "text";
+                  } else {
+                    x.type = "password";
+                  }
+                }
+              </script>
             </fieldset>
 
 
@@ -250,6 +261,7 @@ if (isset($_POST['admin_login'])) {
 
   if (mysqli_num_rows($run)) {
     $_SESSION['status'] = true;
+    $_SESSION['admin_username'] = $admin_username;
     echo "<script>alert('Login was successful!')</script>";
 
     //echo "<script>window.open('Admin/index.php','_self')</script>";
