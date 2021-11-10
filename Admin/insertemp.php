@@ -55,7 +55,7 @@ if (isset($_POST["emp_name"])) {
     );
 
     if (mysqli_num_rows($qu) != 0) {
-        $Phone_error = 'This Phone number already exists';
+        $phone_error = 'This Phone number already exists';
     }
     $query = "SELECT * FROM emp where emp_email='$emp_email'";
     $qu = mysqli_query(

@@ -1,7 +1,7 @@
 <?php
 include('db_connection.php');
 
-$result = $con->query("SELECT img_path from gallery_img")
+$result = $con->query("SELECT img_path from gallery_img");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,25 +104,17 @@ $result = $con->query("SELECT img_path from gallery_img")
                     <li><a class="nav-link scrollto" href="#team">Team</a></li>
                     <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact us</a></li>
-                    <li class="dropdown"><a href="#"><span>Login</span> <i class="bi bi-chevron-down"></i></a>
+                    <li class="dropdown"><a href="#"><span>Login/Register</span> <i class="bi bi-chevron-down"></i></a>
 
                         <ul>
                             <li><a href="../Admin/dist/adminn.php">As Admin</a></li>
-                            <li><a href="#">As Employee</a></li>
+                            <li><a href="../Employee/login/index1.php">As Employee</a></li>
                             <li><a href="#">As Donor</a></li>
-                            <li><a href="#">As Student</a></li>
+                            <li><a href="../Student/index.php">As Student</a></li>
                         </ul>
 
                     </li>
-                    <li class="dropdown"><a href="#"><span>Register</span> <i class="bi bi-chevron-down"></i></a>
 
-                        <ul>
-
-                            <li><a href="#">As Donor</a></li>
-                            <li><a href="#">As Student</a></li>
-                        </ul>
-
-                    </li>
 
 
 
@@ -500,6 +492,7 @@ $result = $con->query("SELECT img_path from gallery_img")
 
             <div class="row justify-content-center mt-2" data-aos="fade-up">
                 <div class="col-lg-10">
+
                     <div id="demo" class="carousel slide" data-ride="carousel">
 
                         <!-- Indicators -->
@@ -514,6 +507,7 @@ $result = $con->query("SELECT img_path from gallery_img")
 
                             ?>
                                 <li data-target="#demo" data-slide-to="<?= $i; ?>" class="<? $actives ?>"></li>
+
                             <?php
                                 $i++;
                             }

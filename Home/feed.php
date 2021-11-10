@@ -29,7 +29,7 @@ if (isset($_POST["name"])) {
         $name_error = 'Name is Required';
     } else {
         if (!preg_match("/^[a-zA-Z-' ]*$/", $name)) {
-            $name_error = 'Only Letters and White Space Allowed';
+            $name_error = 'Name format not correct';
         }
     }
 

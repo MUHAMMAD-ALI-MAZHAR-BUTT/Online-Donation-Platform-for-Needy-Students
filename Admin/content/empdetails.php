@@ -99,7 +99,7 @@
                             </td> -->
                             <td>
                                 <?php
-                                if ($res['emp_leftdate'] == '0000-00-00') {
+                                if ($res['emp_leftdate'] == NULL) {
                                 ?>
                                     <a href="delemp.php?id=<?php echo $res['emp_id']; ?>" onclick="return confirm('Are you sure you want to remove this employee?');"> <i class="fa fa-trash" style="color: #ad1deb;" aria-hidden="true" data-toggle="tooltip" title="Delete Employee"></i></a>
                                     <?php
