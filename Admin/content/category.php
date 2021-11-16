@@ -4,14 +4,22 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Manage Categories</h1>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+    <div class="table-wrapper" style="background-color: #6e72fc;
+  background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 104%); color:white; ">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8 " style="text-align: center;">
+                    <h2 style="font-family: sans-serif; padding-top:1%; padding-bottom:1%"><b> Manage Categories</b></h2>
+
+                    <!-- -->
+                </div>
+
+
+            </div>
+
+        </div>
+
+
     </div>
     <!-- /.content-header -->
     <div class="card-body">

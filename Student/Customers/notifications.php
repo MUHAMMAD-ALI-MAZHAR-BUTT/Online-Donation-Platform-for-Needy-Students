@@ -39,11 +39,13 @@ extract($edit_row);
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/local.css" />
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/datatables.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
 
 
 </head>
@@ -65,11 +67,11 @@ extract($edit_row);
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
                 <ul class="nav navbar-nav side-nav" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
-                    <li class="active"><a href="index.php"> &nbsp; <span class='glyphicon glyphicon-home'></span> Home</a></li>
+                    <li><a href="index.php"> &nbsp; <span class='glyphicon glyphicon-home'></span> Home</a></li>
                     <li><a href="shop.php?id=1"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
                     <li><a data-toggle="modal" data-target="#set"> &nbsp; <span class='glyphicon glyphicon-envelope'></span> Send Queries</a></li>
                     <li><a href="responses.php"> &nbsp; <span class='fa fa-file'></span> Query Responses</a></li>
-                    <li><a href="notifications?id=1.php"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
+                    <li class="active"><a href="notifications?id=1.php"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
                     <li><a href="formsfilled.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> My Forms filled history</a></li>
                     <li><a href="paymenthistory.php"> &nbsp; <span class='fa fa-money'></span> Payment received history</a></li>
                     <li><a data-toggle="modal" data-target="#setAccount"> &nbsp; <span class='fa fa-gear'></span> Account Settings</a></li>
@@ -80,7 +82,7 @@ extract($edit_row);
                 <ul class="nav navbar-nav navbar-right navbar-user">
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell warning"></i>
+                        <a class="nav-link" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell warning"></i>
                             <span class="badge badge-warning navbar-badge"></span><b>Notifications</b>
 
                             <?php
@@ -167,109 +169,118 @@ extract($edit_row);
                 </ul>
             </div>
         </nav>
-
+        <!-- #page wrapper -->
         <div id="page-wrapper">
-            <div class="row justify-content-center mt-2">
-                <div class="col-lg-12">
+
+            <div class="alert alert-success">
+
+                <center>
+                    <h3><strong>My Notifications</strong> </h3>
+                </center>
+
+            </div>
+
+            <br />
+
+            <div class="container" style="padding-top:1%">
+                <div class="row">
+
+                    <!-- /.col -->
+
                     <?php
-                    //index.php
-                    $connect = mysqli_connect("localhost", "root", "", "base");
-                    function make_query($connect)
-                    {
-                        $query = "SELECT * FROM gallery_img";
-                        $result = mysqli_query($connect, $query);
-                        return $result;
+                    $conn = mysqli_connect("localhost", "root", "");
+                    mysqli_select_db($conn, "base");
+
+                    $start = 0;
+                    $limit = 6;
+
+                    if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $start = ($id - 1) * $limit;
                     }
 
-                    function make_slide_indicators($connect)
-                    {
-                        $output = '';
-                        $count = 0;
-                        $result = make_query($connect);
-                        while ($row = mysqli_fetch_array($result)) {
-                            if ($count == 0) {
-                                $output .= '
-   <li data-target="#dynamic_slide_show" data-slide-to="' . $count . '" class="active"></li>
-   ';
-                            } else {
-                                $output .= '
-   <li data-target="#dynamic_slide_show" data-slide-to="' . $count . '"></li>
-   ';
-                            }
-                            $count = $count + 1;
+                    $query = mysqli_query($conn, "select * from notifications order by `date` DESC LIMIT $start, $limit");
+
+                    while ($query2 = mysqli_fetch_array($query)) {
+
+                        $date = date('F j, Y, g:i a', strtotime($query2['date']));
+                        if ($query2['status'] == "read") {
+                            echo "<div id='he' class='col-md-4'>
+        
+               <div class='card card-success'>
+                    <div class='card-header'>
+                    <h3 class='card-title'>" . $query2['name'] . " (" . $query2['type'] . ")</h3>
+                     
+                    </div>
+          <div class='card-body'>
+                            " . $query2['message'] . "
+          </div>
+            <div class='card-body'>
+                            <hr>Dated :<u>
+                               " . $date . "</u>
+                        </div>
+          </div>
+        </div>";
+                        } else {
+                            echo "<div id='he' class='col-md-4'>
+        
+               <div class='card card-warning'>
+                    <div class='card-header'>
+                    <h3 class='card-title' style='color:white'>" . $query2['name'] . " (" . $query2['type'] . ")</h3>
+                       <div class=card-tools>
+                                <a href='r.php?idd=" . $query2['id'] . "' type='button' name='edit'> <i class='fa fa-check' style='color:white'></i> </a>
+                            </div>
+                    </div>
+          <div class='card-body'>
+                            " . $query2['message'] . "
+          </div>
+            <div class='card-body'>
+                            <hr>Dated :<u>
+                               " . $date . "</u>
+                        </div>
+          </div>
+        </div>";
                         }
-                        return $output;
                     }
 
-                    function make_slides($connect)
-                    {
-                        $output = '';
-                        $count = 0;
-                        $result = make_query($connect);
-                        while ($row = mysqli_fetch_array($result)) {
-                            if ($count == 0) {
-                                $output .= '<div class="item active">';
-                            } else {
-                                $output .= '<div class="item">';
-                            }
-                            $output .= '
-   <img src="../../Admin/' . $row["img_path"] . '" width="100%" height:"600px" />
+                    echo "<div class='container'>";
 
-  </div>
-  ';
-                            $count = $count + 1;
+                    $rows = mysqli_num_rows(mysqli_query($conn, "select * from notifications"));
+                    $total = ceil($rows / $limit);
+                    // echo "<br /><ul class='pager'>";
+                    // if ($id > 1) {
+                    //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+                    // }
+                    // if ($id != $total) {
+                    //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+                    // }
+                    // echo "</ul>";
+
+
+                    echo "<ul class='pagination justify-content-center'>";
+                    if ($id > 1) {
+                        echo "<li class='page-item'><a style='color:#ad1deb ' class='page-link' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+                    }
+                    for ($i = 1; $i <= $total; $i++) {
+                        if ($i == $id) {
+                            echo "<li class='page-item active'><a style='background-color:#ad1deb; border-color:#ad1deb' class='page-link' >" . $i . "</a></li>";
+                        } else {
+                            echo "<li class='page-item'><a style='color:#ad1deb; ' class='page-link' href='?id=" . $i . "'>" . $i . "</a></li>";
                         }
-                        return $output;
                     }
-
+                    if ($id != $total) {
+                        echo "<li class='page-item'><a style='color:#ad1deb;' class='page-link' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+                    }
+                    echo "</ul>";
+                    echo "</div>";
                     ?>
 
-
-
-
-
-                    <div id="dynamic_slide_show" class="carousel slide hero-slide hidden-xs" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <?php echo make_slide_indicators($connect); ?>
-
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            <?php echo make_slides($connect); ?>
-                        </div>
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#dynamic_slide_show" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-
-                        <a class="right carousel-control" href="#dynamic_slide_show" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-
-
-
-                    <!-- #my-carousel-->
                 </div>
             </div>
         </div>
 
 
-        <br />
-        <div class="alert alert-info">
 
-            &nbsp; &nbsp; What are you waiting for guyz. It 50% off on all the products.Its special discount season for all
-            the customers.We team of talented designers making our Pakistan neat & clean.There's this notion that to grow a business, you have to be ruthless.
-            But we know there's a better way to grow. One where what's good for the bottom line is also good for customers.
-            We believe businesses can grow with a conscience, and succeed with a soul —
-            and that they can do it with inbound. That's why we've created a app to help businesses and waste management system grow better every day.<br>
-
-        </div>
-        <br />
 
         <div class="alert alert-default" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
@@ -281,16 +292,7 @@ extract($edit_row);
         </div>
 
     </div>
-    </div>
 
-
-
-
-    </div>
-
-
-
-    </div>
     <!-- /#wrapper -->
 
 
@@ -303,14 +305,8 @@ extract($edit_row);
                     <h2 style="color:white" class="modal-title" id="myModalLabel">Account Settings</h2>
                 </div>
                 <div class="modal-body">
-
-
-
-
                     <form enctype="multipart/form-data" method="post" action="settings.php">
                         <fieldset>
-
-
                             <p>Name:</p>
                             <div class="form-group">
 
@@ -528,9 +524,6 @@ extract($edit_row);
             return true;
         }
     </script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 

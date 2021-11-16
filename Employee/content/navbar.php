@@ -24,7 +24,7 @@
           <ul class="navbar-nav ml-auto">
 
               <li class="nav-item" style="margin-right:10px">
-                  <a data-toggle="modal" data-target="#setAccountt" style="color:white;" class="btn btn-warning btn-sm" onclick="return confirm('Are you sure you want to resign?');">Resign
+                  <a href="#" data-toggle="modal" data-target="#setAccountt" style="color:white;" class="btn btn-warning btn-sm">Resign
                   </a>
 
               </li>
@@ -102,7 +102,7 @@
             $message = $_POST['message'];
 
 
-            echo "<script>alert('fff')</script>";
+            echo "<script>alert('fff')</scrip>";
             // $query = "INSERT INTO `notifications` (`name`,`email`, `type`, `message`, `status`, `date`,`type1`) VALUES ('$emp_name'
             //     , '$emp_email', 'employee','$message', 'unread', CURRENT_TIMESTAMP,'resign')";
 

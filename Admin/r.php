@@ -9,8 +9,8 @@ $q = mysqli_query($con, $query);
 
 if ($q) {
 
-    echo    "<script>window.location.href = 'notification.php?id=1'</script>";
+    echo    "<script>window.location.href = 'notification.php?id='1''</script>";
 } else {
 
-    echo   "<script>window.location.href = 'notification.php?id=1'</script>";
+    echo   "<script>window.location.href = 'notification.php?id='1''</script>";
 }

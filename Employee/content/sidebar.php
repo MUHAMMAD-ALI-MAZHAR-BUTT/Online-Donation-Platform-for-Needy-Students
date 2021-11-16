@@ -52,9 +52,18 @@
               </a>
             </li>
             <li class="nav-item">
+              <a href="category.php" class="nav-link">
+                <i class="fas fa-donate"></i>
+                <p>
+                  Total donations for all categories
+                  <!-- <span class="right badge badge-danger">New</span>-->
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="studetails.php" class="nav-link">
                 <i class="fas fa-users"></i>
-                <p>Details of Students
+                <p>List of applied students
                   <!-- <span class="right badge badge-danger">New</span>-->
                 </p>
               </a>
@@ -71,18 +80,6 @@
             </li>
 
 
-
-
-
-            <li class="nav-item">
-              <a href="accepted.php" class="nav-link">
-                <i class="fas fa-user-graduate"></i>
-                <p>
-                  Accepted students list
-                  <!-- <span class="right badge badge-danger">New</span>-->
-                </p>
-              </a>
-            </li>
 
             <li class="nav-item">
               <a data-toggle="modal" class='nav-link' data-target="#setAccount">

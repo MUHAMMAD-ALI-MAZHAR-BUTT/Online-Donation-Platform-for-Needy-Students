@@ -58,7 +58,7 @@
                         if (count(fetchAll($query)) > 0) {
                             $count = 0;
                             foreach (fetchAll($query) as $i) {
-                                if ($count == 7)
+                                if ($count == 9)
                                     break;
                         ?>
                               <a style="

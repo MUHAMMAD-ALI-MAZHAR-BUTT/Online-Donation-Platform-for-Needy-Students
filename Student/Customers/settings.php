@@ -7,28 +7,7 @@ if (!$_SESSION['email']) {
 }
 
 ?>
-<?php
-include("db_connection.php");
-if (isset($_POST['u'])) {
 
-    $emp_name = $_POST['emp_name'];
-    $emp_email = $_POST['emp_email'];
-    $emp_phone = $_POST['emp_phone'];
-    $pass = $_POST['pass'];
-    $emp_id = $_POST['emp_id'];
-
-
-    $update_profile = "update emp set pass='$pass', emp_name='$emp_name', emp_email='$emp_email', emp_phone='$emp_phone' where emp_id='$emp_id'";
-    if (mysqli_query($dbcon, $update_profile)) {
-        echo "<script>alert('Account successfully updated!')</script>";
-        echo "<script>window.open('dashboard.php','_self')</script>";
-    } else {
-        echo "<script>alert('Error Found!')</script>";
-        echo "<script>window.open('dashboard.php','_self')</script>";
-    }
-}
-
-?>
    <?php
 
     include("db_connection.php");
@@ -68,6 +47,7 @@ if (isset($_POST['u'])) {
         }
     }
     ?>
+
 <?php
 
 include 'db_connection.php';
@@ -87,23 +67,30 @@ function test_input($data)
     return $data;
 }
 //initialize variables for value as well as errors
-$username = $email = $phone = "";
-$name_err = $email_err = $phone_err  = "";
+
 
 // Check if coming from submitted form and do the validations on user inputs in form
 if (isset($_POST['user_save'])) {
+    $name = $email = $phone = "";
+    $name_err = $email_err = $phone_err  = $pass_err = "";
 
     $password = $_POST['password'];
+    $cpassword = $_POST['cpassword'];
     $id = $_POST['id'];
     $pattern = '/^((?:00|\+)92)?(0?3(?:[0-46]\d|55)\d{7})$/';
-    if (empty($_POST["username"])) {
+    if ($password !== $cpassword) {
+        $pass_err = "dfdd";
+        echo "<script>alert('Passwords doesnt match')</script>";
+        echo "<script>window.open('index.php','_self')</script>";
+    }
+    if (empty($_POST["name"])) {
         $name_err = 'Name should not be empty';
         echo "<script>alert('Name should not be empty')</script>";
         echo "<script>window.open('index.php','_self')</script>";
     } else {
-        $username = test_input($_POST["username"]);
+        $name = test_input($_POST["name"]);
         // check for correctness of name or validate our name test_input
-        if (!preg_match("/^[a-zA-z ]*$/", $username)) {
+        if (!preg_match("/^[a-zA-z ]*$/", $name)) {
             $name_err = "Name is not in valid format, can contain only letters.";
             echo "<script>alert('Name is not in valid format, can contain only letters.')</script>";
             echo "<script>window.open('index.php','_self')</script>";
@@ -132,11 +119,16 @@ if (isset($_POST['user_save'])) {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $email_err = "Email format is not correct.";
             echo "<script>alert('Email format is not correct.')</script>";
-            // echo "<script>window.open('index.php','_self')</script>";
+            echo "<script>window.open('index.php','_self')</script>";
         }
     }
 
-    if (isset($_POST['user_save']) and ($name_err == "" and $email_err == "" and $phone_err == "")) {
+    if (empty($password) || empty($cpassword)) {
+        $pass_err = "Passwords should not be empty";
+        echo "<script>alert('Passwords should not be empty')</script>";
+        echo "<script>window.open('index.php','_self')</script>";
+    }
+    if (isset($_POST['user_save']) and ($name_err == "" and $email_err == "" and $phone_err == "" and $pass_err == "")) {
 
         $selectquery = "select * from student";
         $res = mysqli_query($dbcon, $selectquery);
@@ -151,7 +143,7 @@ if (isset($_POST['user_save'])) {
             echo "<script>alert('This Mobile Number already exists!')</script>";
             echo "<script>window.open('index.php','_self')</script>";
         } else {
-            $query = "SELECT * FROM student where email='$email' ali123mazhar@gmail.com";
+            $query = "SELECT * FROM student where email='$email' and id<>'$id'";
             $qu = mysqli_query($dbcon, $query);
 
             if (
@@ -161,8 +153,13 @@ if (isset($_POST['user_save'])) {
                 echo "<script>window.open('index.php','_self')</script>";
             } else {
 
-                $update_profile = "update student set password='$password', username='$username', email='$email', phone='$phone' where id='$id'";
+                $update_profile = "update student set password='$password', name='$name', email='$email', phone='$phone' where id='$id'";
                 if (mysqli_query($dbcon, $update_profile)) {
+                    $query1 = "INSERT INTO `notifications` (`name`,`email`, `type`, `message`, `status`, `date`,`type1`) VALUES 
+                    ('$name', '$email', 'student','$name changed some account settings', 'unread', CURRENT_TIMESTAMP,'account')";
+                    (mysqli_query($dbcon, $query1));
+
+
                     echo "<script>alert('Account successfully updated!')</script>";
                     echo "<script>window.open('index.php','_self')</script>";
                 } else {
@@ -173,3 +170,77 @@ if (isset($_POST['user_save'])) {
         }
     }
 }
+?>
+
+
+<?php
+
+
+
+if (isset($_POST["name"])) {
+    sleep(2);
+
+    $connect = new PDO("mysql:host=localhost; dbname=base", "root", "");
+
+    $success = '';
+
+    $name = $_POST["name"];
+
+    $email = $_POST["email"];
+    $subject = $_POST["subject"];
+
+    $message = $_POST["message"];
+
+    $subject_error = '';
+    $message_error = '';
+
+
+
+
+
+    if (empty($subject)) {
+        $subject_error = 'Subject is Required!';
+    }
+
+    if (empty($message)) {
+        $message_error = 'Message is Required Field!';
+    }
+
+    if ($subject_error == '' && $message_error == '') {
+
+
+        $data = array(
+            ':name'            =>    $name,
+            ':email'        =>    $email,
+            ':subject'        =>    $subject,
+            ':message'        =>    $message
+
+        );
+
+        $query = "
+		INSERT INTO feedback 
+		(name, email, subject, message) 
+		VALUES (:name, :email, :subject, :message)
+		";
+
+        $statement = $connect->prepare($query);
+
+        $statement->execute($data);
+
+
+        $success =
+            "Your Query has been successfully submitted";
+    }
+
+    $output = array(
+        'success'        =>    $success,
+        'subject_error'    =>    $subject_error,
+        'message_error'    =>    $message_error,
+
+    );
+
+    echo json_encode($output);
+}
+
+?>
+

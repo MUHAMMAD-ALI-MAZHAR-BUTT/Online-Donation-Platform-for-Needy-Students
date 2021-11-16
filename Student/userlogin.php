@@ -16,7 +16,7 @@ if (isset($_POST['user_login'])) {
     $check_user = "select * from student WHERE email='$email' AND password='$password'";
 
 
-    $run = mysqli_query($dbcon, $check_user);
+    $run = mysqli_query($con, $check_user);
 
     if (mysqli_num_rows($run)) {
         echo "<script>alert('Login was successfull')</script>";

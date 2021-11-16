@@ -132,7 +132,7 @@ $result = $con->query("SELECT img_path from gallery_img");
             <h1>Welcome to <span>Student Opportunity Platform </span></h1>
             <h2>We are an idea, a hope for helping and securing the future of needy students</h2>
             <div class="d-flex">
-                <a href="login/index.php" class="btn-get-started scrollto">Get Started</a>
+                <a href="../Student/index.php" class="btn-get-started scrollto">Get Started</a>
 
             </div>
         </div>
@@ -202,32 +202,52 @@ $result = $con->query("SELECT img_path from gallery_img");
                     <div class="col-lg-3 col-md-6">
                         <div class="count-box">
                             <i class="bi bi-emoji-smile"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="30" data-purecounter-duration="2" class="purecounter"></span>
+                            <span data-purecounter-start="0" data-purecounter-end="30" data-purecounter-duration="10" class="purecounter"></span>
                             <p>Total students helped</p>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
                         <div class="count-box">
-                            <i class="bi bi-journal-richtext"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="6000" data-purecounter-duration="2" class="purecounter"></span>
+                            <i class="bi bi-cash-stack"></i>
+                            <?php
+                            include 'db_connection.php';
+                            $sql = "select total as tot from balance where id=1";
+                            $query = mysqli_query($con, $sql);
+                            $values = mysqli_fetch_assoc($query);
+                            $num_rows = $values['tot'];
+                            echo '<span data-purecounter-start="0" data-purecounter-end="' . $num_rows . '" data-purecounter-duration="10" class="purecounter"></span>';
+                            ?>
+
                             <p>Total funds collected in Rupees</p>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
                         <div class="count-box">
-                            <i class="bi bi-headset"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="86" data-purecounter-duration="2" class="purecounter"></span>
-                            <p>Total students registered</p>
+                            <i class="bi bi-people"></i>
+                            <?php
+                            include 'db_connection.php';
+                            $sql = "select count(*) as tot from student";
+                            $query = mysqli_query($con, $sql);
+                            $values = mysqli_fetch_assoc($query);
+                            $num_rows = $values['tot'];
+                            echo '<span data-purecounter-start="0" data-purecounter-end="' . $num_rows . '" data-purecounter-duration="10" class="purecounter"></span>';
+                            ?> <p>Total students registered</p>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
                         <div class="count-box">
-                            <i class="bi bi-people"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="48" data-purecounter-duration="2" class="purecounter"></span>
-                            <p>Total donors registered</p>
+                            <i class="bi bi-person-check-fill"></i>
+                            <?php
+                            include 'db_connection.php';
+                            $sql = "select count(*) as tot from donators";
+                            $query = mysqli_query($con, $sql);
+                            $values = mysqli_fetch_assoc($query);
+                            $num_rows = $values['tot'];
+                            echo '<span data-purecounter-start="0" data-purecounter-end="' . $num_rows . '" data-purecounter-duration="10" class="purecounter"></span>';
+                            ?> <p>Total donors registered</p>
                         </div>
                     </div>
 
@@ -237,7 +257,7 @@ $result = $con->query("SELECT img_path from gallery_img");
         </section><!-- End Counts Section -->
 
         <!-- ======= Clients Section ======= -->
-        <section id="clients" class="clients section-bg">
+        <section id=" clients" class="clients section-bg">
             <div class="container" data-aos="zoom-in">
 
                 <div class="row">
@@ -489,57 +509,79 @@ $result = $con->query("SELECT img_path from gallery_img");
         </section><!-- End Services Section -->
 
         <section id="gallery">
+            <?php
+            //index.php
+            $connect = mysqli_connect("localhost", "root", "", "base");
+            function make_query($connect)
+            {
+                $query = "SELECT * FROM gallery_img";
+                $result = mysqli_query($connect, $query);
+                return $result;
+            }
 
-            <div class="row justify-content-center mt-2" data-aos="fade-up">
+            function make_slide_indicators($connect)
+            {
+                $output = '';
+                $count = 0;
+                $result = make_query($connect);
+                while (mysqli_fetch_array($result)) {
+                    if ($count == 0) {
+                        $output .= '
+   <li data-target="#dynamic_slide_show" data-slide-to="' . $count . '" class="active"></li>
+   ';
+                    } else {
+                        $output .= '
+   <li data-target="#dynamic_slide_show" data-slide-to="' . $count . '"></li>
+   ';
+                    }
+                    $count = $count + 1;
+                }
+                return $output;
+            }
+
+            function make_slides($connect)
+            {
+                $output = '';
+                $count = 0;
+                $result = make_query($connect);
+                while ($row = mysqli_fetch_array($result)) {
+                    if ($count == 0) {
+                        $output .= '<div class="carousel-item active">';
+                    } else {
+                        $output .= '<div class="carousel-item">';
+                    }
+                    $output .= '
+   <img src="' . $row["img_path"] . '" width="100%" height="600px" />
+
+  </div>
+  ';
+                    $count = $count + 1;
+                }
+                return $output;
+            }
+
+            ?>
+            <div class="row justify-content-center mt-2">
                 <div class="col-lg-10">
 
                     <div id="demo" class="carousel slide" data-ride="carousel">
 
                         <!-- Indicators -->
                         <ul class="carousel-indicators">
-                            <?php
-                            $i = 0;
-                            foreach ($result as $row) {
-                                $actives = '';
-                                if ($i == 0) {
-                                    $actives = 'active';
-                                }
-
-                            ?>
-                                <li data-target="#demo" data-slide-to="<?= $i; ?>" class="<? $actives ?>"></li>
-
-                            <?php
-                                $i++;
-                            }
-                            ?>
+                            <?php echo make_slide_indicators($connect); ?>
 
                         </ul>
 
                         <!-- The slideshow -->
                         <div class="carousel-inner">
-                            <?php
-                            $i = 0;
-                            foreach ($result as $row) {
-                                $actives = '';
-                                if ($i == 0) {
-                                    $actives = 'active';
-                                }
-
-                            ?>
-                                <div class="carousel-item <?= $actives; ?>">
-                                    <img src="../Admin/<?= $row['img_path'] ?>" width="100%" height="600px">
-                                </div>
-                            <?php
-                                $i++;
-                            }
-                            ?>
+                            <?php echo make_slides($connect); ?>
                         </div>
 
                         <!-- Left and right controls -->
-                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                        <a class="carousel-control-prev" href="#dynamic_slide_show" data-slide="prev">
                             <span class="carousel-control-prev-icon"></span>
                         </a>
-                        <a class="carousel-control-next" href="#demo" data-slide="next">
+                        <a class="carousel-control-next" href="#dynamic_slide_show" data-slide="next">
                             <span class="carousel-control-next-icon"></span>
                         </a>
 
@@ -562,77 +604,40 @@ $result = $con->query("SELECT img_path from gallery_img");
                 </div>
 
                 <div class="row">
+                    <?php
+                    include 'db_connection.php';
+                    $selectquery = "select * from emp where emp_leftdate!='NULL'";
 
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-                        <div class="member">
-                            <div class="member-img">
-                                <img src="assets/img/blank.png" class="img-fluid" alt="">
-                                <div class="social">
-                                    <a href=""><i class="bi bi-twitter"></i></a>
-                                    <a href=""><i class="bi bi-facebook"></i></a>
-                                    <a href=""><i class="bi bi-instagram"></i></a>
-                                    <a href=""><i class="bi bi-linkedin"></i></a>
-                                </div>
-                            </div>
-                            <div class="member-info">
-                                <h4>Person 1</h4>
-                                <span>Manager</span>
-                            </div>
-                        </div>
-                    </div>
+                    $query = mysqli_query($con, $selectquery);
 
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-                        <div class="member">
-                            <div class="member-img">
-                                <img src="assets/img/blank.png" class="img-fluid" alt="">
-                                <div class="social">
-                                    <a href=""><i class="bi bi-twitter"></i></a>
-                                    <a href=""><i class="bi bi-facebook"></i></a>
-                                    <a href=""><i class="bi bi-instagram"></i></a>
-                                    <a href=""><i class="bi bi-linkedin"></i></a>
-                                </div>
-                            </div>
-                            <div class="member-info">
-                                <h4>Person 2</h4>
-                                <span>Employee</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-                        <div class="member">
-                            <div class="member-img">
-                                <img src="assets/img/blank.png" class="img-fluid" alt="">
-                                <div class="social">
-                                    <a href=""><i class="bi bi-twitter"></i></a>
-                                    <a href=""><i class="bi bi-facebook"></i></a>
-                                    <a href=""><i class="bi bi-instagram"></i></a>
-                                    <a href=""><i class="bi bi-linkedin"></i></a>
-                                </div>
-                            </div>
-                            <div class="member-info">
-                                <h4>Person 3</h4>
-                                <span>Employee</span>
-                            </div>
-                        </div>
-                    </div>
+                    $nums = mysqli_num_rows($query);
 
-                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
-                        <div class="member">
-                            <div class="member-img">
-                                <img src="assets/img/blank.png" class="img-fluid" alt="">
-                                <div class="social">
-                                    <a href=""><i class="bi bi-twitter"></i></a>
-                                    <a href=""><i class="bi bi-facebook"></i></a>
-                                    <a href=""><i class="bi bi-instagram"></i></a>
-                                    <a href=""><i class="bi bi-linkedin"></i></a>
+
+                    while ($res = mysqli_fetch_array($query)) {
+                    ?>
+                        <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+                            <div class="member">
+                                <div class="member-img">
+                                    <img src="assets/img/blank.png" class="img-fluid" alt="">
+                                    <div class="social">
+                                        <a href=""><i class="bi bi-twitter"></i></a>
+                                        <a href=""><i class="bi bi-facebook"></i></a>
+                                        <a href=""><i class="bi bi-instagram"></i></a>
+                                        <a href=""><i class="bi bi-linkedin"></i></a>
+                                    </div>
+                                </div>
+                                <div class="member-info">
+                                    <h4><?php echo $res['emp_name'] ?></h4>
+                                    <span>Employee</span>
                                 </div>
                             </div>
-                            <div class="member-info">
-                                <h4>Person 4</h4>
-                                <span>Employee</span>
-                            </div>
                         </div>
-                    </div>
+
+
+                    <?php
+                    }
+                    ?>
+
 
                 </div>
 

@@ -1,5 +1,4 @@
 
-
 <?php
 include('db_connection.php');
 function test_input($data)
@@ -37,7 +36,7 @@ if (isset($_POST["emp_name"])) {
     } else {
 
         if (!preg_match("/^[a-zA-Z-' ]*$/", $emp_name)) {
-            $name_error = 'Only Letters and White Space Allowed';
+            $name_error = 'Name format not correct';
         }
     }
 
@@ -77,7 +76,7 @@ if (isset($_POST["emp_name"])) {
 
 
 
-    if ($name_error == '' && $email_error == '' && $phone_error == '' && $success == '') {
+    if ($name_error == '' && $email_error == '' && $phone_error == '') {
 
 
         $data = array(
@@ -116,7 +115,7 @@ if (isset($_POST["emp_name"])) {
     }
 
     $output = array(
-        'mail_error' => $mail_error,
+
         'success'        =>    $success,
         'name_error'    =>    $name_error,
         'email_error'    =>    $email_error,
@@ -128,4 +127,3 @@ if (isset($_POST["emp_name"])) {
 }
 
 ?>
-

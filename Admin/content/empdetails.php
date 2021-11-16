@@ -20,7 +20,8 @@
                     );
                     if (mysqli_num_rows($qu) < 10) {
                     ?>
-                        <a href="#addpickerModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus"></i> <span>Add Employee</span></a>
+                        <!-- <a href="addemp.php" class="btn btn-success"><i class="fa fa-plus"></i> <span>Add Employee</span></a> -->
+                        <a data-toggle="modal" data-target="#addpickerModal" class="btn btn-success"><i class="fa fa-plus"></i> <span>Add Employee</span></a>
                     <?php
                     } else {
                     ?>
@@ -159,7 +160,7 @@
                         <input type="email" name="emp_email" id="emp_email" class="form-control form_data" placeholder="email@domain.com">
                         <span id="email_error" class="text-danger"></span>
                         <span id="suc" class="text-success"></span>
-                        <span id="mail_error" class="text-success"></span>
+
                     </div>
                     <div class="modal-footer">
                         <input type="button" onclick="location.reload(); return false;" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -197,27 +198,29 @@
                 if (response.success != '') {
                     document.getElementById('addform').reset();
 
-                    // document.getElementById('suc').innerHTML = response.success;
+                    document.getElementById('suc').innerHTML = response.success;
 
-                    // setTimeout(function() {
+                    setTimeout(function() {
 
-                    //     document.getElementById('suc').innerHTML = '';
+                        document.getElementById('suc').innerHTML = '';
+                        $('#addpickerModal').modal('hide');
 
-                    // }, 5000);
+                        location.reload();
+
+                    }, 5000);
 
                     document.getElementById('name_error').innerHTML = '';
+
                     document.getElementById('email_error').innerHTML = '';
                     document.getElementById('phone_error').innerHTML = '';
-                    document.getElementById('mail_error').innerHTML = '';
-                    $('#addPickerModal').modal('hide');
-                    alert(response.success);
-                    location.reload();
+
+
 
                 } else {
                     document.getElementById('name_error').innerHTML = response.name_error;
                     document.getElementById('email_error').innerHTML = response.email_error;
                     document.getElementById('phone_error').innerHTML = response.phone_error;
-                    document.getElementById('mail_error').innerHTML = response.mail_error;
+
                 }
 
 

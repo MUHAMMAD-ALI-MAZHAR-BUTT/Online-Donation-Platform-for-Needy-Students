@@ -39,12 +39,22 @@ extract($edit_row);
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/local.css" />
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/datatables.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
 
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            $('#ex').dataTable();
+        });
+    </script>
 
 </head>
 
@@ -65,12 +75,12 @@ extract($edit_row);
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
                 <ul class="nav navbar-nav side-nav" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
-                    <li class="active"><a href="index.php"> &nbsp; <span class='glyphicon glyphicon-home'></span> Home</a></li>
+                    <li><a href="index.php"> &nbsp; <span class='glyphicon glyphicon-home'></span> Home</a></li>
                     <li><a href="shop.php?id=1"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
                     <li><a data-toggle="modal" data-target="#set"> &nbsp; <span class='glyphicon glyphicon-envelope'></span> Send Queries</a></li>
                     <li><a href="responses.php"> &nbsp; <span class='fa fa-file'></span> Query Responses</a></li>
                     <li><a href="notifications?id=1.php"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
-                    <li><a href="formsfilled.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> My Forms filled history</a></li>
+                    <li class="active"> <a href="formsfilled.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> My Forms filled history</a></li>
                     <li><a href="paymenthistory.php"> &nbsp; <span class='fa fa-money'></span> Payment received history</a></li>
                     <li><a data-toggle="modal" data-target="#setAccount"> &nbsp; <span class='fa fa-gear'></span> Account Settings</a></li>
                     <li><a href="logout.php?id=<?php echo $id; ?>"> &nbsp; <span class='glyphicon glyphicon-off'></span> Logout</a></li>
@@ -80,7 +90,7 @@ extract($edit_row);
                 <ul class="nav navbar-nav navbar-right navbar-user">
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell warning"></i>
+                        <a class="nav-link" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell warning"></i>
                             <span class="badge badge-warning navbar-badge"></span><b>Notifications</b>
 
                             <?php
@@ -167,109 +177,100 @@ extract($edit_row);
                 </ul>
             </div>
         </nav>
-
+        <!-- #page wrapper -->
         <div id="page-wrapper">
-            <div class="row justify-content-center mt-2">
-                <div class="col-lg-12">
-                    <?php
-                    //index.php
-                    $connect = mysqli_connect("localhost", "root", "", "base");
-                    function make_query($connect)
-                    {
-                        $query = "SELECT * FROM gallery_img";
-                        $result = mysqli_query($connect, $query);
-                        return $result;
-                    }
 
-                    function make_slide_indicators($connect)
-                    {
-                        $output = '';
-                        $count = 0;
-                        $result = make_query($connect);
-                        while ($row = mysqli_fetch_array($result)) {
-                            if ($count == 0) {
-                                $output .= '
-   <li data-target="#dynamic_slide_show" data-slide-to="' . $count . '" class="active"></li>
-   ';
-                            } else {
-                                $output .= '
-   <li data-target="#dynamic_slide_show" data-slide-to="' . $count . '"></li>
-   ';
+            <div class="alert alert-success">
+
+                <center>
+                    <h3><strong>My forms</strong> </h3>
+                </center>
+
+            </div>
+
+            <br />
+
+            <div class="table-responsive">
+                <?php
+                $connect = mysqli_connect("localhost", "root", "", "base");
+                $query = "SELECT * FROM forms where student_id='$id'";
+                $result = mysqli_query($connect, $query);
+                if (mysqli_num_rows($result) > 0) {
+                ?>
+                    <table class="display table table-bordered" id="ex" cellspacing="0" width="100%">
+
+                        <thead>
+                            <tr>
+                                <th>Form ID</th>
+                                <th>Employee ID</th>
+                                <th>Date Filled</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            include("config.php");
+                            $stmt = $DB_con->prepare("SELECT * FROM forms where student_id='$id' ");
+                            $stmt->execute();
+
+
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                extract($row);
+
+                                $date = date('F j, Y', strtotime($row['date_filled']));
+                            ?>
+                                <tr>
+                                    <td><?php echo $row['form_id']; ?></td>
+
+
+                                    <td><?php echo $row['emp_id']; ?></td>
+
+                                    <td><?php echo $date ?>
+                                    </td>
+                                    <td><?php echo $row['category']; ?></td>
+                                    <td><?php echo $row['status']; ?></td>
+
+                                    <td>
+
+                                        <a href="#" onclick="my();" class="btn" style="background-color:#ad1deb;color:white; border:#ad1deb;" data-toggle="modal"><i class="fa fa-list"></i> <span>View Detail</span></a>
+
+                                    </td>
+
+                                </tr>
+
+                            <?php
                             }
-                            $count = $count + 1;
+                            echo "</tbody>";
+                            echo "</table>";
+                            echo "</div>";
+                            echo "<br />";
+                            echo '
+	</div>';
+
+                            echo "</div>";
+                        } else {
+                            ?>
+
+
+                            <div class="col-xs-12">
+                                <div class="alert alert-warning">
+                                    <span class="glyphicon glyphicon-info-sign"></span> &nbsp; No Query Found so far...
+                                </div>
+                            </div>
+                        <?php
                         }
-                        return $output;
-                    }
 
-                    function make_slides($connect)
-                    {
-                        $output = '';
-                        $count = 0;
-                        $result = make_query($connect);
-                        while ($row = mysqli_fetch_array($result)) {
-                            if ($count == 0) {
-                                $output .= '<div class="item active">';
-                            } else {
-                                $output .= '<div class="item">';
-                            }
-                            $output .= '
-   <img src="../../Admin/' . $row["img_path"] . '" width="100%" height:"600px" />
+                        ?>
 
-  </div>
-  ';
-                            $count = $count + 1;
-                        }
-                        return $output;
-                    }
-
-                    ?>
-
-
-
-
-
-                    <div id="dynamic_slide_show" class="carousel slide hero-slide hidden-xs" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <?php echo make_slide_indicators($connect); ?>
-
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            <?php echo make_slides($connect); ?>
-                        </div>
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#dynamic_slide_show" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-
-                        <a class="right carousel-control" href="#dynamic_slide_show" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-
-
-
-                    <!-- #my-carousel-->
-                </div>
             </div>
         </div>
 
 
-        <br />
-        <div class="alert alert-info">
 
-            &nbsp; &nbsp; What are you waiting for guyz. It 50% off on all the products.Its special discount season for all
-            the customers.We team of talented designers making our Pakistan neat & clean.There's this notion that to grow a business, you have to be ruthless.
-            But we know there's a better way to grow. One where what's good for the bottom line is also good for customers.
-            We believe businesses can grow with a conscience, and succeed with a soul —
-            and that they can do it with inbound. That's why we've created a app to help businesses and waste management system grow better every day.<br>
-
-        </div>
-        <br />
 
         <div class="alert alert-default" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
@@ -281,16 +282,7 @@ extract($edit_row);
         </div>
 
     </div>
-    </div>
 
-
-
-
-    </div>
-
-
-
-    </div>
     <!-- /#wrapper -->
 
 
@@ -303,14 +295,8 @@ extract($edit_row);
                     <h2 style="color:white" class="modal-title" id="myModalLabel">Account Settings</h2>
                 </div>
                 <div class="modal-body">
-
-
-
-
                     <form enctype="multipart/form-data" method="post" action="settings.php">
                         <fieldset>
-
-
                             <p>Name:</p>
                             <div class="form-group">
 
@@ -528,9 +514,6 @@ extract($edit_row);
             return true;
         }
     </script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 

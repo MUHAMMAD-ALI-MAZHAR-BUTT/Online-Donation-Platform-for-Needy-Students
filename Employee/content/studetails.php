@@ -18,8 +18,8 @@
         </div>
         <?php
         include('db_connection.php');
-        $selectquery = "select * from student";
-        $res = mysqli_query($dbcon, $selectquery);
+        $select = "select * from student";
+        $res = mysqli_query($dbcon, $select);
         if (mysqli_num_rows($res) == 0) {
         ?>
             <div class="container">
@@ -29,7 +29,6 @@
                         </h2>
                     </div>
                 </div>
-
             </div>
         <?php
         } else {
@@ -40,33 +39,32 @@
 
                         <th>Id</th>
                         <th>Student Name</th>
-                        <th>Student Application status</th>
                         <th>Student Email</th>
-
-
-
+                        <th>Status</th>
+                        <th>Date of Acceptance</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <?php
                     include 'db_connection.php';
-                    $selectquery = "select * from student";
+                    $selectquery = "select list_students.id,student.name,student.email,list_students.status,list_students.date_of_accept from list_students inner join student on list_students.student_id=student.id";
 
                     $query = mysqli_query($dbcon, $selectquery);
 
                     $nums = mysqli_num_rows($query);
 
                     while ($res = mysqli_fetch_array($query)) {
-
+                        $date = date('F j, Y', strtotime($res['date_of_accept']));
                     ?>
 
                         <tr>
 
-                            <td><?php echo $res['student_id']; ?></td>
-                            <td><?php echo $res['student_name']; ?></td>
-                            <td><?php echo $res['student_application_status']; ?></td>
-                            <td><?php echo $res['student_email']; ?></td>
+                            <td><?php echo $res['id']; ?></td>
+                            <td><?php echo $res['name']; ?></td>
+                            <td><?php echo $res['email']; ?></td>
+                            <td><?php echo $res['status']; ?></td>
+                            <td><?php echo $date ?></td>
 
 
                         </tr>

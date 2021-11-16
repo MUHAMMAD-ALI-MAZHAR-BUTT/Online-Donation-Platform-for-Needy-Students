@@ -1,24 +1,101 @@
-<!-- Main Sidebar Container -->
-
-
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Donor Details</h1>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row" style="  background-color: #6e72fc;
+  background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 104%); color:white; ">
+                <div class="col-sm-8 " style="text-align: center;">
+                    <h2 style="font-family: sans-serif; padding-top:1%; padding-bottom:1%"><b> Donor Details</b></h2>
+
+                    <!-- -->
+                </div>
+
+
+            </div>
+        </div>
+        <?php
+        include('db_connection.php');
+        $selectquery = "select * from donators";
+        $res = mysqli_query($con, $selectquery);
+        if (mysqli_num_rows($res) == 0) {
+        ?>
+            <div class="container">
+                <div class="row justify-content-centre">
+                    <div class="col-lg-6 col-md-6">
+                        <h2 class="text-center p-1">No Donators
+                        </h2>
+                    </div>
+                </div>
+
+            </div>
+        <?php
+        } else {
+        ?>
+            <table class=" table table-striped table-hover">
+                <thead>
+                    <tr>
+
+                        <th>Id</th>
+                        <th>Donor Name</th>
+                        <th>Donor Email</th>
+                        <th>Donor Phone</th>
+                        <th>Register Date</th>
+                        <th>Last Active </th>
+                        <th>Total amount donated</th>
+                        <th>No of times donated</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+                    include 'db_connection.php';
+                    $selectquery = "select * from donators ";
+
+                    $query = mysqli_query($con, $selectquery);
+
+                    $nums = mysqli_num_rows($query);
+
+                    while ($res = mysqli_fetch_array($query)) {
+                        $date = date('F j, Y', strtotime($res['create_datetime']));
+                        $date1 = date('F j, Y, g:i a', strtotime($res['last_active']));
+                    ?>
+
+                        <tr>
+
+                            <td><?php echo $res['id']; ?></td>
+                            <td><?php echo $res['username']; ?></td>
+                            <td><?php echo $res['email']; ?></td>
+                            <td>0<?php echo $res['phone']; ?></td>
+                            <td><?php echo $date ?></td>
+                            <td><?php echo $date1 ?></td>
+                            <td><?php echo $res['total_donated']; ?></td>
+                            <td><?php echo $res['no_of_times']; ?></td>
+
+
+                            <td>
+
+                                <a href="itemlist1.php?id=<?php echo $res['item_id']; ?>" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-list" style="color:#ad1deb" data-toggle="tooltip" title="Details"></i></a>
+
+                            </td>
+                        </tr>
+
+                    <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+        <?php
+        }
+
+        ?>
+
+
     </div>
-    <!-- /.content-header -->
 
-    <!-- Main content -->
-
-    <!-- /.content -->
-</div>
 
 </div>
-<!-- ./wrapper -->
+
+
+
+<?php include('./content/footer.php'); ?>
