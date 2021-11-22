@@ -4,58 +4,96 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Manage Categories</h1>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+    <div class="table-title">
+        <div class="row" style="  background-color: #6e72fc;
+  background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 104%); color:white; ">
+            <div class="col-sm-10 " style="text-align: center;">
+                <h2 style="font-family: sans-serif; padding-top:1%; padding-bottom:1%"><b> Total Donation In Categories</b></h2>
+
+                <!-- -->
+            </div>
+        </div>
     </div>
     <!-- /.content-header -->
-    <div class="card-body">
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h5><i class="icon fas fa-check"></i> Alert!</h5>
-            Success alert preview. This alert is dismissable.
-        </div>
-        <div class="card-body">
-            <p><code>.progress</code></p>
+    <br>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
 
-            <div class="progress">
-                <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                    <span class="sr-only">40% Complete (success)</span>
+                            <?php
+                            include 'db_connection.php';
+                            $sql = "select sum(amount) as tot from donation_record where category='fee'";
+                            $query = mysqli_query($dbcon, $sql);
+                            $values = mysqli_fetch_assoc($query);
+                            $num_rows = $values['tot'];
+                            echo '<h3>' . $num_rows . ' Pkr</h3>';
+                            ?>
+
+                            <p>Fee Category</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <p><code>.progress-sm</code></p>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <?php
+                            include 'db_connection.php';
+                            $sql = "select sum(amount) as tot from donation_record where category='expense'";
+                            $query = mysqli_query($dbcon, $sql);
+                            $values = mysqli_fetch_assoc($query);
+                            $num_rows = $values['tot'];
+                            echo '<h3>' . $num_rows . ' Pkr</h3>';
+                            ?>
 
-            <div class="progress progress-sm active">
-                <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                    <span class="sr-only">20% Complete</span>
+                            <p>Expenses Category</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <p><code>.progress-xs</code></p>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <?php
+                            include 'db_connection.php';
+                            $sql = "select sum(amount) as tot from donation_record where category='health'";
+                            $query = mysqli_query($dbcon, $sql);
+                            $values = mysqli_fetch_assoc($query);
+                            $num_rows = $values['tot'];
+                            echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
+                            ?>
 
-            <div class="progress progress-xs">
-                <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                    <span class="sr-only">60% Complete (warning)</span>
+                            <p style="color:white">Health Category</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <p><code>.progress-xxs</code></p>
 
-            <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                    <span class="sr-only">60% Complete (warning)</span>
-                </div>
-            </div>
-        </div>
-        <!-- /.card-body -->
-    </div>
-</div>
-<!-- Main content -->
 
-<!-- /.content -->
+
+
+            </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
 </div>
 
 </div>

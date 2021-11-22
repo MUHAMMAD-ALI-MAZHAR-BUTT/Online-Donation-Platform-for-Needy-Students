@@ -76,9 +76,9 @@ extract($edit_row);
                 <ul class="nav navbar-nav side-nav" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
                     <li><a href="index.php"> &nbsp; <span class='glyphicon glyphicon-home'></span> Home</a></li>
-                    <li><a href="apply.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
+                    <li class="active"><a href="apply.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
                     <li><a data-toggle="modal" data-target="#set"> &nbsp; <span class='glyphicon glyphicon-envelope'></span> Send Queries</a></li>
-                    <li class="active"><a href="responses.php"> &nbsp; <span class='fa fa-file'></span> Query Responses</a></li>
+                    <li><a href="responses.php"> &nbsp; <span class='fa fa-file'></span> Query Responses</a></li>
                     <li><a href="notifications.php?id=1"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
                     <li><a href="formsfilled.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> My Forms filled history</a></li>
                     <li><a href="paymenthistory.php"> &nbsp; <span class='fa fa-money'></span> Payment received history</a></li>
@@ -184,6 +184,8 @@ extract($edit_row);
 
                 <center>
                     <h3><strong>Query Section</strong> </h3>
+                    <a href="#" data-toggle="modal" data-target="#app" class="btn" style="background-color:#ad1deb;color:white; border:#ad1deb;" data-toggle="modal"><i class="fa fa-list"></i> <span>View Detail</span></a>
+
                 </center>
 
             </div>
@@ -291,7 +293,95 @@ extract($edit_row);
     </div>
 
     <!-- /#wrapper -->
+    <div class="modal fade" id="app" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
+        <div class="modal-dialog modal-md">
+            <div style="color:white;background-color:#ad1deb" class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2 style="color:white" class="modal-title" id="myModalLabel">Upload Items</h2>
+                </div>
+                <div class="modal-body">
 
+
+
+
+                    <form enctype="multipart/form-data" method="post" action="additems.php">
+                        <fieldset>
+
+
+                            <style>
+                                .required:after {
+                                    content: " *";
+                                    color: red;
+
+                                }
+                            </style>
+                            <p class="required">Name :</p>
+                            <div class="form-group">
+                                <input class="form-control" value="<?php echo $name ?>" name="name" type="text" readonly>
+                            </div>
+                            <p>Quantity Available:</p>
+                            <div class="form-group">
+
+                                <input class="form-control" placeholder="Quantity Available" name="prod_quantity" type="text" required>
+
+
+                            </div>
+
+
+                            <p>Price:</p>
+                            <div class="form-group">
+
+                                <input id="priceinput" class="form-control" placeholder="Price" name="prod_price" type="text" required>
+
+
+                            </div>
+                            <p>Item ID:</p>
+
+                            <div class="form-group">
+                                <?php
+                                $con = mysqli_connect("localhost", "root", "", "test");
+                                $s = mysqli_query($con, "select * from recycleableitems");
+                                ?>
+                                <select name="item_id" class="form-control" required="">
+                                    <?php
+                                    while ($r = mysqli_fetch_array($s)) {
+                                    ?>
+                                        <option <?php
+                                                ?>><?php echo $r['item_id'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+
+
+
+                            </div>
+                            <p>Choose Image:</p>
+                            <div class="form-group">
+
+
+                                <input class="form-control" type="file" name="item_image" accept="image/*" required />
+
+                            </div>
+
+
+                        </fieldset>
+
+
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-success btn-md" name="item_save">Save</button>
+
+                    <button type="button" class="btn btn-danger btn-md" data-dismiss="modal">Cancel</button>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Mediul Modal -->
     <div class="modal fade" id="setAccount" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">

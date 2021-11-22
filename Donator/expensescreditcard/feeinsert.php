@@ -1,5 +1,10 @@
-<?php include("../../LoginSystem/auth_session.php");  ?>
+<?php
+session_start();
+if (!$_SESSION['username']) {
 
+    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+}
+?>
 <?php
 
 $servername = "localhost";
@@ -133,8 +138,8 @@ strong:hover{
     </div>
    
     <div class="_footer" >
-        <p>Having trouble? <a href="../ui.html">Contact us</a> </p>
-        <a class="btn" href="../index.html">Back to homepage</a>   
+        <p>Having trouble? <a href="../feedback.php">Contact us</a> </p>
+        <a class="btn" href="../index.php">Back to homepage</a>   
     </div> 
     <marquee width="100%" direction="right" height="17px" onmousedown="this.stop();" class="bb" onmouseup="this.start();">
         <strong style="font-weight: bold;color:blue"> 

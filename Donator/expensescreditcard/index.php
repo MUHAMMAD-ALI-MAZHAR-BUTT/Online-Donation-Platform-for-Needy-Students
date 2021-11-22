@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="container-fluid" style="background-image: url(2.jpg);">
+    <div class="container-fluid" style="background-image: url(1.jpg);">
         <div class="creditCardForm">
             <div class="heading">
                 <h1><b>Donation for Needy Students</b></h1>

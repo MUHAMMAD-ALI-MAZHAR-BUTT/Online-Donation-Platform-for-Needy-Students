@@ -4,21 +4,16 @@
         <div class="table-title">
             <div class="row" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 104%); color:white; ">
-                <div class="col-sm-4">
-                    <h2 style="font-family: sans-serif; padding-top:2%; padding-left:2% "><b> Student Details</b></h2>
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <div class="col-sm-10 " style="text-align: center;">
+                    <h2 style="font-family: sans-serif; padding-top:1%; padding-bottom:1%"><b> Applied Student Details</b></h2>
+
                     <!-- -->
                 </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
             </div>
         </div>
         <?php
         include('db_connection.php');
-        $select = "select * from student";
+        $select = "select * from forms where emp_id=$emp_id";
         $res = mysqli_query($dbcon, $select);
         if (mysqli_num_rows($res) == 0) {
         ?>
@@ -37,35 +32,62 @@
                 <thead>
                     <tr>
 
-                        <th>Id</th>
                         <th>Student Name</th>
                         <th>Student Email</th>
-                        <th>Status</th>
+                        <th>Date of Form filling</th>
+                        <th>Category</th>
+                        <th>Date of Rejection</th>
                         <th>Date of Acceptance</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+
                     </tr>
                 </thead>
                 <tbody>
 
                     <?php
                     include 'db_connection.php';
-                    $selectquery = "select list_students.id,student.name,student.email,list_students.status,list_students.date_of_accept from list_students inner join student on list_students.student_id=student.id";
+                    $selectquery = "select forms.form_id,emp.emp_id,student.name,student.email,forms.status,forms.date_of_accept,forms.date_of_reject,forms.category,forms.date_filled from forms inner join student on forms.student_id=student.id inner join emp on forms.emp_id=emp.emp_id where emp.emp_id=$emp_id";
 
                     $query = mysqli_query($dbcon, $selectquery);
 
                     $nums = mysqli_num_rows($query);
 
                     while ($res = mysqli_fetch_array($query)) {
-                        $date = date('F j, Y', strtotime($res['date_of_accept']));
+                        $date = date('F j, Y', strtotime($res['date_filled']));
+                        $date1 = date('F j, Y', strtotime($res['date_of_reject']));
+                        $date2 = date('F j, Y', strtotime($res['date_of_accept']));
+
                     ?>
 
                         <tr>
 
-                            <td><?php echo $res['id']; ?></td>
                             <td><?php echo $res['name']; ?></td>
                             <td><?php echo $res['email']; ?></td>
-                            <td><?php echo $res['status']; ?></td>
                             <td><?php echo $date ?></td>
+                            <td><?php echo $res['category']; ?></td>
+                            <td><?php echo $date1 ?></td>
+                            <td><?php echo $date2 ?></td>
+                            <td><?php echo $res['status']; ?></td>
 
+                            <td>
+
+                                <a href="#" onclick="my();" class="material-icons" data-toggle="modal" title="View Form Detail"><i class="fa fa-list" style="color:#ad1deb;"></i></a>&nbsp;
+                                &nbsp;&nbsp;
+                                <?php
+                                if ($res['status'] == 'pending') {
+                                ?>
+                                    <a href="update.php?id=<?php echo $res['form_id']; ?>" class="material-icons" title="Edit Status"> <i class="fas fa-edit" style="color:#ad1deb;"></i></a>
+                                <?php
+                                } else {
+                                ?>
+                                <?php
+                                }
+
+                                ?>
+
+
+                            </td>
 
                         </tr>
 

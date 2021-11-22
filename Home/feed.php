@@ -66,8 +66,8 @@ if (isset($_POST["name"])) {
 
         $query = "
 		INSERT INTO feedback 
-		(name, email, subject, message) 
-		VALUES (:name, :email, :subject, :message)
+		(name, email, subject, message,dt) 
+		VALUES (:name, :email, :subject, :message,CURRENT_TIMESTAMP)
 		";
 
         $statement = $connect->prepare($query);

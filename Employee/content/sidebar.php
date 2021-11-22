@@ -70,7 +70,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="https://www.gmail.com" class="nav-link">
+              <a href="notify.php" class="nav-link">
                 <i class="fas fa-sticky-note"></i>
                 <p>
                   Notify Students
@@ -111,7 +111,6 @@
           <div class="modal-body">
             <form enctype="multipart/form-data" method="post" action="settings.php">
               <fieldset>
-
 
                 <p>Name:</p>
                 <div class="form-group">
@@ -154,13 +153,26 @@
                     }
                   </script>
                 </div>
-                <p>ID:</p>
+                <p>Confirm Password:</p>
                 <div class="form-group">
 
-                  <input class="form-control hide" name="emp_id" type="text" value="<?php echo $emp_id; ?>" readonly>
-
-
+                  <input class="form-control" placeholder="Password" name="cpass" id="passs" type="password" value="<?php echo $pass; ?>">
+                  <input type="checkbox" onclick="myFunc()">Show Password
+                  <script>
+                    function myFunc() {
+                      var x = document.getElementById("passs");
+                      if (x.type === "password") {
+                        x.type = "text";
+                      } else {
+                        x.type = "password";
+                      }
+                    }
+                  </script>
                 </div>
+                <div class="form-group">
+                  <input class="form-control hide" name="emp_id" type="hidden" value="<?php echo $emp_id; ?>" readonly>
+                </div>
+
 
               </fieldset>
 

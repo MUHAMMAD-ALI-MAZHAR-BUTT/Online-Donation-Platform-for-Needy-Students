@@ -2,6 +2,6 @@
 
 
 
-$dbcon=mysqli_connect("127.0.0.1","root","");
+$dbcon = mysqli_connect("127.0.0.1", "root", "");
 
-mysqli_select_db($dbcon,"test");
+mysqli_select_db($dbcon, "base");

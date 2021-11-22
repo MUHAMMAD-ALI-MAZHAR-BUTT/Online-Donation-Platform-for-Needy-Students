@@ -97,7 +97,7 @@ $result = $con->query("SELECT img_path from gallery_img");
                 <ul>
                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
+
                     <li><a class="nav-link scrollto" href="#eligible">Eligibility criteria</a></li>
                     <li><a class="nav-link scrollto" href="#news">Latest News</a></li>
                     <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
@@ -150,7 +150,7 @@ $result = $con->query("SELECT img_path from gallery_img");
                 <div class="section-title">
                     <h2>About</h2>
                     <h3>Find Out More <span>About Us</span></h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, facere itaque! Quidem, nemo ex.</p>
+                    <p>Meet our team.</p>
                 </div>
 
                 <div class="row">
@@ -158,32 +158,27 @@ $result = $con->query("SELECT img_path from gallery_img");
                         <img src="assets/img/about.jpg" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
-                        <h3>Lorem, ipsum.</h3>
+                        <h3>Hardworking and enthusiastic</h3>
                         <p class="fst-italic">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic itaque soluta distinctio aliquam.<br>
+                            Our team may deliver best performance under any circumstance.<br>
                         </p>
                         <ul>
                             <li>
                                 <i class="bx bx-store-alt"></i>
                                 <div>
-                                    <h5>Lorem, ipsum.</h5>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus ipsum fuga, iusto doloribus
-                                        molestias iure.</p>
-                                </div>
+                                    <h5>In House.</h5>
+                                    <p>Our team may show signs of unity by working in their own houses
                             </li>
                             <li>
                                 <i class="bx bx-images"></i>
                                 <div>
-                                    <h5>Lorem ipsum dolor sit amet.</h5>
-                                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores ea officiis accusamus iusto at
-                                        dignissimos odio, deserunt rem dicta provident!</p>
+                                    <h5>Co-operative</h5>
+                                    <p>Co-operation can prove very helpful for big projects!</p>
                                 </div>
                             </li>
                         </ul>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum debitis deserunt recusandae veniam esse?
-                            Vero, quaerat obcaecati quia illo minima illum natus dolorum ea voluptatum, sit consequuntur totam iure
-                            officiis eum ut aliquam molestias qui?<br>
+                            If still in doubt, you may book a visit to our factory. You may also send an email to sop@org.com for further queries<br>
 
                         </p>
                     </div>
@@ -256,110 +251,10 @@ $result = $con->query("SELECT img_path from gallery_img");
             </div>
         </section><!-- End Counts Section -->
 
-        <!-- ======= Clients Section ======= -->
-        <section id=" clients" class="clients section-bg">
-            <div class="container" data-aos="zoom-in">
 
-                <div class="row">
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
-                    </div>
-
-                    <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
-                    </div>
-
-                </div>
-
-            </div>
-        </section><!-- End Clients Section -->
 
         <!-- ======= Services Section ======= -->
-        <section id="services" class="services">
-            <div class="container" data-aos="fade-up">
 
-                <div class="section-title">
-                    <h2>Services</h2>
-                    <h3>Below are our <span>Services</span> for Bright <span>Student's</span> Future</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus est rerum sapiente a! Cupiditate cum
-                        fugit adipisci distinctio et voluptates odio similique quia porro maiores quos, ipsum mollitia molestiae
-                        reiciendis earum architecto voluptatum quibusdam autem impedit atque corrupti! Quaerat.</p>
-                </div>
-
-                <!-- <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="#">Buy Recycle Products</a></h4>
-              <p>The company also sale the Recycle Products on very cheap prices.</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
-            data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Sale Recycle Products</a></h4>
-              <p>The company also sale the Recycle Products on very cheap prices.</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in"
-            data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Picking up Waste</a></h4>
-              <p>Our company give hundred percent guarantee and ensure the satisfcation of the consumers and customers.
-              </p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href="">Enterpunership</a></h4>
-              <p>Our company also provides the opportunity to Enterpuners to work with our company.</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href="">Online Service</a></h4>
-              <p>Our website company works twenty four hours in a day.If any customer or public find and illegal act ,
-                then make sure to complaign against that work</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="">Feedback</a></h4>
-              <p>Company takes updatedly feedback from the customer , consumers and public.</p>
-            </div>
-          </div>
-
-        </div> -->
-
-            </div>
-        </section>
         <!--Eligible-->
         <section id="eligible" class="services">
             <div class="container" data-aos="fade-up">
@@ -376,27 +271,26 @@ $result = $con->query("SELECT img_path from gallery_img");
                 <div class="row">
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                         <div class="icon-box">
-                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                            <!-- <h4><a href="#">Buy Recycle Products</a></h4> -->
-                            <!-- <p>The company also sale the Recycle Products on very cheap prices.</p> -->
+                            <div class="icon"><i class="bx bx-tachometer"></i></div>
+                            <h4><a href="#">Resident</a></h4>
+                            <p>Should be resident of Pakistan.</p>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-file"></i></div>
-                            <!-- <h4><a href="">Sale Recycle Products</a></h4> -->
-                            <!-- <p>The company also sale the Recycle Products on very cheap prices.</p> -->
+                            <h4><a href="">Income</a></h4>
+                            <p>Monthly income should be less than 50,000.</p>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
                         <div class="icon-box">
-                            <div class="icon"><i class="bx bx-tachometer"></i></div>
-                            <!-- <h4><a href="">Picking up Waste</a></h4> -->
-                            <!-- <p>Our company give hundred percent guarantee and ensure the satisfcation of the consumers and -->
-                            <!-- customers.
-              </p> -->
+                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                            <h4><a href="">Score</a></h4>
+                            <p>Student's recent academic score should be good e.g 3+ cgpa for university.
+                            </p>
                         </div>
                     </div>
 
@@ -597,16 +491,14 @@ $result = $con->query("SELECT img_path from gallery_img");
                 <div class="section-title">
                     <h2>Team</h2>
                     <h3>Our Hardworking <span>Team</span></h3>
-                    <p>Management Strategies. The long-recognized hierarchy of management of donation, in order to help the bright
-                        students
-                        so that they can make their future and persevere for something without facing financial study issues
+                    <p>Meet our hardworking and enthusiastic team
                     </p>
                 </div>
 
                 <div class="row">
                     <?php
                     include 'db_connection.php';
-                    $selectquery = "select * from emp where emp_leftdate!='NULL'";
+                    $selectquery = "select * from emp where emp_leftdate IS NULL";
 
                     $query = mysqli_query($con, $selectquery);
 
@@ -915,7 +807,7 @@ $result = $con->query("SELECT img_path from gallery_img");
                         <ul>
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
+
                             <li><i class="bx bx-chevron-right"></i> <a href="#news">Latest News</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#gallery">Gallery</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
@@ -925,11 +817,9 @@ $result = $con->query("SELECT img_path from gallery_img");
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Our Services</h4>
                         <ul>
-                            <!-- <li><i class="bx bx-chevron-right"></i> <a href="#">Waste Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Sale Recycle Items</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">ECONOMIC DEVELOPMENT</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Clean Conutry</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Delivery of Waste</a></li> -->
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Grant for Student's fees</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Grant for Student's expenses</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Grant for Student's health finances(if any)</a></li>
                         </ul>
                     </div>
 

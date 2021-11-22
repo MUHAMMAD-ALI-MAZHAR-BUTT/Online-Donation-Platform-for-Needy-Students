@@ -13,7 +13,7 @@
                 <div class="col-sm-4" style="padding-top: 1%;">
                     <?php
                     include('db_connection.php');
-                    $query = "SELECT * FROM emp ";
+                    $query = "SELECT * FROM emp where emp_leftdate<>'NULL'";
                     $qu = mysqli_query(
                         $con,
                         $query

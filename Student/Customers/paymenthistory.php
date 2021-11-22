@@ -76,10 +76,10 @@ extract($edit_row);
                 <ul class="nav navbar-nav side-nav" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
                     <li><a href="index.php"> &nbsp; <span class='glyphicon glyphicon-home'></span> Home</a></li>
-                    <li><a href="shop.php?id=1"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
+                    <li><a href="apply.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
                     <li><a data-toggle="modal" data-target="#set"> &nbsp; <span class='glyphicon glyphicon-envelope'></span> Send Queries</a></li>
                     <li><a href="responses.php"> &nbsp; <span class='fa fa-file'></span> Query Responses</a></li>
-                    <li><a href="notifications?id=1.php"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
+                    <li><a href="notifications.php?id=1"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
                     <li><a href="formsfilled.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> My Forms filled history</a></li>
                     <li class="active"><a href="paymenthistory.php"> &nbsp; <span class='fa fa-money'></span> Payment received history</a></li>
                     <li><a data-toggle="modal" data-target="#setAccount"> &nbsp; <span class='fa fa-gear'></span> Account Settings</a></li>

@@ -166,7 +166,7 @@ font-size: 16px;"><?php echo $_SESSION['username']; ?>&nbsp; Online Donation Sys
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputEmail4">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4" name="a" value="<?php echo $email; ?>" required>
+                            <input type="email" class="form-control" id="inputEmail4" name="a" readonly="readonly" value="<?php echo $email; ?>" required>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputPassword4">Password</label>

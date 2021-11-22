@@ -269,7 +269,7 @@ if (isset($_POST['admin_login'])) {
 
         //echo "<script>window.open('Admin/index.php','_self')</script>";
 
-        echo "<script>window.open('../dashboard.php','_self')</script>";
+        echo "<script>window.open('../donordetails.php','_self')</script>";
         // $_SESSION['admin_username'] = $admin_username;
     } else {
         echo "<script>alert('Email or Password is incorrect!')</script>";

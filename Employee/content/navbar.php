@@ -9,15 +9,15 @@
 
 
       <!-- Navbar -->
+
       <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="padding-top:0%">
+
           <!-- Left navbar links -->
           <ul class="navbar-nav">
               <li class="nav-item">
                   <a class="nav-link" style="color:black" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
               </li>
-              <li class="nav-item d-none d-sm-inline-block">
-                  <a href="../index.html" class="nav-link" style="color:black">Home</a>
-              </li>
+
           </ul>
 
           <!-- Right navbar links -->

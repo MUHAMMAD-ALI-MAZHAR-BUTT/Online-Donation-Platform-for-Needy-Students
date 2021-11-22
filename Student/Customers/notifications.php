@@ -37,9 +37,9 @@ extract($edit_row);
     <title>Online Donation Platform | Student Dashboard</title>
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/local.css" />
-
 
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/datatables.min.js"></script>
@@ -47,11 +47,16 @@ extract($edit_row);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+    <!-- Button trigger modal -->
+
     <div id="wrapper">
+
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
             <div class="navbar-header">
@@ -68,10 +73,10 @@ extract($edit_row);
                 <ul class="nav navbar-nav side-nav" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
                     <li><a href="index.php"> &nbsp; <span class='glyphicon glyphicon-home'></span> Home</a></li>
-                    <li><a href="shop.php?id=1"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
+                    <li><a href="apply.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
                     <li><a data-toggle="modal" data-target="#set"> &nbsp; <span class='glyphicon glyphicon-envelope'></span> Send Queries</a></li>
                     <li><a href="responses.php"> &nbsp; <span class='fa fa-file'></span> Query Responses</a></li>
-                    <li class="active"><a href="notifications?id=1.php"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
+                    <li class="active"><a href="notifications.php?id=1"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
                     <li><a href="formsfilled.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> My Forms filled history</a></li>
                     <li><a href="paymenthistory.php"> &nbsp; <span class='fa fa-money'></span> Payment received history</a></li>
                     <li><a data-toggle="modal" data-target="#setAccount"> &nbsp; <span class='fa fa-gear'></span> Account Settings</a></li>

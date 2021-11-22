@@ -4,16 +4,11 @@
         <div class="table-title">
             <div class="row" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 104%); color:white; ">
-                <div class="col-sm-4">
-                    <h2 style="font-family: sans-serif; padding-top:2%; padding-left:2% "><b> Donor Details</b></h2>
-                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <div class="col-sm-10 " style="text-align: center;">
+                    <h2 style="font-family: sans-serif; padding-top:1%; padding-bottom:1%"><b> Donor Details</b></h2>
+
                     <!-- -->
                 </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
             </div>
         </div>
         <?php
@@ -40,10 +35,13 @@
 
                         <th>Id</th>
                         <th>Donor's Name</th>
-
                         <th>Donor's Email</th>
-
-
+                        <th>Donor's Phone Number</th>
+                        <th>Total amount donated</th>
+                        <th>Fee amount donated</th>
+                        <th>Expense amount donated</th>
+                        <th>Health amount donated</th>
+                        <th>No of times donated</th>
 
                     </tr>
                 </thead>
@@ -65,9 +63,13 @@
 
                             <td><?php echo $res['id']; ?></td>
                             <td><?php echo $res['username']; ?></td>
-
                             <td><?php echo $res['email']; ?></td>
-
+                            <td>0<?php echo $res['phone']; ?></td>
+                            <td><?php echo $res['total_donated']; ?></td>
+                            <td><?php echo $res['fee_donated']; ?></td>
+                            <td><?php echo $res['expense_donated']; ?></td>
+                            <td><?php echo $res['health_donated']; ?></td>
+                            <td><?php echo $res['no_of_times']; ?></td>
 
                         </tr>
 
