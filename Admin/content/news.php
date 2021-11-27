@@ -31,7 +31,7 @@
                         include 'db_connection.php';
                         $cat = "Education";
                         // $selectquery = "select * from latest_news where category=$cat";
-                        $selectquery = "select * from latest_news where category='Education'";
+                        $selectquery = "select * from latest_news where category='Education/Fee'";
                         $query = mysqli_query($con, $selectquery);
 
                         $nums = mysqli_num_rows($query);
@@ -57,7 +57,7 @@
                     <?php
                     include 'db_connection.php';
                     // $selectquery = "select * from latest_news where category=$cat";
-                    $selectquery = "select * from latest_news where category='Education'";
+                    $selectquery = "select * from latest_news where category='Education/Fee'";
                     $query = mysqli_query($con, $selectquery);
 
                     $nums = mysqli_num_rows($query);
@@ -74,17 +74,18 @@
                     <?php
                     include 'db_connection.php';
                     // $selectquery = "select * from latest_news where category=$cat";
-                    $selectquery = "select * from latest_news where category='Education'";
+                    $selectquery = "select * from latest_news where category='Education/Fee'";
                     $query = mysqli_query($con, $selectquery);
 
                     $nums = mysqli_num_rows($query);
 
                     while ($res = mysqli_fetch_array($query)) {
-
+                        $date1 = date('F j, Y, g:i a', strtotime($res['date']));
                     ?>
                         <div class="card-body">
                             <hr><u>
-                                Last Updated on <?php echo $res['date']; ?></u>
+
+                                Last Updated on <?php echo $date1 ?></u>
                         </div>
                     <?php
                     }
@@ -146,17 +147,17 @@
                     <?php
                     include 'db_connection.php';
                     // $selectquery = "select * from latest_news where category=$cat";
-                    $selectquery = "select * from latest_news where category='Education'";
+                    $selectquery = "select * from latest_news where category='Education/Fee'";
                     $query = mysqli_query($con, $selectquery);
 
                     $nums = mysqli_num_rows($query);
 
                     while ($res = mysqli_fetch_array($query)) {
-
+                        $date1 = date('F j, Y, g:i a', strtotime($res['date']));
                     ?>
                         <div class="card-body">
                             <hr><u>
-                                Last Updated on <?php echo $res['date']; ?></u>
+                                Last Updated on <?php echo $date1 ?></u>
                         </div>
                     <?php
                     }
@@ -218,17 +219,17 @@
                     <?php
                     include 'db_connection.php';
                     // $selectquery = "select * from latest_news where category=$cat";
-                    $selectquery = "select * from latest_news where category='Education'";
+                    $selectquery = "select * from latest_news where category='Education/Fee'";
                     $query = mysqli_query($con, $selectquery);
 
                     $nums = mysqli_num_rows($query);
 
                     while ($res = mysqli_fetch_array($query)) {
-
+                        $date1 = date('F j, Y, g:i a', strtotime($res['date']));
                     ?>
                         <div class="card-body">
                             <hr><u>
-                                Last Updated on <?php echo $res['date']; ?></u>
+                                Last Updated on <?php echo $date1 ?></u>
                         </div>
                     <?php
                     }

@@ -15,7 +15,7 @@
         </div>
         <?php
         include('db_connection.php');
-        $selectquery = "select * from list_students where status='completed' or status='accepted'";
+        $selectquery = "select * from payment_history order by id desc";
         $res = mysqli_query($con, $selectquery);
         if (mysqli_num_rows($res) == 0) {
         ?>
@@ -34,12 +34,14 @@
             <table class=" table table-striped table-hover">
                 <thead>
                     <tr>
-
                         <th>Id</th>
+                        <th>Form Id</th>
                         <th>Student Id</th>
-                        <th>Status</th>
-                        <th>Date of acceptance</th>
-                        <th>Date of completion</th>
+                        <th>Student Name</th>
+                        <th>Amount Left</th>
+                        <th>Amount Received</th>
+                        <th>Category</th>
+                        <th>Date fully received</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -47,30 +49,44 @@
 
                     <?php
                     include 'db_connection.php';
-                    $selectquery = "select * from list_students where status='completed' or status='accepted'";
+                    $selectquery = "select * from payment_history inner join forms on payment_history.form_id=forms.form_id inner join 
+                    student on payment_history.student_id=student.id order by payment_history.id desc";
 
                     $query = mysqli_query($con, $selectquery);
 
                     $nums = mysqli_num_rows($query);
 
                     while ($res = mysqli_fetch_array($query)) {
-                        $date = date('F j, Y', strtotime($res['date_of_accept']));
-                        $date1 = date('F j, Y, g:i a', strtotime($res['date_of_complete']));
+                        if ($res['date_comp'] == NULL) {
+                            $date1 = 'NULL';
+                        } else {
+                            $date1 = date('F j, Y', strtotime($res['date_comp']));
+                        }
                     ?>
 
                         <tr>
-
                             <td><?php echo $res['id']; ?></td>
+                            <td><?php echo $res['form_id']; ?></td>
                             <td><?php echo $res['student_id']; ?></td>
-                            <td><?php echo $res['status']; ?></td>
-                            <td><?php echo $date ?></td>
+                            <td><?php echo $res['name']; ?></td>
+                            <td><?php echo $res['req_amount']; ?></td>
+                            <td><?php echo $res['amount_received']; ?></td>
+                            <td><?php echo $res['category']; ?></td>
                             <td><?php echo $date1 ?></td>
 
-
-
                             <td>
+                                <?php
+                                if ($res['req_amount'] == 0) {
+                                ?>
 
-                                <a href="itemlist1.php?id=<?php echo $res['item_id']; ?>" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-list" style="color:#ad1deb" data-toggle="tooltip" title="Details"></i></a>
+                                <?php
+                                } else {
+                                ?>
+                                    <a data-toggle="modal" data-target="#view-modal" data-id="<?php echo $res['form_id']; ?>" id="getUser" class="btn btn-success" style="background-color:#ad1deb; border:#ad1deb;"><i class="fas fa-money-bill"></i> <span>Send Money</span></a>
+
+                                <?php
+                                }
+                                ?>
 
                             </td>
                         </tr>

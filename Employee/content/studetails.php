@@ -47,16 +47,27 @@
 
                     <?php
                     include 'db_connection.php';
-                    $selectquery = "select forms.form_id,emp.emp_id,student.name,student.email,forms.status,forms.date_of_accept,forms.date_of_reject,forms.category,forms.date_filled from forms inner join student on forms.student_id=student.id inner join emp on forms.emp_id=emp.emp_id where emp.emp_id=$emp_id";
+                    $selectquery = "select * from forms inner join student on forms.student_id=student.id inner join emp on forms.emp_id=emp.emp_id where emp.emp_id=$emp_id";
 
                     $query = mysqli_query($dbcon, $selectquery);
 
                     $nums = mysqli_num_rows($query);
 
                     while ($res = mysqli_fetch_array($query)) {
+
                         $date = date('F j, Y', strtotime($res['date_filled']));
-                        $date1 = date('F j, Y', strtotime($res['date_of_reject']));
-                        $date2 = date('F j, Y', strtotime($res['date_of_accept']));
+                        if ($res['date_of_reject'] == NULL) {
+                            $date1 = 'NULL';
+                        } else {
+                            $date1 = date('F j, Y', strtotime($res['date_of_reject']));
+                        }
+                        if ($res['date_of_accept'] == NULL) {
+                            $date2 = 'NULL';
+                        } else {
+                            $date2 = date('F j, Y', strtotime($res['date_of_accept']));
+                        }
+
+
 
                     ?>
 
@@ -72,7 +83,7 @@
 
                             <td>
 
-                                <a href="#" onclick="my();" class="material-icons" data-toggle="modal" title="View Form Detail"><i class="fa fa-list" style="color:#ad1deb;"></i></a>&nbsp;
+                                <a href="#" data-toggle="modal" data-target="#view" data-id="<?php echo $res['form_id']; ?>" id="get" type="btn" class="material-icons" title="View Form Detail"><i class="fa fa-list" style="color:#ad1deb;"></i></a>&nbsp;
                                 &nbsp;&nbsp;
                                 <?php
                                 if ($res['status'] == 'pending') {
@@ -94,6 +105,65 @@
                     <?php
                     }
                     ?>
+                    <div id="view" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title">
+                                        <i class="glyphicon glyphicon-user"></i> Student Form detail
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                </div>
+                                <div class="modal-body">
+
+                                    <div id="modal-loader" style="display: none; text-align: center;">
+                                        <img src="ajax-loader.gif">
+                                    </div>
+                                    <!-- content will be load here -->
+                                    <div id="dynamic-content"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!-- /.modal -->
+                    <script>
+                        $(document).ready(function() {
+
+                            $(document).on('click', '#get', function(e) {
+
+                                e.preventDefault();
+
+                                var uid = $(this).data('id'); // it will get id of clicked row
+
+                                $('#dynamic-content').html(''); // leave it blank before ajax call
+                                $('#modal-loader').show(); // load ajax loader
+
+                                $.ajax({
+                                        url: 'get.php',
+                                        type: 'POST',
+                                        data: 'form_id=' + uid,
+                                        dataType: 'html'
+                                    })
+                                    .done(function(data) {
+                                        console.log(data);
+                                        $('#dynamic-content').html('');
+                                        $('#dynamic-content').html(data); // load response 
+                                        $('#modal-loader').hide(); // hide ajax loader	
+                                    })
+                                    .fail(function() {
+                                        $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
+                                        $('#modal-loader').hide();
+                                    });
+
+                            });
+
+                        });
+                    </script>
                 </tbody>
             </table>
         <?php
@@ -105,76 +175,5 @@
     </div>
 
 </div>
-
-<div id="addpickerModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="myform" action="insertstu.php" method="POST">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Student</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <!--<div class="form-group">
-            <label>ID</label>
-            <input type="text" name="employee_id" class="form-control" required>
-          </div>-->
-                    <div class="form-group">
-                        <label>Student Name</label>
-                        <input type="text" name="student_name" class="form-control" placeholder="Name" required="">
-
-                    </div>
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label>Student Application Status</label>
-                            <input type="text" name="student_application_status" class="form-control" placeholder="Pending/Approved/Rejected" required="">
-
-                        </div>
-
-                        <div class="form-group">
-                            <label>Student Email</label>
-                            <input type="email" name="student_email" class="form-control" placeholder="email@domain.com" required="">
-
-                        </div>
-
-
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-
-                        <input type="submit" name="submit" id="submit" class="btn btn-success" value="Add">
-
-
-                    </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        var form = $('#myform');
-
-        $('#submit').click(function() {
-
-            $.ajax({
-
-                url: form.attr("action"),
-                type: 'post',
-                data: $("#myform input").serialize(),
-                success: function(data) {
-                    console.log(data);
-                }
-            });
-
-        });
-
-
-    });
-</script>
 
 <!-- ./wrapper -->

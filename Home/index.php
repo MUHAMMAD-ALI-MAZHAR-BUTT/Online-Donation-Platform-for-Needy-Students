@@ -318,16 +318,16 @@ $result = $con->query("SELECT img_path from gallery_img");
                             include 'db_connection.php';
                             $cat = "Education";
                             // $selectquery = "select * from latest_news where category=$cat";
-                            $selectquery = "select * from latest_news where category='Education'";
+                            $selectquery = "select * from latest_news where category='Education/Fee'";
                             $query = mysqli_query($con, $selectquery);
 
                             $nums = mysqli_num_rows($query);
 
                             while ($res = mysqli_fetch_array($query)) {
-
+                                $date1 = date('F j, Y, g:i a', strtotime($res['date']));
                             ?>
 
-                                <h4 class="card-title"><span style="  color: #ad1deb;">Updated on </span><?php echo $res['date']; ?></h4></i>
+                                <h4 class="card-title"><span style="  color: #ad1deb;">Updated on </span><?php echo $date1 ?></h4></i>
                                 <br>
                                 <h4 class="card-title"><?php echo $res['category']; ?></h4>
                                 <br><br>
@@ -353,10 +353,10 @@ $result = $con->query("SELECT img_path from gallery_img");
                             $nums = mysqli_num_rows($query);
 
                             while ($res = mysqli_fetch_array($query)) {
-
+                                $date1 = date('F j, Y, g:i a', strtotime($res['date']));
                             ?>
 
-                                <h4 class="card-title"><span style="  color: #ad1deb;">Updated on </span><?php echo $res['date']; ?></h4></i>
+                                <h4 class="card-title"><span style="  color: #ad1deb;">Updated on </span><?php echo $date1 ?></h4></i>
                                 <br>
                                 <h4 class="card-title"><?php echo $res['category']; ?></h4>
                                 <br><br>
@@ -381,10 +381,10 @@ $result = $con->query("SELECT img_path from gallery_img");
                             $nums = mysqli_num_rows($query);
 
                             while ($res = mysqli_fetch_array($query)) {
-
+                                $date1 = date('F j, Y, g:i a', strtotime($res['date']));
                             ?>
 
-                                <h4 class="card-title"><span style="  color: #ad1deb;">Updated on </span><?php echo $res['date']; ?></h4></i>
+                                <h4 class="card-title"><span style="  color: #ad1deb;">Updated on </span><?php echo $date1 ?></h4></i>
                                 <br>
                                 <h4 class="card-title"><?php echo $res['category']; ?></h4>
                                 <br><br>

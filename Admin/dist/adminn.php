@@ -172,32 +172,33 @@ session_start();
         </div>
 
         <div class="modal-body">
+          <?php
+          if (empty($_GET)) {
+          ?>
+            <form role="form" method="post" action="adminn.php">
+              <fieldset>
 
 
-          <form role="form" method="post" action="adminn.php">
-            <fieldset>
+                <div class=" form-group">
+                  <input class="form-control" placeholder="Username" name="admin_username" type="text">
+                </div>
 
+                <div class="form-group">
+                  <input class="form-control" placeholder="Password" name="admin_password" id="pass" type="password">
 
-              <div class=" form-group">
-                <input class="form-control" placeholder="Username" name="admin_username" type="text">
-              </div>
-
-              <div class="form-group">
-                <input class="form-control" placeholder="Password" name="admin_password" id="pass" type="password">
-
-              </div>
-              <input type="checkbox" onclick="myFunction()">Show Password
-              <script>
-                function myFunction() {
-                  var x = document.getElementById("pass");
-                  if (x.type === "password") {
-                    x.type = "text";
-                  } else {
-                    x.type = "password";
+                </div>
+                <input type="checkbox" onclick="myFunction()">Show Password
+                <script>
+                  function myFunction() {
+                    var x = document.getElementById("pass");
+                    if (x.type === "password") {
+                      x.type = "text";
+                    } else {
+                      x.type = "password";
+                    }
                   }
-                }
-              </script>
-            </fieldset>
+                </script>
+              </fieldset>
 
 
         </div>
@@ -207,10 +208,57 @@ session_start();
           <button class="btn btn-md btn-success btn-block" name="admin_login">Login</button>
 
           <button type="button" class="btn btn-md btn-danger btn-block" data-dismiss="modal">Cancel</button>
-          </form>
+
         </div>
+        </form>
+      <?php
+          } else {
+      ?>
+        <form role="form" method="post" action="adminn.php?continue=<?php echo $_GET['continue']; ?>">
+          <fieldset>
+
+
+            <div class=" form-group">
+              <input class="form-control" placeholder="Username" name="admin_username" type="text">
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="Password" name="admin_password" id="pass" type="password">
+
+            </div>
+            <input type="checkbox" onclick="myFunction()">Show Password
+            <script>
+              function myFunction() {
+                var x = document.getElementById("pass");
+                if (x.type === "password") {
+                  x.type = "text";
+                } else {
+                  x.type = "password";
+                }
+              }
+            </script>
+          </fieldset>
+
+
       </div>
+
+      <div class="modal-footer">
+
+        <button class="btn btn-md btn-success btn-block" name="admin_login">Login</button>
+
+        <button type="button" class="btn btn-md btn-danger btn-block" data-dismiss="modal">Cancel</button>
+
+      </div>
+      </form>
+    <?php
+          }
+    ?>
+
+
+
     </div>
+  </div>
+  </div>
   </div>
   <br />
   <br />
@@ -250,7 +298,7 @@ if (isset($_POST['admin_login'])) {
 
   $admin_username = $_POST['admin_username'];
   $admin_password = $_POST['admin_password'];
-  $_SESSION['status'] = false;
+
 
 
 
@@ -260,14 +308,19 @@ if (isset($_POST['admin_login'])) {
   $run = mysqli_query($con, $check_admin);
 
   if (mysqli_num_rows($run)) {
-    $_SESSION['status'] = true;
-    $_SESSION['admin_username'] = $admin_username;
-    echo "<script>alert('Login was successful!')</script>";
+    if (empty($_GET)) {
+      $_SESSION['admin_username'] = $admin_username;
 
-    //echo "<script>window.open('Admin/index.php','_self')</script>";
+      echo "<script>alert('Login was successful!')</script>";
+      echo "<script>window.open('../report.php','_self')</script>";
+    } else {
+      $_SESSION['admin_username'] = $admin_username;
+      echo "<script>alert('Login was successful!')</script>";
 
-    echo "<script>window.open('../report.php','_self')</script>";
-    // $_SESSION['admin_username'] = $admin_username;
+      $g = $_GET['continue'];
+
+      echo "<script>window.open(' $g','_self')</script>";
+    }
   } else {
     echo "<script>alert('Username or Password is incorrect!')</script>";
     echo "<script>window.open('adminn.php','_self')</script>";

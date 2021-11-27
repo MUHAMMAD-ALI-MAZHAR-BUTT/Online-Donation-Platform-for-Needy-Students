@@ -82,7 +82,7 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="expensescreditcard/index.php">Fee</a>
+                                        <a href="feecreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
                                         <a href="healthcreditcard/index.php">Health</a>

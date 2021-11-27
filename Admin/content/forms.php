@@ -40,6 +40,9 @@
                         <th>Employee Id</th>
                         <th>Date filled</th>
                         <th>Category</th>
+                        <th>Informed?</th>
+                        <th>Date of Rejection</th>
+                        <th>Date of Acceptance</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -56,6 +59,16 @@
 
                     while ($res = mysqli_fetch_array($query)) {
                         $date = date('F j, Y', strtotime($res['date_filled']));
+                        if ($res['date_of_reject'] == NULL) {
+                            $date1 = 'NULL';
+                        } else {
+                            $date1 = date('F j, Y', strtotime($res['date_of_reject']));
+                        }
+                        if ($res['date_of_accept'] == NULL) {
+                            $date2 = 'NULL';
+                        } else {
+                            $date2 = date('F j, Y', strtotime($res['date_of_accept']));
+                        }
                         // $date1 = date('F j, Y, g:i a', strtotime($res['last_active']));
                     ?>
 
@@ -66,12 +79,28 @@
                             <td><?php echo $res['emp_id']; ?></td>
                             <td><?php echo $date ?></td>
                             <td><?php echo $res['category']; ?></td>
+                            <td>
+                                <?php
+                                if ($res['informed'] == 'false') {
+                                ?>
+                                    No
+                                <?php
+                                } else {
+                                ?>
+                                    Yes <?php
+                                    }
+
+                                        ?>
+
+                            </td>
+                            <td><?php echo $date1 ?></td>
+                            <td><?php echo $date2 ?></td>
                             <td><?php echo $res['status']; ?></td>
 
 
                             <td>
 
-                                <a href="#" onclick="my();" class="btn btn-success" style="background-color:#ad1deb; border:#ad1deb;" data-toggle="modal"><i class="fa fa-list"></i> <span>View Detail</span></a>
+                                <a data-toggle="modal" data-target="#view-modal" data-id="<?php echo $res['form_id']; ?>" id="getUser" class="btn btn-success" style="background-color:#ad1deb; border:#ad1deb;"><i class="fa fa-list"></i> <span>View Detail</span></a>
 
                             </td>
                         </tr>
@@ -79,6 +108,65 @@
                     <?php
                     }
                     ?>
+                    <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title">
+                                        <i class="glyphicon glyphicon-user"></i> Student Form detail
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                </div>
+                                <div class="modal-body">
+
+                                    <div id="modal-loader" style="display: none; text-align: center;">
+                                        <img src="ajax-loader.gif">
+                                    </div>
+                                    <!-- content will be load here -->
+                                    <div id="dynamic-content"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!-- /.modal -->
+                    <script>
+                        $(document).ready(function() {
+
+                            $(document).on('click', '#getUser', function(e) {
+
+                                e.preventDefault();
+
+                                var uid = $(this).data('id'); // it will get id of clicked row
+
+                                $('#dynamic-content').html(''); // leave it blank before ajax call
+                                $('#modal-loader').show(); // load ajax loader
+
+                                $.ajax({
+                                        url: 'getuser.php',
+                                        type: 'POST',
+                                        data: 'form_id=' + uid,
+                                        dataType: 'html'
+                                    })
+                                    .done(function(data) {
+                                        console.log(data);
+                                        $('#dynamic-content').html('');
+                                        $('#dynamic-content').html(data); // load response 
+                                        $('#modal-loader').hide(); // hide ajax loader	
+                                    })
+                                    .fail(function() {
+                                        $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
+                                        $('#modal-loader').hide();
+                                    });
+
+                            });
+
+                        });
+                    </script>
                 </tbody>
             </table>
         <?php

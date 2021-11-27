@@ -12,6 +12,18 @@
            <!-- /.control-sidebar -->
            <script src="plugins/jquery/jquery.min.js"></script>
            <!-- jQuery UI 1.11.4 -->
+           <!-- <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+           <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+           <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+           <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+           <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+           <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+           <script src="plugins/jszip/jszip.min.js"></script>
+           <script src="plugins/pdfmake/pdfmake.min.js"></script>
+           <script src="plugins/pdfmake/vfs_fonts.js"></script>
+           <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+           <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+           <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script> -->
            <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
            <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
            <script>
@@ -27,6 +39,8 @@
            <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
            <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
            <!-- jQuery Knob Chart -->
+           <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
            <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
            <!-- daterangepicker -->
            <script src="plugins/moment/moment.min.js"></script>

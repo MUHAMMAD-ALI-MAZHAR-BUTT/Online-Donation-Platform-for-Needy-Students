@@ -2,7 +2,8 @@
 session_start();
 if (!$_SESSION['admin_username']) {
     echo "<script>alert('Log in to access admin dashboard')</script>";
-    echo "<script>window.open('./dist/adminn.php','_self')</script>";
+    $actual_link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    echo "<script>window.open('./dist/adminn.php?continue=$actual_link','_self')</script>";
 }
 ?>
 <?php

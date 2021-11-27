@@ -153,7 +153,7 @@ if (isset($_POST['user_save'])) {
         $selectquery = "select * from emp";
         $res = mysqli_query($dbcon, $selectquery);
 
-        $query = "SELECT * FROM emp where emp_phone='$emp_phone'";
+        $query = "SELECT * FROM emp where emp_phone='$emp_phone' and emp_id<>'$emp_id'";
         $qu = mysqli_query(
             $dbcon,
             $query
@@ -163,7 +163,7 @@ if (isset($_POST['user_save'])) {
             echo "<script>alert('This Mobile Number already exists!')</script>";
             // echo "<script>window.open('donordetails.php','_self')</script>";
         } else {
-            $query = "SELECT * FROM emp where emp_email='$emp_email'";
+            $query = "SELECT * FROM emp where emp_email='$emp_email'and  emp_id<>'$emp_id'";
             $qu = mysqli_query($dbcon, $query);
 
             if (

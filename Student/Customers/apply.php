@@ -1,13 +1,7 @@
 <?php
-session_start();
-
-if (!$_SESSION['email']) {
-
-    header("Location: ../index.php");
-}
+include('session.php');
 
 ?>
-
 <?php
 include("config.php");
 include("functions.php");
@@ -76,7 +70,11 @@ extract($edit_row);
                 <ul class="nav navbar-nav side-nav" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
                     <li><a href="index.php"> &nbsp; <span class='glyphicon glyphicon-home'></span> Home</a></li>
-                    <li class="active"><a href="apply.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
+                    <?
+                    $date = date('F');
+                    ?>
+                    <li class="active"><a href="#" data-toggle="modal" data-target="#app" class="btn"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now for <?php $date = date('F,Y');
+                                                                                                                                                                                echo $date ?></a></li>
                     <li><a data-toggle="modal" data-target="#set"> &nbsp; <span class='glyphicon glyphicon-envelope'></span> Send Queries</a></li>
                     <li><a href="responses.php"> &nbsp; <span class='fa fa-file'></span> Query Responses</a></li>
                     <li><a href="notifications.php?id=1"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
@@ -94,7 +92,8 @@ extract($edit_row);
                             <span class="badge badge-warning navbar-badge"></span><b>Notifications</b>
 
                             <?php
-                            $query = "SELECT * from `notifications` where `status` = 'unread' order by `date` DESC";
+
+                            $query = "SELECT * from `stu_notification` where `status` = 'unread' and stu_id='$id' order by `dt` DESC ";
                             if (count(fetchAll($query)) > 0) {
                             ?>
                                 <span class="badge badge-warning" style="background-color:#eea236"><?php echo count(fetchAll($query)); ?></span>
@@ -105,7 +104,8 @@ extract($edit_row);
 
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <?php
-                            $query = "SELECT * from `notifications` order by `date` DESC";
+
+                            $query = "SELECT * from `stu_notification` where stu_id='$id' order by `dt` DESC ";
                             if (count(fetchAll($query)) > 0) {
                                 $count = 0;
                                 foreach (fetchAll($query) as $i) {
@@ -119,21 +119,15 @@ extract($edit_row);
                                     }
                             ?>
                          " class="dropdown-item" href="#" onclick=my();>
-                                        <small><i><?php echo date('F j, Y, g:i a', strtotime($i['date'])) ?></i></small><br />
+                                        <small><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
                                         <?php
-                                        if ($i['type1'] == 'account') {
-                                            echo ucfirst($i['name']) . " made changed to account setting";
-                                        } else if ($i['type1'] == 'resign') {
-                                            echo ucfirst($i['name']) . " resigned from the post";
-                                        } else if ($i['type1'] == 'donation') {
-                                            echo ucfirst($i['name']) . " donated to our platform";
-                                        } else if ($i['type1'] == 'accepted') {
-                                            echo ucfirst($i['name']) . " is accepted for financial help";
-                                        } else if ($i['type1'] == 'newacc') {
-                                            echo "Someone made a new account on the platform.";
-                                        } else if ($i['type1'] == 'forgot') {
-                                            echo ucfirst($i['name']) . " forgot password of account";
+                                        if ($i['type'] == 's') {
+                                            echo "Your application status has been set, Check it";
                                         }
+                                        if ($i['type'] == 'i') {
+                                            echo "You have received your interview details";
+                                        }
+
 
                                         ?>
                                     </a>
@@ -295,20 +289,19 @@ extract($edit_row);
     <!-- /#wrapper -->
     <div class="modal fade" id="app" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
         <div class="modal-dialog modal-md">
-            <div style="color:white;background-color:#ad1deb" class="modal-content">
+            <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h2 style="color:white" class="modal-title" id="myModalLabel">Upload Items</h2>
+                    <?php
+
+                    $date = date('F');
+
+                    ?>
+                    <h2 class="modal-title" id="myModalLabel">Fill Form for the month of <?php echo $date ?></h2>
                 </div>
                 <div class="modal-body">
-
-
-
-
-                    <form enctype="multipart/form-data" method="post" action="additems.php">
+                    <form id="addform">
                         <fieldset>
-
-
                             <style>
                                 .required:after {
                                     content: " *";
@@ -318,52 +311,118 @@ extract($edit_row);
                             </style>
                             <p class="required">Name :</p>
                             <div class="form-group">
-                                <input class="form-control" value="<?php echo $name ?>" name="name" type="text" readonly>
+                                <input class="form-control form_data" value="<?php echo $name ?>" name="name" id="name" type="text" readonly>
+
                             </div>
-                            <p>Quantity Available:</p>
+                            <p class="required">Father Name:</p>
                             <div class="form-group">
 
-                                <input class="form-control" placeholder="Quantity Available" name="prod_quantity" type="text" required>
-
+                                <input class="form-control form_data" placeholder="" name="father" id="father" type="text" required>
+                                <span id="father_error" class="text-danger"></span>
 
                             </div>
-
-
-                            <p>Price:</p>
+                            <p class="required">CNIC:</p>
                             <div class="form-group">
 
-                                <input id="priceinput" class="form-control" placeholder="Price" name="prod_price" type="text" required>
-
+                                <input class="form-control form_data" placeholder="" name="cnic" id="cnic" type="text" required>
+                                <span id="cnic_error" class="text-danger"></span>
 
                             </div>
-                            <p>Item ID:</p>
+                            <p class="required">DOB:</p>
+                            <div class="form-group">
+
+                                <input class="form-control form_data" placeholder="" name="dob" id="dob" type="date" min="1990-01-01" max="2010-01-01" value="2010-01-01" required>
+                                <span id="dob_error" class="text-danger"></span>
+
+                            </div>
+                            <p class="required">Father Occupation details:</p>
+                            <div class="form-group">
+
+                                <input class="form-control form_data" placeholder="" name="occupation" id="occupation" type="text" required>
+                                <span id="occ_error" class="text-danger"></span>
+
+                            </div>
+                            <p class="required">Monthly Income (In Rupees):</p>
+                            <div class="form-group">
+
+                                <input class="form-control form_data" placeholder="" name="Monthly_income" id="Monthly_income" type="text" required>
+                                <span id="income_error" class="text-danger"></span>
+
+                            </div>
+                            <p class="required">Study Level:</p>
+                            <div class="form-group">
+
+                                <select name="study_level" id="study_level" class="form-control form_data" required="">
+                                    <option hidden>Select</option>
+                                    <option>secondary</option>
+                                    <option>undergrad</option>
+                                    <option>postgrad</option>
+
+                                </select>
+                                <span id="level_error" class="text-danger"></span>
+
+                            </div>
+                            <p class="required">Institute Name:</p>
+                            <div class="form-group">
+
+                                <input class="form-control form_data" placeholder="" name="institute_name" id="institute_name" type="text" required>
+                                <span id="i_error" class="text-danger"></span>
+
+                            </div>
+                            <p class="required">Message:</p>
+                            <div class="form-group">
+
+                                <textarea class="form-control form_data" placeholder="" rows="5" name="message" id="message" type="text" required></textarea>
+                                <span id="message_error" class="text-danger"></span>
+
+                            </div>
+                            <p class="required">Select City/District:</p>
 
                             <div class="form-group">
                                 <?php
-                                $con = mysqli_connect("localhost", "root", "", "test");
-                                $s = mysqli_query($con, "select * from recycleableitems");
+                                $con = mysqli_connect("localhost", "root", "", "base");
+                                $s = mysqli_query($con, "select * from city");
                                 ?>
-                                <select name="item_id" class="form-control" required="">
+
+                                <select name="city" id="city" class="form-control form_data" required>
+                                    <option hidden>Select</option>
                                     <?php
                                     while ($r = mysqli_fetch_array($s)) {
                                     ?>
                                         <option <?php
-                                                ?>><?php echo $r['item_id'] ?></option>
+                                                ?>><?php echo $r['city_name'] ?></option>
                                     <?php
                                     }
                                     ?>
                                 </select>
-
-
-
+                                <span id="city_error" class="text-danger"></span>
                             </div>
-                            <p>Choose Image:</p>
+                            <p class="required">Select Category of Grant:</p>
+                            <div class="form-group">
+
+                                <select name="category" id="category" class="form-control form_data" required="">
+                                    <option hidden>Select</option>
+                                    <option>fee</option>
+                                    <option>expense</option>
+                                    <option>health</option>
+
+                                </select>
+                                <span id="category_error" class="text-danger"></span>
+                            </div>
+                            <p class="required">Amount required (In Rupees):</p>
+                            <div class="form-group">
+
+                                <input class="form-control form_data" placeholder="" name="amount_required" id="amount_required" type="text" required></input>
+                                <span id="amount_error" class="text-danger"></span>
+                                <span id="suc" class="text-success"></span>
+                            </div>
+                            <!-- <p>Choose Image:</p>
                             <div class="form-group">
 
 
                                 <input class="form-control" type="file" name="item_image" accept="image/*" required />
 
-                            </div>
+                            </div> -->
 
 
                         </fieldset>
@@ -372,17 +431,85 @@ extract($edit_row);
                 </div>
                 <div class="modal-footer">
 
-                    <button class="btn btn-success btn-md" name="item_save">Save</button>
+                    <button class="btn btn-success btn-md" onclick="save_form(); return false;" type="submit" name="sub" id="sub">Submit</button>
 
-                    <button type="button" class="btn btn-danger btn-md" data-dismiss="modal">Cancel</button>
-
+                    <button type="button" class="btn btn-danger btn-md" onclick="location.reload(); return false;" data-dismiss="modal">Cancel</button>
 
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function save_form() {
+            var form_element = document.getElementsByClassName('form_data');
 
+            var form_data = new FormData();
+
+            for (var count = 0; count < form_element.length; count++) {
+                form_data.append(form_element[count].name, form_element[count].value);
+            }
+
+            document.getElementById('sub').disabled = true;
+
+            var ajax_request = new XMLHttpRequest();
+
+            ajax_request.open('POST', 'sendform.php');
+
+            ajax_request.send(form_data);
+
+            ajax_request.onreadystatechange = function() {
+                if (ajax_request.readyState == 4 && ajax_request.status == 200) {
+                    document.getElementById('sub').disabled = false;
+
+                    var response = JSON.parse(ajax_request.responseText);
+
+                    if (response.success != '') {
+                        document.getElementById('addform').reset();
+
+                        document.getElementById('suc').innerHTML = response.success;
+
+                        setTimeout(function() {
+
+                            document.getElementById('suc').innerHTML = '';
+                            $('#app').modal('hide');
+
+                            location.reload();
+
+                        }, 5000);
+                        document.getElementById('father_error').innerHTML = '';
+                        document.getElementById('cnic_error').innerHTML = '';
+                        // document.getElementById('dob_error').innerHTML = '';
+                        document.getElementById('occ_error').innerHTML = '';
+                        document.getElementById('income_error').innerHTML = '';
+                        document.getElementById('message_error').innerHTML = '';
+                        document.getElementById('i_error').innerHTML = '';
+                        document.getElementById('amount_error').innerHTML = '';
+                        document.getElementById('level_error').innerHTML = '';
+                        document.getElementById('city_error').innerHTML = '';
+                        document.getElementById('category_error').innerHTML = '';
+
+                    } else {
+
+                        document.getElementById('father_error').innerHTML = response.father_error;
+                        document.getElementById('cnic_error').innerHTML = response.cnic_error;
+                        // document.getElementById('dob_error').innerHTML = response.dob_error;
+                        document.getElementById('occ_error').innerHTML = response.occ_error;
+                        document.getElementById('income_error').innerHTML = response.income_error;
+                        document.getElementById('message_error').innerHTML = response.message_error;
+                        document.getElementById('i_error').innerHTML = response.i_error;
+                        document.getElementById('amount_error').innerHTML = response.amount_error;
+                        document.getElementById('level_error').innerHTML = response.level_error;
+                        document.getElementById('city_error').innerHTML = response.city_error;
+                        document.getElementById('category_error').innerHTML = response.category_error;
+                    }
+
+
+
+                }
+            }
+        }
+    </script>
     <!-- Mediul Modal -->
     <div class="modal fade" id="setAccount" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
         <div class="modal-dialog modal-sm">

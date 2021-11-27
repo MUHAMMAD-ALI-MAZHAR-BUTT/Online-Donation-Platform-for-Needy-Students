@@ -111,8 +111,14 @@
           <div class="modal-body">
             <form enctype="multipart/form-data" method="post" action="settings.php">
               <fieldset>
+                <style>
+                  .req:after {
+                    content: " *";
+                    color: red;
 
-                <p>Name:</p>
+                  }
+                </style>
+                <p class="req">Name:</p>
                 <div class="form-group">
 
                   <input class="form-control" placeholder="Firstname" name="emp_name" type="text" value="<?php echo $emp_name; ?>" required>
@@ -121,7 +127,7 @@
                 </div>
 
 
-                <p>Email:</p>
+                <p class="req">Email:</p>
                 <div class="form-group">
 
                   <input class="form-control" placeholder="Lastname" name="emp_email" type="text" value="<?php echo $emp_email; ?>" required>
@@ -129,7 +135,7 @@
 
                 </div>
 
-                <p>Phone:</p>
+                <p class="req">Phone:</p>
                 <div class="form-group">
 
                   <input class="form-control" placeholder="Address" name="emp_phone" type="text" value="0<?php echo $emp_phone; ?>" required>
@@ -137,7 +143,7 @@
 
                 </div>
 
-                <p>Password:</p>
+                <p class="req">Password:</p>
                 <div class="form-group">
 
                   <input class="form-control" placeholder="Password" name="pass" id='pass' type="password" value="<?php echo $pass; ?>" required>
@@ -153,7 +159,7 @@
                     }
                   </script>
                 </div>
-                <p>Confirm Password:</p>
+                <p class="req">Confirm Password:</p>
                 <div class="form-group">
 
                   <input class="form-control" placeholder="Password" name="cpass" id="passs" type="password" value="<?php echo $pass; ?>">

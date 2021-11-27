@@ -41,8 +41,8 @@
         $password = mysqli_real_escape_string($con, $password);
         // Check user is exist in the database
         $query    = "SELECT * FROM `donators` WHERE username='$username'
-                AND password='" . md5($password) . "'";
-                     
+                AND password='" . $password . "'";
+
         $result = mysqli_query($con, $query);
         $rows = mysqli_num_rows($result);
         if ($rows == 1) {

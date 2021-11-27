@@ -16,49 +16,273 @@
 
 
             </div>
-
         </div>
-
-
     </div>
-    <!-- /.content-header -->
-    <div class="card-body">
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <h5><i class="icon fas fa-check"></i> Alert!</h5>
-            Success alert preview. This alert is dismissable.
+    <div class="container" style="padding-top:1%">
+        <br>
+        <div class="row">
+
+            <!-- /.col -->
+            <div class="col-md-4">
+                <div class="card card-success">
+                    <div class="card-header">
+
+                        <h3 class="card-title"><b>Fee Category</b></h3>
+
+
+                    </div>
+                    <!-- /.card-header -->
+                    <?php
+                    include 'db_connection.php';
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $sql = "select COUNT(*) as tot from payment_history where date_comp is NULL and category='fee'";
+                    $query = mysqli_query($con, $sql);
+                    $values = mysqli_fetch_assoc($query);
+                    $num_rows = $values['tot'];
+                    $sql1 = "select SUM(req_amount) as t from payment_history where date_comp is NULL and category='fee'";
+                    $query1 = mysqli_query($con, $sql1);
+                    $values1 = mysqli_fetch_assoc($query1);
+                    $num = $values1['t'];
+                    ?>
+                    <div class="table-responsive">
+
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <th>Present accepted forms in Fee</th>
+                                <td><?php echo $num_rows ?></td>
+                            </tr>
+                            <tr>
+                                <th>Total amount required in Fee </th>
+                                <?php
+                                if ($num == NULL) {
+
+                                ?>
+                                    <td>0</td>
+                                <?php
+                                } else {
+                                ?>
+                                    <td><?php echo $num ?></td>
+                                <?php
+                                }
+                                ?>
+
+                            </tr>
+                        </table>
+
+                    </div>
+
+
+
+                    <!-- /.card-body -->
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="card card-success">
+                    <div class="card-header">
+
+                        <h3 class="card-title"><b>Expenses Category</b></h3>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <?php
+                    include 'db_connection.php';
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $sql = "select COUNT(*) as tot from payment_history where date_comp is NULL and category='expense'";
+                    $query = mysqli_query($con, $sql);
+                    $values = mysqli_fetch_assoc($query);
+                    $num_rows = $values['tot'];
+                    $sql1 = "select SUM(req_amount) as t from payment_history where date_comp is NULL and category='expense'";
+                    $query1 = mysqli_query($con, $sql1);
+                    $values1 = mysqli_fetch_assoc($query1);
+                    $num = $values1['t'];
+                    ?>
+                    <div class="table-responsive">
+
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <th>Present accepted forms in Expenses</th>
+                                <td><?php echo $num_rows ?></td>
+                            </tr>
+                            <tr>
+                                <th>Total amount required in Expenses </th>
+                                <?php
+                                if ($num == NULL) {
+
+                                ?>
+                                    <td>0</td>
+                                <?php
+                                } else {
+                                ?>
+                                    <td><?php echo $num ?></td>
+                                <?php
+                                }
+                                ?>
+
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <!-- /.card-body -->
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="card card-success">
+                    <div class="card-header">
+
+                        <h3 class="card-title"><b> Health Category</b></h3>
+                    </div>
+
+                    <!-- /.card-header -->
+                    <?php
+                    include 'db_connection.php';
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $sql = "select COUNT(*) as tot from payment_history where date_comp is NULL and category='health'";
+                    $query = mysqli_query($con, $sql);
+                    $values = mysqli_fetch_assoc($query);
+                    $num_rows = $values['tot'];
+                    $sql1 = "select SUM(req_amount) as t from payment_history where date_comp is NULL and category='health'";
+                    $query1 = mysqli_query($con, $sql1);
+                    $values1 = mysqli_fetch_assoc($query1);
+                    $num = $values1['t'];
+                    ?>
+                    <div class="table-responsive">
+
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <th>Present accepted forms in Health</th>
+                                <td><?php echo $num_rows ?></td>
+                            </tr>
+                            <tr>
+                                <th>Total amount required in Health </th>
+                                <?php
+                                if ($num == NULL) {
+
+                                ?>
+                                    <td>0</td>
+                                <?php
+                                } else {
+                                ?>
+                                    <td><?php echo $num ?></td>
+                                <?php
+                                }
+                                ?>
+
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <!-- /.card-body -->
+                </div>
+
+            </div>
         </div>
-        <div class="card-body">
-            <p><code>.progress</code></p>
+        <br>
+        <div class="row">
 
-            <div class="progress">
-                <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                    <span class="sr-only">40% Complete (success)</span>
-                </div>
-            </div>
-            <p><code>.progress-sm</code></p>
+            <!-- /.col -->
+            <div class="col-md-6">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title"><b>All Categories</b></h3>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <?php
+                    include 'db_connection.php';
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $sql = "select COUNT(*) as tot from payment_history where date_comp is NULL  ";
+                    $query = mysqli_query($con, $sql);
+                    $values = mysqli_fetch_assoc($query);
+                    $num_rows = $values['tot'];
+                    $sql1 = "select SUM(req_amount) as t from payment_history where date_comp is NULL  ";
+                    $query1 = mysqli_query($con, $sql1);
+                    $values1 = mysqli_fetch_assoc($query1);
+                    $num = $values1['t'];
+                    ?>
+                    <div class="table-responsive">
 
-            <div class="progress progress-sm active">
-                <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                    <span class="sr-only">20% Complete</span>
-                </div>
-            </div>
-            <p><code>.progress-xs</code></p>
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                                <th>Present accepted forms</th>
+                                <td><?php echo $num_rows ?></td>
+                            </tr>
+                            <tr>
+                                <th>Total amount required</th>
+                                <?php
+                                if ($num == NULL) {
 
-            <div class="progress progress-xs">
-                <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                    <span class="sr-only">60% Complete (warning)</span>
-                </div>
-            </div>
-            <p><code>.progress-xxs</code></p>
+                                ?>
+                                    <td>0</td>
+                                <?php
+                                } else {
+                                ?>
+                                    <td><?php echo $num ?></td>
+                                <?php
+                                }
+                                ?>
 
-            <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                    <span class="sr-only">60% Complete (warning)</span>
+                            </tr>
+                        </table>
+
+                    </div>
+
+
+                    <!-- /.card-body -->
                 </div>
+
             </div>
+            <div class="col-md-6">
+                <div class="card card-success">
+                    <div class="card-header">
+
+                        <h3 class="card-title"><b>Total Balance</b></h3>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <?php
+                    include 'db_connection.php';
+
+                    // $selectquery = "select * from latest_news where category=$cat";
+                    $selectquery = "select * from balance";
+                    $query = mysqli_query($con, $selectquery);
+
+                    $nums = mysqli_num_rows($query);
+
+                    while ($res = mysqli_fetch_array($query)) {
+
+                    ?>
+                        <div class="table-responsive">
+
+                            <table class="table table-striped table-bordered">
+                                <tr>
+                                    <th>Total Amount Received</th>
+                                    <td><?php echo $res['total']; ?> Pkr</td>
+                                </tr>
+                                <tr>
+                                    <th>Available Amount</th>
+                                    <td><?php echo $res['available']; ?> Pkr</td>
+                                </tr>
+                                <tr>
+                                    <th>Amount Donated to Student</th>
+                                    <td><?php echo $res['donated']; ?> Pkr</td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    <?php
+                    }
+                    ?>
+
+                    <!-- /.card-body -->
+                </div>
+
+            </div>
+
         </div>
-        <!-- /.card-body -->
     </div>
 </div>
 <!-- Main content -->

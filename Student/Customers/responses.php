@@ -1,10 +1,5 @@
 <?php
-session_start();
-
-if (!$_SESSION['email']) {
-
-    header("Location: ../index.php");
-}
+include('session.php');
 
 ?>
 
@@ -76,7 +71,8 @@ extract($edit_row);
                 <ul class="nav navbar-nav side-nav" style="  background-color: #6e72fc;
   background-image: linear-gradient(315deg, #6e72fc 0%, #ad1deb 74%);">
                     <li><a href="index.php"> &nbsp; <span class='glyphicon glyphicon-home'></span> Home</a></li>
-                    <li><a href="apply.php"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now</a></li>
+                    <li><a data-toggle="modal" data-target="#app"> &nbsp; <span class='glyphicon glyphicon-list-alt'></span> Apply Now for <?php $date = date('F,Y');
+                                                                                                                                            echo $date ?></a></li>
                     <li><a data-toggle="modal" data-target="#set"> &nbsp; <span class='glyphicon glyphicon-envelope'></span> Send Queries</a></li>
                     <li class="active"><a href="responses.php"> &nbsp; <span class='fa fa-file'></span> Query Responses</a></li>
                     <li><a href="notifications.php?id=1"> &nbsp; <span class='fa fa-bell'></span> Notifications</a></li>
@@ -94,7 +90,8 @@ extract($edit_row);
                             <span class="badge badge-warning navbar-badge"></span><b>Notifications</b>
 
                             <?php
-                            $query = "SELECT * from `notifications` where `status` = 'unread' order by `date` DESC";
+
+                            $query = "SELECT * from `stu_notification` where `status` = 'unread' and stu_id='$id' order by `dt` DESC ";
                             if (count(fetchAll($query)) > 0) {
                             ?>
                                 <span class="badge badge-warning" style="background-color:#eea236"><?php echo count(fetchAll($query)); ?></span>
@@ -105,7 +102,8 @@ extract($edit_row);
 
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <?php
-                            $query = "SELECT * from `notifications` order by `date` DESC";
+
+                            $query = "SELECT * from `stu_notification` where stu_id='$id' order by `dt` DESC ";
                             if (count(fetchAll($query)) > 0) {
                                 $count = 0;
                                 foreach (fetchAll($query) as $i) {
@@ -119,21 +117,15 @@ extract($edit_row);
                                     }
                             ?>
                          " class="dropdown-item" href="#" onclick=my();>
-                                        <small><i><?php echo date('F j, Y, g:i a', strtotime($i['date'])) ?></i></small><br />
+                                        <small><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
                                         <?php
-                                        if ($i['type1'] == 'account') {
-                                            echo ucfirst($i['name']) . " made changed to account setting";
-                                        } else if ($i['type1'] == 'resign') {
-                                            echo ucfirst($i['name']) . " resigned from the post";
-                                        } else if ($i['type1'] == 'donation') {
-                                            echo ucfirst($i['name']) . " donated to our platform";
-                                        } else if ($i['type1'] == 'accepted') {
-                                            echo ucfirst($i['name']) . " is accepted for financial help";
-                                        } else if ($i['type1'] == 'newacc') {
-                                            echo "Someone made a new account on the platform.";
-                                        } else if ($i['type1'] == 'forgot') {
-                                            echo ucfirst($i['name']) . " forgot password of account";
+                                        if ($i['type'] == 's') {
+                                            echo "Your application status has been set, Check it";
                                         }
+                                        if ($i['type'] == 'i') {
+                                            echo "You have received your interview details";
+                                        }
+
 
                                         ?>
                                     </a>
@@ -205,7 +197,9 @@ extract($edit_row);
 
                                 <th>Subject</th>
                                 <th>Message</th>
+                                <th>Query Date/Time</th>
                                 <th>Response</th>
+
 
 
 
@@ -221,7 +215,7 @@ extract($edit_row);
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 extract($row);
 
-
+                                $date1 = date('F j, Y, g:i a', strtotime($row['dt']));
                             ?>
                                 <tr>
                                     <td><?php echo $row['feedback_id']; ?></td>
@@ -229,6 +223,7 @@ extract($edit_row);
 
                                     <td><?php echo $row['subject']; ?></td>
                                     <td><?php echo $row['message']; ?></td>
+                                    <td><?php echo $date1 ?></td>
                                     <td>
                                         <?php
                                         if ($row['status'] == 'false') {
@@ -291,7 +286,9 @@ extract($edit_row);
     </div>
 
     <!-- /#wrapper -->
-
+    <?php
+    include('form.php');
+    ?>
 
     <!-- Mediul Modal -->
     <div class="modal fade" id="setAccount" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">

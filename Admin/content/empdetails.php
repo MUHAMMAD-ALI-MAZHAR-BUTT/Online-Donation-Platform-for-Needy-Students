@@ -144,19 +144,26 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group ">
-                        <label>Employee Name</label>
+                        <style>
+                            .required:after {
+                                content: " *";
+                                color: red;
+
+                            }
+                        </style>
+                        <label class="required">Employee Name</label>
                         <input type="text" name="emp_name" id="emp_name" class="form-control form_data" placeholder="Name">
                         <span id="name_error" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label>Employee Phone</label>
+                        <label class="required">Employee Phone</label>
                         <input type="text" name="emp_phone" id="emp_phone" class="form-control form_data" placeholder="03XXXXXXXXX">
                         <span id="phone_error" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label>Employee Email</label>
+                        <label class="required">Employee Email</label>
                         <input type="email" name="emp_email" id="emp_email" class="form-control form_data" placeholder="email@domain.com">
                         <span id="email_error" class="text-danger"></span>
                         <span id="suc" class="text-success"></span>

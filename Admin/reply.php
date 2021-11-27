@@ -82,6 +82,7 @@
         $recipient = $_POST['email'];
         $subject = $_POST['subject'];
         $message = $_POST['message'];
+
         $sender = "From: abdullahrasheed937@gmail.com";
 
         if (empty($recipient) || empty($subject) || empty($message)) {

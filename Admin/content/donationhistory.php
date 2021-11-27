@@ -70,7 +70,7 @@
 
                             <td>
 
-                                <a href="itemlist1.php?id=<?php echo $res['item_id']; ?>" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-list" style="color:#ad1deb" data-toggle="tooltip" title="Details"></i></a>
+                                <a href="#" data-toggle="modal" data-target="#view-history" data-id="<?php echo $res['id']; ?>" id="donordetail">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-list" style="color:#ad1deb" data-toggle="tooltip" title="Details"></i></a>
 
                             </td>
                         </tr>
@@ -79,6 +79,65 @@
                     }
                     ?>
                 </tbody>
+                <div id="view-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <i class="glyphicon glyphicon-user"></i> Donor Detail
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                            </div>
+                            <div class="modal-body">
+
+                                <div id="modal-loader" style="display: none; text-align: center;">
+                                    <img src="ajax-loader.gif">
+                                </div>
+                                <!-- content will be load here -->
+                                <div id="dynamic-content"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- /.modal -->
+                <script>
+                    $(document).ready(function() {
+
+                        $(document).on('click', '#donordetail', function(e) {
+
+                            e.preventDefault();
+
+                            var uid = $(this).data('id'); // it will get id of clicked row
+
+                            $('#dynamic-content').html(''); // leave it blank before ajax call
+                            $('#modal-loader').show(); // load ajax loader
+
+                            $.ajax({
+                                    url: 'donor.php',
+                                    type: 'POST',
+                                    data: 'Id=' + uid,
+                                    dataType: 'html'
+                                })
+                                .done(function(data) {
+                                    console.log(data);
+                                    $('#dynamic-content').html('');
+                                    $('#dynamic-content').html(data); // load response 
+                                    $('#modal-loader').hide(); // hide ajax loader	
+                                })
+                                .fail(function() {
+                                    $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
+                                    $('#modal-loader').hide();
+                                });
+
+                        });
+
+                    });
+                </script>
             </table>
         <?php
         }

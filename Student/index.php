@@ -163,22 +163,32 @@ if (isset($_POST["submit_email"])) {
 
           <form id="addform">
             <fieldset>
+              <style>
+                .required:after {
+                  content: " *";
+                  color: red;
 
+                }
+              </style>
               <div class="form-group">
+                <label style="margin-right:210px" class="required">Name</label>
                 <input class="form-control form_data" placeholder="Name" id="name" name="name" type="text">
                 <span id="name_error" style="color:#EED202"></span>
               </div>
 
               <div class="form-group">
+                <label style="margin-right:210px" class="required">Email</label>
                 <input class="form-control form_data" placeholder="Email" id="email" name="email" type="email">
                 <span id="email_error" style="color:#EED202"></span>
               </div>
               <div class="form-group">
+                <label style="margin-right:210px" class="required">Phone</label>
                 <input class="form-control form_data" placeholder="Phone Number" id="phone" name="phone" type="text">
                 <span id="phone_error" style="color:#EED202"></span>
               </div>
 
               <div class="form-group">
+                <label style="margin-right:190px" class="required">Password</label>
                 <input class="form-control form_data" placeholder="Password" id="pass" name="password" type="password">
 
                 <div style="margin-right: 140px;"><input type="checkbox" onclick="myFunction()">Show Password
@@ -195,6 +205,7 @@ if (isset($_POST["submit_email"])) {
                 </div>
               </div>
               <div class="form-group">
+                <label style="margin-right:130px" class="required">Confirm Password</label>
                 <input class="form-control form_data" placeholder="Confirm Password" name="cpassword" id="cpass" type="password">
                 <span id="pass_error" style="color:#EED202"></span>
                 <div style="margin-right: 140px;"><input type="checkbox" onclick="myFunc()">Show Password
@@ -293,8 +304,49 @@ if (isset($_POST["submit_email"])) {
         </div>
         <div class="modal-body">
 
+          <?php
+          if (empty($_GET)) {
+          ?>
+            <form role="form" method="post" action="userlogin.php">
+              <fieldset>
 
-          <form role="form" method="post" action="userlogin.php">
+
+                <div class="form-group">
+                  <input class="form-control" placeholder="Email" name="email" type="email" required>
+                </div>
+
+                <div class="form-group">
+                  <input class="form-control" placeholder="Password" name="password" id="pass" type="password" required>
+                  <div style="margin-right: 140px;"><input type="checkbox" onclick="myFunction()">Show Password
+                  </div>
+
+                </div>
+
+                <script>
+                  function myFunction() {
+                    var x = document.getElementById("pass");
+                    if (x.type === "password") {
+                      x.type = "text";
+                    } else {
+                      x.type = "password";
+                    }
+                  }
+                </script>
+
+              </fieldset>
+
+
+        </div>
+        <div class="modal-footer">
+
+          <button class="btn btn-md btn-success btn-block" name="user_login">Sign In</button>
+
+          <button type="button" class="btn btn-md btn-warning btn-block" data-dismiss="modal">Cancel</button>
+          </form>
+        <?php
+          } else {
+        ?>
+          <form role="form" method="post" action="userlogin.php?continue=<?php echo $_GET['continue']; ?>">
             <fieldset>
 
 
@@ -330,6 +382,11 @@ if (isset($_POST["submit_email"])) {
 
           <button type="button" class="btn btn-md btn-warning btn-block" data-dismiss="modal">Cancel</button>
           </form>
+        <?php
+          }
+        ?>
+
+
 
         </div>
       </div>
