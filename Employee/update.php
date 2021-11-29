@@ -86,7 +86,7 @@ extract($edit_row);
 
     $ids = $_GET['id'];
 
-    $showquery = "select * from forms inner join student on forms.student_id=student.id inner join emp on forms.emp_id=emp.emp_id where forms.form_id=$ids";
+    $showquery = "select forms.form_id,emp.emp_id,emp.emp_name,student.id,student.name,student.email,forms.status,forms.date_of_accept,forms.date_of_reject,forms.category,forms.date_filled from forms inner join student on forms.student_id=student.id inner join emp on forms.emp_id=emp.emp_id where forms.form_id=$ids";
 
     $showdata = mysqli_query($dbcon, $showquery);
 
@@ -99,36 +99,21 @@ extract($edit_row);
             $query = "update forms set status='pending' where form_id=$ids";
             mysqli_query($dbcon, $query);
             echo "<script>window.open('studetails.php','_self')</script>";
-        } else if ($status == 'Reject' & $arrdata['informed'] == 'true') {
+        } else if ($status == 'Reject') {
             $query = "update forms set status='rejected' where form_id=$ids";
             mysqli_query($dbcon, $query);
             $query1 = "INSERT INTO `stu_notification` (`stu_id`,`emp_id`, `emp_name`, `dt`, `status`, `message`,`venue`,`type`) 
         VALUES ('$arrdata[id]', '$arrdata[emp_id]', '$arrdata[emp_name]',CURRENT_TIMESTAMP, 'unread','You have been rejected for grant','NULL','s')";
             mysqli_query($dbcon, $query1);
-            $i = $arrdata['id'];
-            $query2 = "UPDATE student set rejected_no=rejected_no+1 where id='$i'";
-            mysqli_query($dbcon, $query2);
-
-            $query3 = "UPDATE forms set date_of_reject=CURRENT_DATE where student_id='$i' order by form_id desc limit 1";
-            mysqli_query($dbcon, $query3);
             echo "<script>alert('Student Rejected for grant')</script>";
             echo "<script>window.open('studetails.php','_self')</script>";
-        } else if ($status == 'Accept' & $arrdata['informed'] == 'true') {
+        } else if ($status == 'Accept') {
             $query = "update forms set status='accepted' where form_id=$ids";
             mysqli_query($dbcon, $query);
             $query1 = "INSERT INTO `stu_notification` (`stu_id`,`emp_id`, `emp_name`, `dt`, `status`, `message`,`venue`,`type`) 
         VALUES ('$arrdata[id]', '$arrdata[emp_id]', '$arrdata[emp_name]',CURRENT_TIMESTAMP, 'unread','You have been Accepted for grant','NULL','s')";
             mysqli_query($dbcon, $query1);
-            $i = $arrdata['id'];
-            $query2 = "UPDATE student set accepted_no=accepted_no+1 where id='$i'";
-            mysqli_query($dbcon, $query2);
-            $dt = date('Y-m-d');
-            $query3 = "UPDATE forms set date_of_accept=CURRENT_DATE where student_id='$i' order by form_id desc limit 1";
-            mysqli_query($dbcon, $query3);
             echo "<script>alert('Student Accepted for grant')</script>";
-            echo "<script>window.open('studetails.php','_self')</script>";
-        } else {
-            echo "<script>alert('Student not interviewed/notified for interview, status cannot be changed')</script>";
             echo "<script>window.open('studetails.php','_self')</script>";
         }
     }

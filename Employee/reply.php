@@ -110,34 +110,24 @@ extract($edit_row);
                     <div class="form-group">
                         <input class="form-control form_data" name="emp_name" id="emp_name" type="hidden" value="<?php echo $emp_name ?>" readonly>
                     </div>
-                    <label class="req"> Message details </label>
+                    <label> Message </label>
                     <div class="form-group">
                         <textarea class="form-control form_data" name="message" id="message" rows="5" placeholder="Enter Message for <?php echo $arrdata['name']; ?>" required></textarea>
                         <span id="message_error" class="text-danger"></span>
 
                     </div>
-                    <label> Date and Time</label>
-                    <div class="form-group">
-                        <input type="date" class="form-control form_date" name="date1" value="<?php echo date('Y-m-d'); ?>" required>
-                        <script>
-                            date1.min = new Date();
-                        </script>
-
-                    </div>
-                    <label class="req"> Location</label>
+                    <label> Location</label>
                     <div class="form-group">
                         <textarea class="form-control form_data" name="venue" id="venue" rows="5" placeholder="Give Location" required></textarea>
                         <span id="venue_error" class="text-danger"></span>
                         <span id="suc" class="text-success"></span>
                     </div>
-                    <style>
-                        .req:after {
-                            content: " *";
-                            color: red;
+                    <!-- <label> Date and Time</label>
+                    <div class="form-group">
+                        <input type="datetime-local" class="form-control form_date" id="date1" name="date1" required>
 
-                        }
-                    </style>
-
+                        <span id="suc" class="text-success"></span>
+                    </div> -->
                     <div class="text-center group" id="fed">
                         <input class="form-control button btn-primary" onclick="save(); return false;" style="background-color: #ad1deb; border: #ad1deb; " type="submit" id="submit" name="submit" value="Send ">
                     </div>
@@ -202,13 +192,12 @@ extract($edit_row);
                                     setTimeout(function() {
 
                                         document.getElementById('suc').innerHTML = '';
-                                        document.getElementById('message_error').innerHTML = '';
 
-                                        document.getElementById('venue_error').innerHTML = '';
-                                        window.location.href = "notify.php";
                                     }, 5000);
 
+                                    document.getElementById('message_error').innerHTML = '';
 
+                                    document.getElementById('venue_error').innerHTML = '';
                                     // document.getElementById('date_error').innerHTML = '';
 
 

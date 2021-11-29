@@ -196,81 +196,65 @@ extract($edit_row);
                         $start = ($id - 1) * $limit;
                     }
 
-                    $query = mysqli_query($conn, "select * from notifications order by `date` DESC LIMIT $start, $limit");
+                    $query = mysqli_query($conn, "select * from stu_notification inner join student on stu_notification.stu_id=student.id inner join emp on stu_notification.emp_id=emp.emp_id where stu_id='$id' 
+                    order by `dt` DESC LIMIT $start,$limit");
 
                     while ($query2 = mysqli_fetch_array($query)) {
 
-                        $date = date('F j, Y, g:i a', strtotime($query2['date']));
-                        if ($query2['status'] == "read") {
-                            echo "<div id='he' class='col-md-4'>
-        
-               <div class='card card-success'>
-                    <div class='card-header'>
-                    <h3 class='card-title'>" . $query2['name'] . " (" . $query2['type'] . ")</h3>
-                     
-                    </div>
-          <div class='card-body'>
-                            " . $query2['message'] . "
-          </div>
-            <div class='card-body'>
-                            <hr>Dated :<u>
-                               " . $date . "</u>
-                        </div>
-          </div>
-        </div>";
-                        } else {
-                            echo "<div id='he' class='col-md-4'>
-        
-               <div class='card card-warning'>
-                    <div class='card-header'>
-                    <h3 class='card-title' style='color:white'>" . $query2['name'] . " (" . $query2['type'] . ")</h3>
-                       <div class=card-tools>
-                                <a href='r.php?idd=" . $query2['id'] . "' type='button' name='edit'> <i class='fa fa-check' style='color:white'></i> </a>
-                            </div>
-                    </div>
-          <div class='card-body'>
-                            " . $query2['message'] . "
-          </div>
-            <div class='card-body'>
-                            <hr>Dated :<u>
-                               " . $date . "</u>
-                        </div>
+                        echo "<div class='col-sm-4'><div class='panel panel-success' style='border-color:#f0ad4e '>
+            <div class='panel-heading' style='color:white;background-color : #22bb33;'>
+            <center> 
+<textarea style='text-align:center;background-color: white;' class='form-control' rows='1' disabled>" . $query2['name'] . "</textarea>
+			</center>
+            </div>
+         
+            <div class='panel-body'>
+           <a class='fancybox-buttons' href='../Admin/item_images/" . $query2['name'] . "' data-fancybox-group='button' title='Page " . $id . "- " . $query2['name'] . "'>
+					
+					
+					</a>
+				
+					
+					<center><h4> Price:&#8360; " . $query2['name'] . " </h4></center>
+					<center><h4> Available Quantity: " . $query2['name'] . " </h4></center>
+					
+										<a class='btn btn-block btn-primary' href='add_to_cart.php?cart=" . $query2['name'] . "'><span class='glyphicon glyphicon-ok'></span> Ok</a>
+            </div>
           </div>
         </div>";
-                        }
                     }
 
                     echo "<div class='container'>";
+                    echo "</div>";
 
-                    $rows = mysqli_num_rows(mysqli_query($conn, "select * from notifications"));
+
+
+
+                    $rows = mysqli_num_rows(mysqli_query($conn, "select * from stu_notification where stu_id='$id'"));
                     $total = ceil($rows / $limit);
-                    // echo "<br /><ul class='pager'>";
-                    // if ($id > 1) {
-                    //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
-                    // }
-                    // if ($id != $total) {
-                    //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
-                    // }
-                    // echo "</ul>";
-
-
-                    echo "<ul class='pagination justify-content-center'>";
+                    echo "<br /><ul class='pager'>";
                     if ($id > 1) {
-                        echo "<li class='page-item'><a style='color:#ad1deb ' class='page-link' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+                        echo "<li><a style='color:white;background-color : #ad1deb; border:#ad1deb;' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
                     }
-                    for ($i = 1; $i <= $total; $i++) {
-                        if ($i == $id) {
-                            echo "<li class='page-item active'><a style='background-color:#ad1deb; border-color:#ad1deb;color:white;' class='page-link' >" . $i . "</a></li>";
-                        } else {
-                            echo "<li class='page-item'><a style='color:#ad1deb; ' class='page-link' href='?id=" . $i . "'>" . $i . "</a></li>";
-                        }
-                    }
+                    echo "&nbsp;";
                     if ($id != $total) {
-                        echo "<li class='page-item'><a style='color:#ad1deb;' class='page-link' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+                        echo "<li><a style='color:white;background-color : #ad1deb; border:#ad1deb;' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
                     }
                     echo "</ul>";
-                    echo "</div>";
+
+
+                    echo "<center><ul class='pagination pagination-lg'>";
+                    for ($i = 1; $i <= $total; $i++) {
+                        if ($i == $id) {
+                            echo "<li class='pagination active'><a style='color:white;background-color : #ad1deb;'>" . $i . "</a></li>";
+                        } else {
+                            echo "<li><a style='color:#ad1deb;' href='?id=" . $i . "'>" . $i . "</a></li>";
+                        }
+                    }
+                    echo "</ul></center>";
                     ?>
+
+
 
                 </div>
             </div>

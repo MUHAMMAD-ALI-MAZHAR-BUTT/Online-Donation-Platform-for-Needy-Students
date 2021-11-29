@@ -1,0 +1,4 @@
+.bg-warning,
+.bg-warning>a {
+  color: #fff !important;
+}
