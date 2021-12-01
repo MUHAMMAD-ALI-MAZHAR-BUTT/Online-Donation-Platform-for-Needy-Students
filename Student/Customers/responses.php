@@ -103,11 +103,11 @@ extract($edit_row);
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <?php
 
-                            $query = "SELECT * from `stu_notification` where stu_id='$id' order by `dt` DESC ";
+                            $query = "SELECT * from `stu_notification`  order by `dt` DESC ";
                             if (count(fetchAll($query)) > 0) {
                                 $count = 0;
                                 foreach (fetchAll($query) as $i) {
-                                    if ($count == 9)
+                                    if ($count == 7)
                                         break;
                             ?>
                                     <a style="
@@ -117,16 +117,17 @@ extract($edit_row);
                                     }
                             ?>
                          " class="dropdown-item" href="#" onclick=my();>
-                                        <small><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
+                                        <small style="color:indigo"><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
                                         <?php
                                         if ($i['type'] == 's') {
-                                            echo "Your application status has been set, Check it";
+                                            echo "<p style='color:#ad1deb;'>Your application status has been set, Check it</p> ";
                                         }
                                         if ($i['type'] == 'i') {
-                                            echo "You have received your interview details";
+                                            echo "<p style='color:#ad1deb;'>You have received your interview details</p> ";
                                         }
-
-
+                                        if ($i['type'] == 'a') {
+                                            echo "<p style='color:#ad1deb;'>You have received your full grant amount</p> <hr>";
+                                        }
                                         ?>
                                     </a>
                                     <div class="dropdown-divider"></div>
@@ -139,7 +140,7 @@ extract($edit_row);
                             ?>
                             <script>
                                 function my() {
-                                    location.href = "notification.php?id=1";
+                                    location.href = "notifications.php?id=1";
                                 }
                             </script>
                         </div>

@@ -67,7 +67,7 @@
                                    </div>
                                    <?php
                                     include('db_connection.php');
-                                    $query = "SELECT * from forms where student_id='$id' order by form_id desc ";
+                                    $query = "SELECT * from forms inner join city on forms.city_id=city.city_id where student_id='$id' order by form_id desc ";
                                     $qu = mysqli_query($dbcon, $query);
                                     if (mysqli_num_rows($qu) > 0) {
                                         $res = mysqli_fetch_array($qu);

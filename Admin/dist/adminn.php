@@ -2,6 +2,13 @@
 session_start();
 
 ?>
+<script type="text/javascript">
+  window.history.forward();
+
+  function noBack() {
+    window.history.forward();
+  }
+</script>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -322,8 +329,9 @@ if (isset($_POST['admin_login'])) {
       echo "<script>window.open(' $g','_self')</script>";
     }
   } else {
+    $g = $_GET['continue'];
     echo "<script>alert('Username or Password is incorrect!')</script>";
-    echo "<script>window.open('adminn.php','_self')</script>";
+    echo "<script>window.open('adminn.php?continue=$g','_self')</script>";
 
     exit();
   }

@@ -49,28 +49,55 @@
             $_SESSION['username'] = $username;
             // $_SESSION['status'] = true;
             // Redirect to user dashboard page
-            header("Location:../index.php");
+            if (empty($_GET)) {
+                header("Location:../index.php");
+            } else {
+                $g = $_GET['continue'];
+                echo "<script>window.open(' $g','_self')</script>";
+            }
         } else {
             echo "<div class='form'>
                   <h3>Incorrect Username/password.</h3><br/>
-                  <p class='link'>Click here to <a href='login.php'>Login</a> again.</p>
+                  <p class='link'>Click here to <a href='login.php?continue=$g'>Login</a> again.</p>
                   <b> <p class='link'>Click here to <a href='forget.php' style='color:red;'>Forget Password</a> Request</p></b>
                   </div>";
         }
     } else {
     ?>
-        <form class="form" method="post" name="login">
-            <h1 class="login-title">Login for Donator</h1>
-            <input type="text" class="login-input" name="username" placeholder="Username" required autofocus="true" />
-            <input type="password" class="login-input" name="password" required placeholder="Password" />
-            <input type="submit" value="Login" name="submit" class="login-button" />
-            <b>
-                <p class="link">Don't have an account? <a href="registration.php">Registration Now</a></p>
-            </b>
-            <b>
-                <p class='link'>Click here to <a href='forget.php' style='color:red;'>Forget Password</a> Request</p>
-            </b>
-        </form>
+        <?php
+        if (empty($_GET)) {
+        ?>
+            <form class="form" method="post" name="login.php">
+                <h1 class="login-title">Login for Donator</h1>
+                <input type="text" class="login-input" name="username" placeholder="Username" required autofocus="true" />
+                <input type="password" class="login-input" name="password" required placeholder="Password" />
+                <input type="submit" value="Login" name="submit" class="login-button" />
+                <b>
+                    <p class="link">Don't have an account? <a href="registration.php">Registration Now</a></p>
+                </b>
+                <b>
+                    <p class='link'>Click here to <a href='forget.php' style='color:red;'>Forget Password</a> Request</p>
+                </b>
+            </form>
+        <?php
+        } else {
+        ?>
+            <form class="form" method="post" name="login.php?continue=<?php echo $_GET['continue']; ?>">
+                <h1 class="login-title">Login for Donator</h1>
+                <input type="text" class="login-input" name="username" placeholder="Username" required autofocus="true" />
+                <input type="password" class="login-input" name="password" required placeholder="Password" />
+                <input type="submit" value="Login" name="submit" class="login-button" />
+                <b>
+                    <p class="link">Don't have an account? <a href="registration.php">Registration Now</a></p>
+                </b>
+                <b>
+                    <p class='link'>Click here to <a href='forget.php' style='color:red;'>Forget Password</a> Request</p>
+                </b>
+            </form>
+        <?php
+        }
+        ?>
+
         <marquee width="100%" direction="right" height="18px" onmousedown="this.stop();" class="bb" onmouseup="this.start();">
             &#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;
             &#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;&#128150;

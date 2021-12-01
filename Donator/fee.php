@@ -180,11 +180,12 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
+                                                <th>Holder Name</th>
                                                 <th>Card No</th>
                                                 <th>Cvc</th>
                                                 <th>Amount</th>
-                                                <th>Date</th>
-                                                <th>Time</th>
+                                                <th>Date/Time</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -201,7 +202,7 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                                 die("Connection failed: " . $conn->connect_error);
                                             }
                                             $d = $_SESSION['username'];
-                                            $sql = "SELECT * FROM fee_category where DonatorName='$d'";
+                                            $sql = "SELECT * FROM donation_record inner join donators on donation_record.donator_id=donators.id where donators.id='$id' and category='fee'";
                                             $result = $conn->query($sql);
                                             //mdo
 
@@ -211,15 +212,15 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                             if ($result->num_rows > 0) {
 
                                                 while ($row = $result->fetch_assoc()) {
-
+                                                    $date = date('F j, Y, g:i a', strtotime($row['datetime']));
                                             ?>
                                                     <tr class="odd gradeX">
+                                                        <td> <?php echo $row['username']; ?></td>
                                                         <td> <?php echo $row['Holder_Name']; ?></td>
                                                         <td> <?php echo $row['Card_Number']; ?></td>
-                                                        <td> <?php echo $row['Cvc']; ?></td>
-                                                        <td> <?php echo $row['Amount']; ?></td>
-                                                        <td> <?php echo $row['Date']; ?></td>
-                                                        <td> <?php echo $row['Time']; ?></td>
+                                                        <td> <?php echo $row['cvc']; ?></td>
+                                                        <td> <?php echo $row['amount']; ?></td>
+                                                        <td> <?php echo $date ?></td>
                                                     </tr>
                                             <?php }
                                             } ?>

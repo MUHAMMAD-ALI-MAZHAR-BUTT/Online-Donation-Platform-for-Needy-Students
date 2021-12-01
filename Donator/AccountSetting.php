@@ -2,7 +2,9 @@
 session_start();
 if (!$_SESSION['username']) {
 
-    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+    $actual_link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+    echo "<script>window.open('./LoginSystem/index.php?continue=$actual_link','_self')</script>";
 }
 ?>
 <?php
@@ -84,7 +86,7 @@ font-size: 16px;"><?php echo $_SESSION['username']; ?>&nbsp; Online Donation Sys
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="expensescreditcard/index.php">Fee</a>
+                                        <a href="feecreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
                                         <a href="healthcreditcard/index.php">Health</a>
@@ -162,7 +164,7 @@ font-size: 16px;"><?php echo $_SESSION['username']; ?>&nbsp; Online Donation Sys
 
                         <div class="form-group col-md-12">
                             <label for="inputEmail4">Username</label>
-                            <input type="text" class="form-control" id="inputEmail4" readonly="readonly" placeholder="<?php echo $username; ?>">
+                            <input type="text" class="form-control" id="inputEmail4" name="c" readonly="readonly" placeholder="<?php echo $username; ?>">
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputEmail4">Email</label>
@@ -170,20 +172,40 @@ font-size: 16px;"><?php echo $_SESSION['username']; ?>&nbsp; Online Donation Sys
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputPassword4">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4" name="b" value="<?php echo $password; ?>" required>
+                            <input type="password" class="form-control" id="inputPassword4" name="b" value="<?php echo md5($password); ?>" required>
+                            <input type="checkbox" onclick="mFunction()">Show Password
+                            <script>
+                                function mFunction() {
+                                    var x = document.getElementById("inputPassword4");
+                                    if (x.type === "password") {
+                                        x.type = "text";
+                                    } else {
+                                        x.type = "password";
+                                    }
+                                }
+                            </script>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputPassword4">Confirm Password</label>
-                            <input type="password" class="form-control" id="inputPassword5" name="c" value="<?php echo $password; ?>" required>
+                            <input type="password" class="form-control" id="inputPassword5" name="c" value="<?php echo md5($password); ?>" required>
+                            <input type="checkbox" onclick="myFunction()">Show Password
+                            <script>
+                                function myFunction() {
+                                    var x = document.getElementById("inputPassword5");
+                                    if (x.type === "password") {
+                                        x.type = "text";
+                                    } else {
+                                        x.type = "password";
+                                    }
+                                }
+                            </script>
                         </div>
                     </div>
 
                     <br><br><br><br><br>
+
                     <div class="form-group col-md-4">
-                        <button type="reset" class="btn btn-primary btn-lg">Clear Values </button>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Reset Details</button>
+                        <button type="submit" name="sub" class="btn btn-primary btn-lg">Reset Details</button>
                     </div>
 
 

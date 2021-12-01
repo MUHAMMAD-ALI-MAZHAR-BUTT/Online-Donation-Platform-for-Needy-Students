@@ -81,7 +81,6 @@ extract($edit_row);
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
-
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-bell warning"></i>
                             <span class="badge badge-warning navbar-badge"></span><b>Notifications</b>
@@ -100,11 +99,11 @@ extract($edit_row);
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <?php
 
-                            $query = "SELECT * from `stu_notification` where stu_id='$id' order by `dt` DESC ";
+                            $query = "SELECT * from `stu_notification`  order by `dt` DESC ";
                             if (count(fetchAll($query)) > 0) {
                                 $count = 0;
                                 foreach (fetchAll($query) as $i) {
-                                    if ($count == 9)
+                                    if ($count == 7)
                                         break;
                             ?>
                                     <a style="
@@ -114,16 +113,17 @@ extract($edit_row);
                                     }
                             ?>
                          " class="dropdown-item" href="#" onclick=my();>
-                                        <small><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
+                                        <small style="color:indigo"><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
                                         <?php
                                         if ($i['type'] == 's') {
-                                            echo "Your application status has been set, Check it";
+                                            echo "<p style='color:#ad1deb;'>Your application status has been set, Check it</p> ";
                                         }
                                         if ($i['type'] == 'i') {
-                                            echo "You have received your interview details";
+                                            echo "<p style='color:#ad1deb;'>You have received your interview details</p> ";
                                         }
-
-
+                                        if ($i['type'] == 'a') {
+                                            echo "<p style='color:#ad1deb;'>You have received your full grant amount</p> <hr>";
+                                        }
                                         ?>
                                     </a>
                                     <div class="dropdown-divider"></div>
@@ -136,7 +136,7 @@ extract($edit_row);
                             ?>
                             <script>
                                 function my() {
-                                    location.href = "notification.php?id=1";
+                                    location.href = "notifications.php?id=1";
                                 }
                             </script>
                         </div>
@@ -200,28 +200,114 @@ extract($edit_row);
                     order by `dt` DESC LIMIT $start,$limit");
 
                     while ($query2 = mysqli_fetch_array($query)) {
-
-                        echo "<div class='col-sm-4'><div class='panel panel-success' style='border-color:#f0ad4e '>
-            <div class='panel-heading' style='color:white;background-color : #22bb33;'>
+                        $dt = date('F j, Y, g:i a', strtotime($query2['dt']));
+                        $dt1 = date('F j, Y, g:i a', strtotime($query2['date1']));
+                        if ($query2['type'] == 's' & $query2['status'] == 'unread') {
+                            echo "<div class='col-sm-4'><div class='panel panel-success' style='border-color:#f0ad4e '>
+            <div class='panel-heading' style='color:white;background-color : #f0ad4e'>
             <center> 
-<textarea style='text-align:center;background-color: white;' class='form-control' rows='1' disabled>" . $query2['name'] . "</textarea>
+<textarea style='text-align:center;background-color: white; font-weight: bold;' class='form-control' rows='2' disabled>Your Application Status set by employee(" . $query2['emp_name'] . ")</textarea>
 			</center>
             </div>
          
             <div class='panel-body'>
-           <a class='fancybox-buttons' href='../Admin/item_images/" . $query2['name'] . "' data-fancybox-group='button' title='Page " . $id . "- " . $query2['name'] . "'>
-					
-					
-					</a>
+ 
 				
 					
-					<center><h4> Price:&#8360; " . $query2['name'] . " </h4></center>
-					<center><h4> Available Quantity: " . $query2['name'] . " </h4></center>
+					<center><h3> Dear " . $name . ", " . $query2['message'] . " </h3></center>
 					
-										<a class='btn btn-block btn-primary' href='add_to_cart.php?cart=" . $query2['name'] . "'><span class='glyphicon glyphicon-ok'></span> Ok</a>
+										<a class='btn btn-block btn-primary' href='r.php?idd=" . $query2['idd'] . "'><span class='glyphicon glyphicon-ok'></span> Ok</a>
+                                  <center><h4 style='color:#f0ad4e'><u>Dated: " . $dt . "</u>  </h4></center>
             </div>
           </div>
         </div>";
+                        } else if ($query2['type'] == 'i' & $query2['status'] == 'unread') {
+                            echo "<div class='col-sm-4'><div class='panel panel-success' style='border-color:#f0ad4e '>
+            <div class='panel-heading' style='color:white;background-color : #f0ad4e'>
+            <center> 
+<textarea style='text-align:center;background-color: white; font-weight: bold;' class='form-control' rows='2' disabled>Interview details send by employee(" . $query2['emp_name'] . ")</textarea>
+			</center>
+            </div>
+         
+            <div class='panel-body'>
+          	<center><h4><b>Message:</b> " . $query2['message'] . " </h4></center>
+            <center><h4><b>Venue:</b> " . $query2['venue'] . " </h4></center>
+            <center><h4><b>Date/Time:</b> " . $dt1 . " </h4></center>
+				
+											<a class='btn btn-block btn-primary' href='r.php?idd=" . $query2['idd'] . "'><span class='glyphicon glyphicon-ok'></span> Ok</a>
+                                             <center><h4 style='color:#f0ad4e'><u>Dated: " . $dt . "</u>  </h4></center>
+                                            </div>
+          </div>
+        </div>";
+                        } else if ($query2['type'] == 'a' & $query2['status'] == 'unread') {
+                            echo "<div class='col-sm-4'><div class='panel panel-success' style='border-color:#f0ad4e '>
+            <div class='panel-heading' style='color:white;background-color : #f0ad4e'>
+            <center> 
+<textarea style='text-align:center;background-color: white; font-weight: bold;' class='form-control' rows='2' disabled>Grant Completed</textarea>
+			</center>
+            </div>
+         
+            <div class='panel-body'>
+          	<center><h3><b>Message:</b> " . $query2['message'] . " </h3></center>
+             
+				
+											<a class='btn btn-block btn-primary' href='r.php?idd=" . $query2['idd'] . "'><span class='glyphicon glyphicon-ok'></span> Ok</a>
+                                             <center><h4 style='color:#f0ad4e'><u>Dated of Completion: " . $dt . "</u>  </h4></center>
+                                            </div>
+          </div>
+        </div>";
+                        } else if ($query2['type'] == 's' & $query2['status'] == 'read') {
+                            echo "<div class='col-sm-4'><div class='panel panel-success' style='border-color:#22bb33; '>
+            <div class='panel-heading' style='color:white;background-color : #22bb33;'>
+            <center> 
+<textarea style='text-align:center;background-color: white; font-weight: bold;' class='form-control' rows='2' disabled>Your Application Status set by employee(" . $query2['emp_name'] . ")</textarea>
+			</center>
+            </div>
+         
+            <div class='panel-body'>
+ 
+				
+					
+					<center><h3> Dear " . $name . ", " . $query2['message'] . " </h3></center>
+					
+									    <center><h4 style='color:#22bb33;'><u>Dated: " . $dt . "</u>  </h4></center>
+            </div>
+          </div>
+        </div>";
+                        } else if ($query2['type'] == 'i' & $query2['status'] == 'read') {
+                            echo "<div class='col-sm-4'><div class='panel panel-success' style='border-color:#22bb33; '>
+            <div class='panel-heading' style='color:white;background-color : #22bb33;'>
+            <center> 
+<textarea style='text-align:center;background-color: white; font-weight: bold;' class='form-control' rows='2' disabled>Interview details send by employee(" . $query2['emp_name'] . ")</textarea>
+			</center>
+            </div>
+         
+            <div class='panel-body'>
+          	<center><h4><b>Message:</b> " . $query2['message'] . " </h4></center>
+            <center><h4><b>Venue:</b> " . $query2['venue'] . " </h4></center>
+            <center><h4><b>Date/Time:</b> " . $dt1 . " </h4></center>
+				
+										     <center><h4 style='color:#22bb33;'><u>Dated: " . $dt . "</u>  </h4></center>
+                                            </div>
+          </div>
+        </div>";
+                        } else if ($query2['type'] == 'a' & $query2['status'] == 'read') {
+                            echo "<div class='col-sm-4'><div class='panel panel-success' style='border-color:#22bb33; '>
+            <div class='panel-heading' style='color:white;background-color : #22bb33;'>
+            <center> 
+<textarea style='text-align:center;background-color: white; font-weight: bold;' class='form-control' rows='2' disabled>Grant Completed</textarea>
+			</center>
+            </div>
+         
+            <div class='panel-body'>
+          	<center><h3><b>Message:</b> " . $query2['message'] . " </h3></center>
+             
+				
+										     <center><h4 style='color:#22bb33;'><u>Dated of Completion: " . $dt . "</u>  </h4></center>
+                                            </div>
+          </div>
+        </div>";
+                        }
                     }
 
                     echo "<div class='container'>";

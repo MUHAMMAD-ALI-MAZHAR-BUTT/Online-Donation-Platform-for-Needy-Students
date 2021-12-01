@@ -109,7 +109,7 @@ $result = $con->query("SELECT img_path from gallery_img");
                         <ul>
                             <li><a href="../Admin/dist/adminn.php">As Admin</a></li>
                             <li><a href="../Employee/login/index1.php">As Employee</a></li>
-                            <li><a href="#">As Donor</a></li>
+                            <li><a href="../Donator/index.php">As Donor</a></li>
                             <li><a href="../Student/index.php">As Student</a></li>
                         </ul>
 

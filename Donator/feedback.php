@@ -2,7 +2,9 @@
 session_start();
 if (!$_SESSION['username']) {
 
-    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+    $actual_link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+    echo "<script>window.open('./LoginSystem/index.php?continue=$actual_link','_self')</script>";
 }
 ?>
 <?php
@@ -116,7 +118,7 @@ font-size: 16px;"><b>Online Donation System for Needy Students
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="expensescreditcard/index.php">Fee</a>
+                                        <a href="feecreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
                                         <a href="healthcreditcard/index.php">Health</a>
@@ -231,7 +233,7 @@ font-size: 16px;"><b>Online Donation System for Needy Students
                                     </div>
                                     <div class="form-group">
                                         <label>Enter your Feedback : </label>
-                                        <input type="text" class="form-control" name="d" required placeholder="You are doing great Guys.This is amazing really.Yar kamal ka.">
+                                        <textarea type="text" class="form-control" name="d" rows="5" required placeholder="Enter Message"></textarea>
                                     </div>
 
                                     <button type="submit" name="submit" class="btn btn-primary">Send Feedback</button>

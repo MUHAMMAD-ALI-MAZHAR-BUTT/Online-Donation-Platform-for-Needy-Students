@@ -2,7 +2,8 @@
 session_start();
 if (!$_SESSION['emp_email']) {
 
-    echo "<script>window.open('./login/index1.php','_self')</script>";
+    $actual_link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    echo "<script>window.open('./login/index1.php?continue=$actual_link','_self')</script>";
 }
 ?>
 

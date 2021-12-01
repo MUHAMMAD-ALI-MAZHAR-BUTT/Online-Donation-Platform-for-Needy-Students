@@ -103,11 +103,11 @@ extract($edit_row);
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <?php
 
-                            $query = "SELECT * from `stu_notification` where stu_id='$id' order by `dt` DESC ";
+                            $query = "SELECT * from `stu_notification`  order by `dt` DESC ";
                             if (count(fetchAll($query)) > 0) {
                                 $count = 0;
                                 foreach (fetchAll($query) as $i) {
-                                    if ($count == 9)
+                                    if ($count == 7)
                                         break;
                             ?>
                                     <a style="
@@ -117,16 +117,17 @@ extract($edit_row);
                                     }
                             ?>
                          " class="dropdown-item" href="#" onclick=my();>
-                                        <small><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
+                                        <small style="color:indigo"><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
                                         <?php
                                         if ($i['type'] == 's') {
-                                            echo "Your application status has been set, Check it";
+                                            echo "<p style='color:#ad1deb;'>Your application status has been set, Check it</p> ";
                                         }
                                         if ($i['type'] == 'i') {
-                                            echo "You have received your interview details";
+                                            echo "<p style='color:#ad1deb;'>You have received your interview details</p> ";
                                         }
-
-
+                                        if ($i['type'] == 'a') {
+                                            echo "<p style='color:#ad1deb;'>You have received your full grant amount</p> <hr>";
+                                        }
                                         ?>
                                     </a>
                                     <div class="dropdown-divider"></div>
@@ -139,7 +140,7 @@ extract($edit_row);
                             ?>
                             <script>
                                 function my() {
-                                    location.href = "notification.php?id=1";
+                                    location.href = "notifications.php?id=1";
                                 }
                             </script>
                         </div>
@@ -224,12 +225,90 @@ extract($edit_row);
                                     <td><?php echo $date ?>
                                     </td>
                                     <td><?php echo $row['category']; ?></td>
-                                    <td><?php echo $row['status']; ?></td>
+                                    <td>
+                                        <?php
+                                        if ($row['status'] == 'pending') {
+                                        ?>
+                                            <p class="text-warning"> <?php echo $row['status']; ?></p>
+                                        <?php
+                                        } else if ($row['status'] == 'rejected') {
+                                        ?>
+                                            <p class="text-danger"> <?php echo $row['status']; ?></p>
+                                        <?php
+                                        } else if ($row['status'] == 'accepted' | $row['status'] == 'completed') {
+                                        ?>
+                                            <p class="text-success"> <?php echo $row['status']; ?></p>
+                                        <?php
+                                        }
+                                        ?>
+
+
+                                    </td>
+
 
                                     <td>
 
-                                        <a class="btn" style="background-color:#ad1deb;color:white; border:#ad1deb;" data-toggle="modal" data-target="#view-model"><i class="fa fa-list"></i> <span>View Details</span></a>
 
+                                        <a data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['form_id']; ?>" id="getUser" class="btn " style="background-color:#ad1deb; border:#ad1deb; color:white;"><i class="fa fa-list"></i> <span>View Detail</span></a>
+                                        <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">
+                                                            <i class="glyphicon glyphicon-user"></i> Student Form detail
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <div id="modal-loader" style="display: none; text-align: center;">
+                                                            <img src="ajax-loader.gif">
+                                                        </div>
+                                                        <!-- content will be load here -->
+                                                        <div id="dynamic-content"></div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div><!-- /.modal -->
+                                        <script>
+                                            $(document).ready(function() {
+
+                                                $(document).on('click', '#getUser', function(e) {
+
+                                                    e.preventDefault();
+
+                                                    var uid = $(this).data('id'); // it will get id of clicked row
+
+                                                    $('#dynamic-content').html(''); // leave it blank before ajax call
+                                                    $('#modal-loader').show(); // load ajax loader
+
+                                                    $.ajax({
+                                                            url: 'getuser.php',
+                                                            type: 'POST',
+                                                            data: 'form_id=' + uid,
+                                                            dataType: 'html'
+                                                        })
+                                                        .done(function(data) {
+                                                            console.log(data);
+                                                            $('#dynamic-content').html('');
+                                                            $('#dynamic-content').html(data); // load response 
+                                                            $('#modal-loader').hide(); // hide ajax loader	
+                                                        })
+                                                        .fail(function() {
+                                                            $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
+                                                            $('#modal-loader').hide();
+                                                        });
+
+                                                });
+
+                                            });
+                                        </script>
                                     </td>
 
                                 </tr>

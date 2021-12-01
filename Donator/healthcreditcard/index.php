@@ -16,7 +16,6 @@
         <div class="creditCardForm">
             <div class="heading">
                 <h1><b>Donation for Needy Students</b></h1>
-
             </div>
             <div class="payment">
                 <form action="feeinsert.php" method="POST">
@@ -74,7 +73,7 @@
                     </div>
                     <div class="form-group owner">
                         <label>Amount</label>
-                        <input type="number" class="form-control" placeholder="500" min="500" name="f" required>
+                        <input type="number" class="form-control" placeholder="500" min="500" max="10000000" name="f" required>
                     </div>
 
                     <div class="form-group col-lg-12">

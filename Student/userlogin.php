@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -32,8 +33,9 @@ if (isset($_POST['user_login'])) {
             echo "<script>window.open(' $g','_self')</script>";
         }
     } else {
+        $g = $_GET['continue'];
         echo "<script>alert('Email or password is incorrect')</script>";
-        echo "<script>window.open('index.php','_self')</script>";
+        echo "<script>window.open('index.php?continue=$g','_self')</script>";
 
         exit();
     }

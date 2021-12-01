@@ -2,6 +2,13 @@
 session_start();
 
 ?>
+<script type="text/javascript">
+  window.history.forward();
+
+  function noBack() {
+    window.history.forward();
+  }
+</script>
 <?php
 include('db_connection.php');
 if (isset($_POST["submit_email"])) {

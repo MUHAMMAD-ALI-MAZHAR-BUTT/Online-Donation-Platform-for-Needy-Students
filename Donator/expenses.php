@@ -2,7 +2,9 @@
 session_start();
 if (!$_SESSION['username']) {
 
-    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+    $actual_link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+    echo "<script>window.open('./LoginSystem/index.php?continue=$actual_link','_self')</script>";
 }
 ?>
 <?php
@@ -82,7 +84,7 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="expensescreditcard/index.php">Fee</a>
+                                        <a href="feecreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
                                         <a href="healthcreditcard/index.php">Health</a>
@@ -111,13 +113,13 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                 <a href="#" class="active-menu">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="fee.php" class="active-menu">Fee</a>
+                                        <a href="fee.php">Fee</a>
                                     </li>
                                     <li>
                                         <a href="health.php">Health</a>
                                     </li>
                                     <li>
-                                        <a href="expenses.php">Study Expenses</a>
+                                        <a href="expenses.php " class=" active-menu">Study Expenses</a>
                                     </li>
 
                                 </ul>
@@ -150,7 +152,7 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                 text-align: "center";
                             }
                         </style>
-                        <h2><b> &nbsp; &nbsp; &nbsp; &nbsp; Donation History of Fee Category</b></h2>
+                        <h2><b> &nbsp; &nbsp; &nbsp; &nbsp; Donation History of Expense Category</b></h2>
 
 
                     </div>
@@ -168,7 +170,7 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                     <strong style="font-weight: bold;color:blue">
                                         &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
                                         &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
-                                        This is the history of your donation for fee category.
+                                        This is the history of your donation for Expense category.
                                         &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
                                         &#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;
                                     </strong>
@@ -180,11 +182,11 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
+                                                <th>Holder Name</th>
                                                 <th>Card No</th>
                                                 <th>Cvc</th>
                                                 <th>Amount</th>
-                                                <th>Date</th>
-                                                <th>Time</th>
+                                                <th>Date/Time</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -201,7 +203,7 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                                 die("Connection failed: " . $conn->connect_error);
                                             }
                                             $d = $_SESSION['username'];
-                                            $sql = "SELECT * FROM studyexpenses where DonatorName='$d'";
+                                            $sql = "SELECT * FROM donation_record inner join donators on donation_record.donator_id=donators.id where donators.id='$id' and category='expense'";
                                             $result = $conn->query($sql);
                                             //mdo
 
@@ -211,15 +213,15 @@ font-size: 16px;"> <b>Donation Platform for Needy Students &nbsp;&nbsp;&nbsp;&nb
                                             if ($result->num_rows > 0) {
 
                                                 while ($row = $result->fetch_assoc()) {
-
+                                                    $date = date('F j, Y, g:i a', strtotime($row['datetime']));
                                             ?>
                                                     <tr class="odd gradeX">
+                                                        <td> <?php echo $row['username']; ?></td>
                                                         <td> <?php echo $row['Holder_Name']; ?></td>
                                                         <td> <?php echo $row['Card_Number']; ?></td>
-                                                        <td> <?php echo $row['Cvc']; ?></td>
-                                                        <td> <?php echo $row['Amount']; ?></td>
-                                                        <td> <?php echo $row['Date']; ?></td>
-                                                        <td> <?php echo $row['Time']; ?></td>
+                                                        <td> <?php echo $row['cvc']; ?></td>
+                                                        <td> <?php echo $row['amount']; ?></td>
+                                                        <td> <?php echo $date ?></td>
                                                     </tr>
                                             <?php }
                                             } ?>

@@ -2,7 +2,9 @@
 session_start();
 if (!$_SESSION['username']) {
 
-    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+    $actual_link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+    echo "<script>window.open('./LoginSystem/index.php?continue=$actual_link','_self')</script>";
 }
 ?>
 <?php
@@ -103,7 +105,7 @@ font-size: 16px;">
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="expensescreditcard/index.php">Fee</a>
+                                        <a href="feecreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
                                         <a href="healthcreditcard/index.php">Health</a>

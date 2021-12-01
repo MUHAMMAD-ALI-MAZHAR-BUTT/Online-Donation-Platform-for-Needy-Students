@@ -2,7 +2,9 @@
 session_start();
 if (!$_SESSION['username']) {
 
-    echo "<script>window.open('./LoginSystem/index.php','_self')</script>";
+    $actual_link = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+    echo "<script>window.open('./LoginSystem/index.php?continue=$actual_link','_self')</script>";
 }
 ?>
 <?php
@@ -121,13 +123,13 @@ font-size: 16px;"><b> Online Donation System for Needy Students
                                 <a href="#">Categories<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="fee.php">Fee</a>
+                                        <a href="feecreditcard/index.php">Fee</a>
                                     </li>
                                     <li>
-                                        <a href="health.php">Health</a>
+                                        <a href="healthcreditcard/index.php">Health</a>
                                     </li>
                                     <li>
-                                        <a href="study.php">Study Expenses</a>
+                                        <a href="expensescreditcard/index.php">Study Expenses</a>
                                     </li>
 
                                 </ul>
@@ -244,14 +246,15 @@ font-size: 16px;"><b> Online Donation System for Needy Students
 
                                 <form action="pro.php" method="POST">
                                     <div class="form-group">
-                                        <label>Enter your Name</label>
-                                        <input type="text" class="form-control" name="a" required placeholder="Muhammad Ali">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" name="a" value="<?php echo $username; ?>" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label>Email address</label>
-                                        <input type="email" class="form-control" name="b" aria-describedby="emailHelp" required placeholder="legend@gmail.com">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" name="b" aria-describedby="emailHelp" value="<?php echo $email; ?>" readonly>
                                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                                     </div>
+
 
                                     <div class="form-group">
                                         <label>Enter Subject : </label>
@@ -259,7 +262,7 @@ font-size: 16px;"><b> Online Donation System for Needy Students
                                     </div>
                                     <div class="form-group">
                                         <label>Enter your Feedback : </label>
-                                        <input type="text" class="form-control" name="d" required placeholder="You are doing great Guys.This is amazing really.Yar kamal ka.">
+                                        <textarea type="text" class="form-control" name="d" rows="5" required placeholder="Enter Message"></textarea>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Send Feedback</button>

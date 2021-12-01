@@ -93,11 +93,11 @@ extract($edit_row);
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
                             <?php
 
-                            $query = "SELECT * from `stu_notification` where stu_id='$id' order by `dt` DESC ";
+                            $query = "SELECT * from `stu_notification`  order by `dt` DESC ";
                             if (count(fetchAll($query)) > 0) {
                                 $count = 0;
                                 foreach (fetchAll($query) as $i) {
-                                    if ($count == 9)
+                                    if ($count == 7)
                                         break;
                             ?>
                                     <a style="
@@ -107,16 +107,17 @@ extract($edit_row);
                                     }
                             ?>
                          " class="dropdown-item" href="#" onclick=my();>
-                                        <small><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
+                                        <small style="color:indigo"><i><?php echo date('F j, Y, g:i a', strtotime($i['dt'])) ?></i></small><br />
                                         <?php
                                         if ($i['type'] == 's') {
-                                            echo "Your application status has been set, Check it";
+                                            echo "<p style='color:#ad1deb;'>Your application status has been set, Check it</p> ";
                                         }
                                         if ($i['type'] == 'i') {
-                                            echo "You have received your interview details";
+                                            echo "<p style='color:#ad1deb;'>You have received your interview details</p> ";
                                         }
-
-
+                                        if ($i['type'] == 'a') {
+                                            echo "<p style='color:#ad1deb;'>You have received your full grant amount</p> <hr>";
+                                        }
                                         ?>
                                     </a>
                                     <div class="dropdown-divider"></div>
@@ -129,12 +130,11 @@ extract($edit_row);
                             ?>
                             <script>
                                 function my() {
-                                    location.href = "notification.php?id=1";
+                                    location.href = "notifications.php?id=1";
                                 }
                             </script>
                         </div>
                     </li>
-
                     <li class="dropdown messages-dropdown">
                         <a href="#"><i class="fa fa-calendar"></i> <?php
                                                                     $Today = date('y:m:d');
@@ -161,6 +161,16 @@ extract($edit_row);
         </nav>
 
         <div id="page-wrapper">
+            <div class="alert alert-info">
+
+                &nbsp; &nbsp; What are you waiting for guyz. It 50% off on all the products.Its special discount season for all
+                the customers.We team of talented designers making our Pakistan neat & clean.There's this notion that to grow a business, you have to be ruthless.
+                But we know there's a better way to grow. One where what's good for the bottom line is also good for customers.
+                We believe businesses can grow with a conscience, and succeed with a soul —
+                and that they can do it with inbound. That's why we've created a app to help businesses and waste management system grow better every day.<br>
+
+            </div>
+            <br>
             <div class="row justify-content-center mt-2">
                 <div class="col-lg-12">
                     <?php
@@ -252,15 +262,7 @@ extract($edit_row);
 
 
         <br />
-        <div class="alert alert-info">
 
-            &nbsp; &nbsp; What are you waiting for guyz. It 50% off on all the products.Its special discount season for all
-            the customers.We team of talented designers making our Pakistan neat & clean.There's this notion that to grow a business, you have to be ruthless.
-            But we know there's a better way to grow. One where what's good for the bottom line is also good for customers.
-            We believe businesses can grow with a conscience, and succeed with a soul —
-            and that they can do it with inbound. That's why we've created a app to help businesses and waste management system grow better every day.<br>
-
-        </div>
         <br />
 
         <div class="alert alert-default" style="  background-color: #6e72fc;

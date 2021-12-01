@@ -2,42 +2,49 @@
 session_start();
 
 ?>
+<script type="text/javascript">
+  window.history.forward();
+
+  function noBack() {
+    window.history.forward();
+  }
+</script>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Online Donation Platform | Employee Login</title>
-    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Online Donation Platform | Employee Login</title>
+  <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
 
 
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="assets/css/flexslider.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
+  <link href="assets/css/bootstrap.css" rel="stylesheet" />
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="assets/css/flexslider.css" rel="stylesheet" />
+  <link href="assets/css/style.css" rel="stylesheet" />
 
 </head>
 
 <body>
 
-    <div class="home-sec" id="home" style="  background-color:purple;
+  <div class="home-sec" id="home" style="  background-color:purple;
 ">
-        <div class="overlay">
-            <div class="container">
-                <div class="row text-center ">
+    <div class="overlay">
+      <div class="container">
+        <div class="row text-center ">
 
-                    <div class="col-lg-12  col-md-12 col-sm-12">
+          <div class="col-lg-12  col-md-12 col-sm-12">
 
-                        <div class="flexslider set-flexi" id="main-section">
-                            <ul class="slides move-me">
-                                <!-- Slider 01 -->
-                                <li>
+            <div class="flexslider set-flexi" id="main-section">
+              <ul class="slides move-me">
+                <!-- Slider 01 -->
+                <li>
 
-                                    <h1>Online Donation Platform | Employee</h1>
-                                    <!--                           
+                  <h1>Online Donation Platform | Employee</h1>
+                  <!--                           
 						   <h3>High Quality Skateboard Products</h3>
                            
                             
@@ -48,37 +55,37 @@ session_start();
                                 SIGN UP
                             </a>
 							-->
-                                    <a href="#features-sec" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#an">
-                                        Employee Login
-                                    </a>
-                                    <a href="#features-sec" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#an">
-                                        Forgot Password?
-                                    </a>
+                  <a href="#features-sec" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#an">
+                    Employee Login
+                  </a>
+                  <a href="#features-sec" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#an">
+                    Forgot Password?
+                  </a>
 
-                                </li>
-                                <!-- End Slider 01 -->
+                </li>
+                <!-- End Slider 01 -->
 
-                                <!-- Slider 02 -->
+                <!-- Slider 02 -->
 
-                                <!-- End Slider 02 -->
-
-
-                                <!-- End Slider 03 -->
-                            </ul>
-                        </div>
+                <!-- End Slider 02 -->
 
 
-
-
-                    </div>
-
-                </div>
+                <!-- End Slider 03 -->
+              </ul>
             </div>
-        </div>
 
+
+
+
+          </div>
+
+        </div>
+      </div>
     </div>
 
-    <!-- <div class="modal fade" id="su" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
+  </div>
+
+  <!-- <div class="modal fade" id="su" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
     <div class="modal-dialog modal-sm">
       <div style="color:white;background-color:#008CBA" class="modal-content">
         <div class="modal-header">
@@ -127,7 +134,7 @@ session_start();
   </div>
    Script -->
 
-    <!-- 
+  <!-- 
   <div class="modal fade" id="ln" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
     <div class="modal-dialog modal-sm">
       <div style="color:white;background-color:#008CBA" class="modal-content">
@@ -166,80 +173,125 @@ session_start();
     </div>
   </div> -->
 
-    <div class="modal fade" id="an" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
-        <div class="modal-dialog modal-sm">
-            <div style="color:white;background-color:blueviolet" class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 style="color:white" class="modal-title" id="myModalLabel">Employee Credentials</h4>
-                </div>
-
-                <div class="modal-body">
-
-
-                    <form role="form" method="post" action="index1.php">
-                        <fieldset>
-
-
-                            <div class=" form-group">
-                                <input class="form-control" placeholder="Email" name="emp_email" type="text">
-                            </div>
-
-                            <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="pass" id="pass" type="password">
-
-                            </div>
-                            <input type="checkbox" onclick="myFunction()">Show Password
-                            <script>
-                                function myFunction() {
-                                    var x = document.getElementById("pass");
-                                    if (x.type === "password") {
-                                        x.type = "text";
-                                    } else {
-                                        x.type = "password";
-                                    }
-                                }
-                            </script>
-                        </fieldset>
-
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <button class="btn btn-md btn-success btn-block" name="admin_login">Login</button>
-
-                    <button type="button" class="btn btn-md btn-danger btn-block" data-dismiss="modal">Cancel</button>
-                    </form>
-                </div>
-            </div>
+  <div class="modal fade" id="an" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
+    <div class="modal-dialog modal-sm">
+      <div style="color:white;background-color:blueviolet" class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 style="color:white" class="modal-title" id="myModalLabel">Employee Credentials</h4>
         </div>
+        <?php
+        if (empty($_GET)) {
+        ?>
+          <div class="modal-body">
+
+
+            <form role="form" method="post" action="index1.php">
+              <fieldset>
+                <div class=" form-group">
+                  <input class="form-control" placeholder="Email" name="emp_email" type="text">
+                </div>
+
+                <div class="form-group">
+                  <input class="form-control" placeholder="Password" name="pass" id="pass" type="password">
+
+                </div>
+                <input type="checkbox" onclick="myFunction()">Show Password
+                <script>
+                  function myFunction() {
+                    var x = document.getElementById("pass");
+                    if (x.type === "password") {
+                      x.type = "text";
+                    } else {
+                      x.type = "password";
+                    }
+                  }
+                </script>
+              </fieldset>
+
+
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-md btn-success btn-block" name="admin_login">Login</button>
+
+            <button type="button" class="btn btn-md btn-danger btn-block" data-dismiss="modal">Cancel</button>
+            </form>
+          </div>
+      </div>
+    <?php
+        } else {
+    ?>
+      <div class="modal-body">
+
+
+        <form role="form" method="post" action="index1.php?continue=<?php echo $_GET['continue']; ?>">
+          <fieldset>
+            <div class=" form-group">
+              <input class="form-control" placeholder="Email" name="emp_email" type="text">
+            </div>
+
+            <div class="form-group">
+              <input class="form-control" placeholder="Password" name="pass" id="pass" type="password">
+
+            </div>
+            <input type="checkbox" onclick="myFunction()">Show Password
+            <script>
+              function myFunction() {
+                var x = document.getElementById("pass");
+                if (x.type === "password") {
+                  x.type = "text";
+                } else {
+                  x.type = "password";
+                }
+              }
+            </script>
+          </fieldset>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-md btn-success btn-block" name="admin_login">Login</button>
+
+        <button type="button" class="btn btn-md btn-danger btn-block" data-dismiss="modal">Cancel</button>
+        </form>
+      </div>
     </div>
-    <br />
-    <br />
-    <br />
-    <!-- Script -->
-    <!-- CONTACT SECTION END-->
-    <br><br><br><br><br>
-    <div id="footer">
+  <?php
+        }
+  ?>
 
-        &copy Online Donation Platform
-    </div>
 
-    <!-- FOOTER SECTION END-->
 
-    <!--  Jquery Core Script -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-    <!--  Core Bootstrap Script -->
-    <script src="assets/js/bootstrap.js"></script>
-    <!--  Flexslider Scripts -->
-    <script src="assets/js/jquery.flexslider.js"></script>
-    <!--  Scrolling Reveal Script -->
-    <script src="assets/js/scrollReveal.js"></script>
-    <!--  Scroll Scripts -->
-    <script src="assets/js/jquery.easing.min.js"></script>
-    <!--  Custom Scripts -->
-    <script src="assets/js/custom.js"></script>
+
+  </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <!-- Script -->
+  <!-- CONTACT SECTION END-->
+  <br><br><br><br><br>
+  <div id="footer">
+
+    &copy Online Donation Platform
+  </div>
+
+  <!-- FOOTER SECTION END-->
+
+  <!--  Jquery Core Script -->
+  <script src="assets/js/jquery-1.10.2.js"></script>
+  <!--  Core Bootstrap Script -->
+  <script src="assets/js/bootstrap.js"></script>
+  <!--  Flexslider Scripts -->
+  <script src="assets/js/jquery.flexslider.js"></script>
+  <!--  Scrolling Reveal Script -->
+  <script src="assets/js/scrollReveal.js"></script>
+  <!--  Scroll Scripts -->
+  <script src="assets/js/jquery.easing.min.js"></script>
+  <!--  Custom Scripts -->
+  <script src="assets/js/custom.js"></script>
 </body>
 
 </html>
@@ -251,31 +303,36 @@ include("db_connection.php");
 
 if (isset($_POST['admin_login'])) {
 
-    $emp_email = $_POST['emp_email'];
-    $pass = $_POST['pass'];
+  $emp_email = $_POST['emp_email'];
+  $pass = $_POST['pass'];
 
 
 
 
-    $check_admin = "select * from emp WHERE emp_email='$emp_email' AND pass='$pass'";
+  $check_admin = "select * from emp WHERE emp_email='$emp_email' AND pass='$pass'";
 
 
-    $run = mysqli_query($con, $check_admin);
+  $run = mysqli_query($con, $check_admin);
 
-    if (mysqli_num_rows($run)) {
+  if (mysqli_num_rows($run)) {
+    if (empty($_GET)) {
+      $_SESSION['emp_email'] = $emp_email;
 
-        $_SESSION['emp_email'] = $emp_email;
-        echo "<script>alert('Login was successful!')</script>";
+      echo "<script>alert('Login was successful!')</script>";
 
-        //echo "<script>window.open('Admin/index.php','_self')</script>";
-
-        echo "<script>window.open('../donordetails.php','_self')</script>";
-        // $_SESSION['admin_username'] = $admin_username;
+      echo "<script>window.open('../donordetails.php','_self')</script>";
     } else {
-        echo "<script>alert('Email or Password is incorrect!')</script>";
-        echo "<script>window.open('index1.php','_self')</script>";
-
-        exit();
+      $_SESSION['emp_email'] = $emp_email;
+      echo "<script>alert('Login was successful!')</script>";
+      $g = $_GET['continue'];
+      echo "<script>window.open(' $g','_self')</script>";
     }
+  } else {
+    $g = $_GET['continue'];
+    echo "<script>alert('Email or Password is incorrect!')</script>";
+    echo "<script>window.open('index1.php?continue=$g','_self')</script>";
+
+    exit();
+  }
 }
 ?>

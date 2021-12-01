@@ -46,7 +46,7 @@ if (isset($_REQUEST['form_id'])) {
 
 	$id = intval($_REQUEST['form_id']);
 	$query = "SELECT * FROM forms inner join student on forms.student_id=student.id inner join emp on forms.emp_id=emp.emp_id
-	inner join city on forms.city_id=city.city_id  WHERE forms.form_id=$id";
+	inner join city on forms.city_id=city.city_id  WHERE forms.form_id=:form_id";
 	$stmt = $DBcon->prepare($query);
 	$stmt->execute(array(':form_id' => $id));
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -59,7 +59,8 @@ if (isset($_REQUEST['form_id'])) {
 		<table class="table table-striped table-bordered">
 			<tr>
 				<th>Student Id</th>
-				<td><?php echo $row['student_id']; ?></td>
+				<!-- <td><?php echo $row['student_id']; ?></td> -->
+				<td><?php echo $id ?></td>
 			</tr>
 			<tr>
 				<th>Student Name</th>
