@@ -51,10 +51,22 @@
                     include 'db_connection.php';
                     $selectquery = "select * from payment_history inner join forms on payment_history.form_id=forms.form_id inner join 
                     student on payment_history.student_id=student.id order by payment_history.id desc";
-
+                    $select = "select * from payment_history ";
+                    $query1 = mysqli_query($con, $select);
+                    while ($res1 = mysqli_fetch_array($query1)) {
+                        if ($res1['req_amount'] == 0 & $res1['date_comp'] == NULL) {
+                            $q = "UPDATE payment_history set date_comp=CURRENT_TIMESTAMP where id='$res1[id]'";
+                            mysqli_query($con, $q);
+                            $q1 = "UPDATE forms set date_of_complete=CURRENT_TIMESTAMP,forms.status='completed' where form_id='$res1[form_id]'";
+                            mysqli_query($con, $q1);
+                            $q2 = "INSERT INTO `stu_notification` (`stu_id`,`emp_id`, `emp_name`, `dt`, `status`, `message`,`venue`,`type`) 
+        VALUES ('$res1[student_id]', '1', 'NULL',CURRENT_TIMESTAMP, 'unread','You have received your full grant','NULL','a')";
+                            mysqli_query($con, $q2);
+                        }
+                    }
                     $query = mysqli_query($con, $selectquery);
 
-                    $nums = mysqli_num_rows($query);
+
 
                     while ($res = mysqli_fetch_array($query)) {
                         if ($res['date_comp'] == NULL) {
@@ -78,11 +90,12 @@
                                 <?php
                                 if ($res['req_amount'] == 0) {
                                 ?>
+                                    <a href="#" class="btn btn-success" style="background-color:#ad1deb; border:#ad1deb;"><i class="fa fa-check"></i> <span>Completed</span></a>
 
                                 <?php
                                 } else {
                                 ?>
-                                    <a data-toggle="modal" data-target="#view-modal" data-id="<?php echo $res['form_id']; ?>" id="getUser" class="btn btn-success" style="background-color:#ad1deb; border:#ad1deb;"><i class="fas fa-money-bill"></i> <span>Send Money</span></a>
+                                    <a data-toggle="modal" data-target="#view-modal" data-id="<?php echo $res['id']; ?>" id="getUser" class="btn btn-success" style="background-color:#ad1deb; border:#ad1deb;"><i class="fas fa-money-bill"></i> <span>Send Money</span></a>
 
                                 <?php
                                 }
@@ -94,6 +107,69 @@
                     <?php
                     }
                     ?>
+                    <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog ">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title">
+                                        <i class="glyphicon glyphicon-user"></i>Send Money
+                                    </h4>
+                                    <button type="button" onclick=rel(); class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                </div>
+                                <div class="modal-body">
+
+                                    <div id="modal-loader" style="display: none; text-align: center;">
+                                        <img src="ajax-loader.gif">
+                                    </div>
+                                    <!-- content will be load here -->
+                                    <div id="dynamic-content"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" onclick=rel(); data-dismiss="modal">Close</button>
+                                </div>
+                                <script>
+                                    function rel() {
+                                        location.reload();
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div><!-- /.modal -->
+                    <script>
+                        $(document).ready(function() {
+
+                            $(document).on('click', '#getUser', function(e) {
+
+                                e.preventDefault();
+
+                                var uid = $(this).data('id'); // it will get id of clicked row
+
+                                $('#dynamic-content').html(''); // leave it blank before ajax call
+                                $('#modal-loader').show(); // load ajax loader
+
+                                $.ajax({
+                                        url: 'getuser.php',
+                                        type: 'POST',
+                                        data: 'idd=' + uid,
+                                        dataType: 'html'
+                                    })
+                                    .done(function(data) {
+                                        console.log(data);
+                                        $('#dynamic-content').html('');
+                                        $('#dynamic-content').html(data); // load response 
+                                        $('#modal-loader').hide(); // hide ajax loader	
+                                    })
+                                    .fail(function() {
+                                        $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
+                                        $('#modal-loader').hide();
+                                    });
+
+                            });
+
+                        });
+                    </script>
                 </tbody>
             </table>
         <?php
@@ -110,99 +186,3 @@
 
 
 <?php include('./content/footer.php'); ?>
-
-<div id="addpickerModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="addform">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Employee</h4>
-                    <button type="button" onclick="location.reload();" class=" close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group ">
-                        <label>Employee Name</label>
-                        <input type="text" name="emp_name" id="emp_name" class="form-control form_data" placeholder="Name">
-                        <span id="name_error" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Employee Phone</label>
-                        <input type="text" name="emp_phone" id="emp_phone" class="form-control form_data" placeholder="03XXXXXXXXX">
-                        <span id="phone_error" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Employee Email</label>
-                        <input type="email" name="emp_email" id="emp_email" class="form-control form_data" placeholder="email@domain.com">
-                        <span id="email_error" class="text-danger"></span>
-                        <span id="suc" class="text-success"></span>
-
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" onclick="location.reload(); return false;" class="btn btn-default" data-dismiss="modal" value="Cancel">
-
-                        <input onclick="save_emp(); return false;" type="submit" name="submit" id="submit" class="btn btn-success" value="Add">
-                    </div>
-            </form>
-        </div>
-    </div>
-</div>
-<script>
-    function save_emp() {
-        var form_element = document.getElementsByClassName('form_data');
-
-        var form_data = new FormData();
-
-        for (var count = 0; count < form_element.length; count++) {
-            form_data.append(form_element[count].name, form_element[count].value);
-        }
-
-        document.getElementById('submit').disabled = true;
-
-        var ajax_request = new XMLHttpRequest();
-
-        ajax_request.open('POST', 'insertemp.php');
-
-        ajax_request.send(form_data);
-
-        ajax_request.onreadystatechange = function() {
-            if (ajax_request.readyState == 4 && ajax_request.status == 200) {
-                document.getElementById('submit').disabled = false;
-
-                var response = JSON.parse(ajax_request.responseText);
-
-                if (response.success != '') {
-                    document.getElementById('addform').reset();
-
-                    document.getElementById('suc').innerHTML = response.success;
-
-                    setTimeout(function() {
-
-                        document.getElementById('suc').innerHTML = '';
-                        $('#addpickerModal').modal('hide');
-
-                        location.reload();
-
-                    }, 5000);
-
-                    document.getElementById('name_error').innerHTML = '';
-
-                    document.getElementById('email_error').innerHTML = '';
-                    document.getElementById('phone_error').innerHTML = '';
-
-
-
-                } else {
-                    document.getElementById('name_error').innerHTML = response.name_error;
-                    document.getElementById('email_error').innerHTML = response.email_error;
-                    document.getElementById('phone_error').innerHTML = response.phone_error;
-
-                }
-
-
-
-            }
-        }
-    }
-</script>

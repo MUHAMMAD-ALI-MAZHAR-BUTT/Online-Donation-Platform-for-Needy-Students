@@ -48,10 +48,13 @@ $name = $_SESSION['username'];
 
 $sql = "INSERT INTO donation_record (datetime,category,donator_id,Holder_Name,Card_Number,Card_Expiry_Month,Expiry_Year,cvc,amount)
 VALUES (CURRENT_TIMESTAMP,'expense', '$id', '$a','$b','$c','$d','$e','$f')";
-$query1 = "INSERT INTO `notifications` (`name`,`email`, `type`, `message`, `status`, `date`,`type1`) VALUES ('$username'
+$query1 = "INSERT INTO `notifications` (`name`,`email`, `type`, `message`, `status`, `date`,`type1`) VALUES ('$name'
             , '$email', 'donor','Donor $name has donated $f rupees on the Platform in Expense Category', 'unread', CURRENT_TIMESTAMP,'donation')";
 mysqli_query($con, $query1);
-
+$query2 = "UPDATE donators set total_donated=total_donated+$f,expense_donated=expense_donated+$f,no_of_times=no_of_times+1 where id='$id'";
+mysqli_query($con, $query2);
+$query3 = "UPDATE balance set total=total+$f,available=available+$f where id=1";
+mysqli_query($con, $query3);
 if ($conn->query($sql) === TRUE) {
 ?>
     <html>

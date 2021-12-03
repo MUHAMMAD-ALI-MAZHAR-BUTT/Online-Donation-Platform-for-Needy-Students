@@ -178,7 +178,7 @@ $result = $con->query("SELECT img_path from gallery_img");
                             </li>
                         </ul>
                         <p>
-                            If still in doubt, you may book a visit to our factory. You may also send an email to sop@org.com for further queries<br>
+                            If still in doubt, you may book a visit to our company. You may also send an email to sop@org.com for further queries<br>
 
                         </p>
                     </div>
@@ -197,8 +197,14 @@ $result = $con->query("SELECT img_path from gallery_img");
                     <div class="col-lg-3 col-md-6">
                         <div class="count-box">
                             <i class="bi bi-emoji-smile"></i>
-                            <span data-purecounter-start="0" data-purecounter-end="30" data-purecounter-duration="10" class="purecounter"></span>
-                            <p>Total students helped</p>
+                            <?php
+                            include 'db_connection.php';
+                            $sql = "SELECT count(*) as tot from payment_history where date_comp is not NULL";
+                            $query = mysqli_query($con, $sql);
+                            $values = mysqli_fetch_assoc($query);
+                            $num_rows = $values['tot'];
+                            echo '<span data-purecounter-start="0" data-purecounter-end="' . $num_rows . '" data-purecounter-duration="10" class="purecounter"></span>';
+                            ?><p>Total students helped</p>
                         </div>
                     </div>
 
@@ -269,7 +275,7 @@ $result = $con->query("SELECT img_path from gallery_img");
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-tachometer"></i></div>
                             <h4><a href="#">Resident</a></h4>
@@ -277,15 +283,15 @@ $result = $con->query("SELECT img_path from gallery_img");
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-file"></i></div>
                             <h4><a href="">Income</a></h4>
-                            <p>Monthly income should be less than 50,000.</p>
+                            <p>Monthly income should be less than 50,000</p>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bxl-dribbble"></i></div>
                             <h4><a href="">Score</a></h4>
@@ -293,7 +299,14 @@ $result = $con->query("SELECT img_path from gallery_img");
                             </p>
                         </div>
                     </div>
-
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                            <h4><a href="">Easypaisa</a></h4>
+                            <p>Student should have an easypaisa account as money receiving medium
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
             </div>

@@ -21,7 +21,8 @@ if (isset($_POST["stu_id"])) {
 
     $message = test_input($_POST["message"]);
     $venue = test_input($_POST["venue"]);
-    // $date1 = $_POST["date1"];
+
+    $date = date('Y-m-d\TH:i:s', strtotime($_POST['date1']));
     $stu_id = $_POST["stu_id"];
     $emp_id = $_POST["emp_id"];
     $emp_name = $_POST["emp_name"];
@@ -46,7 +47,7 @@ if (isset($_POST["stu_id"])) {
         $data = array(
             ':message'            =>    $message,
             ':venue'        =>    $venue,
-            // ':date1'        =>    $date1,
+            ':date1'        =>    $date1,
             ':stu_id' => $stu_id,
             ':emp_id' => $emp_id,
             ':emp_name' => $emp_name
@@ -65,11 +66,8 @@ if (isset($_POST["stu_id"])) {
         // if ($statement->execute($data)) {
 
 
-        $query = "INSERT INTO `stu_notification` (`stu_id`,`emp_id`, `emp_name`, `dt`, `status`, `message`,`venue`,`type`) 
-        VALUES ('$stu_id', '$emp_id', '$emp_name',CURRENT_TIMESTAMP, 'unread','$message','$venue','i')";
-
-
-
+        $query = "INSERT INTO `stu_notification` (`stu_id`,`emp_id`, `emp_name`, `dt`, `status`, `message`,`venue`,`type`,`date1`) 
+        VALUES ('$stu_id', '$emp_id', '$emp_name',CURRENT_TIMESTAMP, 'unread','$message','$venue','i','$date')";
         if (mysqli_query($dbcon, $query)) {
             $success =
                 "Details sucessfully sent to student's dashboard ";

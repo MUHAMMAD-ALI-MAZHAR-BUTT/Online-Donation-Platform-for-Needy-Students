@@ -105,9 +105,7 @@ font-size: 16px;"><b> Online Donation System for Needy Students
                         <a href="index.php"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                     </li>
 
-                    <li>
-                        <a href="Something.php"><i class="fa fa-qrcode fa-3x"></i>Total Donation</a>
-                    </li>
+
                     <li>
                         <a href="#"><i class="fa fa-sitemap fa-3x"></i>Donate<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -167,9 +165,7 @@ font-size: 16px;"><b> Online Donation System for Needy Students
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="Something.php"><i class="fa fa-qrcode fa-3x"></i>Total Donation</a>
-                    </li>
+
                     <li>
                         <a href="AccountSetting.php"><i class="fa fa-edit fa-3x"></i>Account Setting</a>
                     </li>

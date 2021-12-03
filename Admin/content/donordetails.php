@@ -38,7 +38,7 @@
                         <th>Id</th>
                         <th>Donor Name</th>
                         <th>Donor Email</th>
-                        <th>Donor Phone</th>
+
                         <th>Register Date</th>
                         <th>Last Active </th>
                         <th>Total amount donated</th>
@@ -66,7 +66,7 @@
                             <td><?php echo $res['id']; ?></td>
                             <td><?php echo $res['username']; ?></td>
                             <td><?php echo $res['email']; ?></td>
-                            <td>0<?php echo $res['phone']; ?></td>
+
                             <td><?php echo $date ?></td>
                             <td><?php echo $date1 ?></td>
                             <td><?php echo $res['total_donated']; ?></td>

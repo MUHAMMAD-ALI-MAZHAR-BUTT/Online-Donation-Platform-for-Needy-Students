@@ -155,3 +155,122 @@ if (isset($_REQUEST['form_id'])) {
 
 <?php
 }
+if (isset($_REQUEST['idd'])) {
+
+	$id = intval($_REQUEST['idd']);
+	$query = "SELECT * FROM payment_history inner join forms on payment_history.form_id=forms.form_id inner join student on payment_history.student_id=student.id
+	  WHERE payment_history.id=$id";
+	$stmt = $DBcon->prepare($query);
+	$stmt->execute(array(':idd' => $id));
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
+	extract($row);
+
+?>
+	<!-- <form method="POST" action="sendform.php"> -->
+	<form id="sample_form">
+		<div class="table-responsive">
+
+			<table class="table table-bordered table-responsive" style='width:100%'>
+
+				<tr>
+					<td><label class="control-label">Current Balance in Platform Account</label></td>
+					<?php
+					include 'db_connection.php';
+					$sql = "select available as tot from balance where id=1";
+					$query = mysqli_query($con, $sql);
+					$values = mysqli_fetch_assoc($query);
+					$num_rows = $values['tot'];
+					?>
+
+					<td><input class="form-control form_data" type="text" name="balance" id="balance" value="<?php echo $num_rows; ?>" readonly /></td>
+				</tr>
+				<input class="form-control form_data" value="<?php echo $id ?>" name="id" id="id" type="hidden" readonly>
+				<input class="form-control form_data" value="<?php echo $row['form_id'] ?>" name="idd" id="idd" type="hidden" readonly>
+				<tr>
+					<td><label class="control-label">Student Name</label></td>
+					<td><input class="form-control form_data" type="text" name="name" id="name" value="<?php echo $row['name']; ?>" readonly /></td>
+				</tr>
+				<tr>
+					<td><label class="control-label">EasyPaisa Account number</label></td>
+					<td><input class="form-control form_data" type="text" name="number" id="number" value="<?php echo $row['easypaisa_acc']; ?>" readonly /></td>
+				</tr>
+				<tr>
+					<td><label class="control-label">Total Amount Required</label></td>
+					<td><input class="form-control form_data" type="text" name="total" id="total" value="<?php echo $row['req_amount'] + $row['amount_received']; ?> " readonly /></td>
+				</tr>
+				<tr>
+					<td><label class="control-label">Amount left</label></td>
+					<td><input class="form-control form_data" type="text" name="left" id="left" value="<?php echo $row['req_amount']; ?>" readonly /></td>
+				</tr>
+
+				<tr>
+					<td><label class="control-label">Donate </label></td>
+					<td><input class="form-control form_data" type="text" placeholder="Enter Amount" name="amount" id="amount" value="0" onkeypress="return isNumber(event)" onpaste="return false" required />
+					</td>
+				</tr>
+
+			</table>
+			<td>
+				<div class="text-center group" id="fed">
+					<button type="submit" onclick="save_feedback(); return false;" name="submit" id="submit" class="btn btn-success" style="  display: block;width: 100%;border: none;padding: 14px 28px;font-size: 16px;  cursor: pointer;  text-align: center;">
+						<span class="fas fa-donate"></span> Donate
+					</button>
+				</div>
+			</td>
+			<span id="amount_error" class="text-danger" style="margin-left: 10%;font-size:x-large"></span>
+			<span id="suc" class="text-success" style="margin-left: 10%;font-size:large"></span>
+		</div>
+	</form>
+	<script>
+		function save_feedback() {
+			var form_element = document.getElementsByClassName('form_data');
+
+			var form_data = new FormData();
+
+			for (var count = 0; count < form_element.length; count++) {
+				form_data.append(form_element[count].name, form_element[count].value);
+			}
+
+			document.getElementById('submit').disabled = true;
+
+			var ajax_request = new XMLHttpRequest();
+
+			ajax_request.open('POST', 'sendform.php');
+
+			ajax_request.send(form_data);
+
+			ajax_request.onreadystatechange = function() {
+				if (ajax_request.readyState == 4 && ajax_request.status == 200) {
+					document.getElementById('submit').disabled = false;
+
+					var response = JSON.parse(ajax_request.responseText);
+
+					if (response.success != '') {
+						document.getElementById('sample_form').reset();
+
+						document.getElementById('suc').innerHTML = response.success;
+
+						setTimeout(function() {
+
+							document.getElementById('suc').innerHTML = '';
+							$('#view-modal').modal('hide');
+							location.reload();
+
+						}, 10000);
+						document.getElementById('amount_error').innerHTML = '';
+
+
+					} else {
+						// document.getElementById('name_error').innerHTML = response.name_error;
+						document.getElementById('amount_error').innerHTML = response.amount_error;
+
+					}
+
+
+
+				}
+			}
+		}
+	</script>
+<?php
+}

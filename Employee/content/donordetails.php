@@ -36,7 +36,6 @@
                         <th>Id</th>
                         <th>Donor's Name</th>
                         <th>Donor's Email</th>
-                        <th>Donor's Phone Number</th>
                         <th>Total amount donated</th>
                         <th>Fee amount donated</th>
                         <th>Expense amount donated</th>
@@ -64,7 +63,6 @@
                             <td><?php echo $res['id']; ?></td>
                             <td><?php echo $res['username']; ?></td>
                             <td><?php echo $res['email']; ?></td>
-                            <td>0<?php echo $res['phone']; ?></td>
                             <td><?php echo $res['total_donated']; ?></td>
                             <td><?php echo $res['fee_donated']; ?></td>
                             <td><?php echo $res['expense_donated']; ?></td>

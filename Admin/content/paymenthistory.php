@@ -50,7 +50,7 @@
                     <?php
                     include 'db_connection.php';
                     $selectquery = "select * from payment_history inner join forms on payment_history.form_id=forms.form_id inner join 
-                    student on payment_history.student_id=student.id where date_comp IS NOT NULL order by payment_history.id desc";
+                    student on payment_history.student_id=student.id where date_comp IS NOT NULL order by payment_history.date_comp desc";
 
                     $query = mysqli_query($con, $selectquery);
 

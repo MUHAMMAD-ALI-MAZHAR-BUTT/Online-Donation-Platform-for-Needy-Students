@@ -252,7 +252,7 @@ extract($edit_row);
              
 				
 											<a class='btn btn-block btn-primary' href='r.php?idd=" . $query2['idd'] . "'><span class='glyphicon glyphicon-ok'></span> Ok</a>
-                                             <center><h4 style='color:#f0ad4e'><u>Dated of Completion: " . $dt . "</u>  </h4></center>
+                                             <center><h4 style='color:#f0ad4e'><u>Date of Completion: " . $dt . "</u>  </h4></center>
                                             </div>
           </div>
         </div>";
@@ -303,7 +303,7 @@ extract($edit_row);
           	<center><h3><b>Message:</b> " . $query2['message'] . " </h3></center>
              
 				
-										     <center><h4 style='color:#22bb33;'><u>Dated of Completion: " . $dt . "</u>  </h4></center>
+										     <center><h4 style='color:#22bb33;'><u>Date of Completion: " . $dt . "</u>  </h4></center>
                                             </div>
           </div>
         </div>";

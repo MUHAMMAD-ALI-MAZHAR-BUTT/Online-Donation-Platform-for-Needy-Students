@@ -120,14 +120,14 @@ extract($edit_row);
                     <div class="form-group">
                         <textarea class="form-control form_data" name="venue" id="venue" rows="5" placeholder="Give Location" required></textarea>
                         <span id="venue_error" class="text-danger"></span>
-                        <span id="suc" class="text-success"></span>
+
                     </div>
-                    <!-- <label> Date and Time</label>
+                    <label> Date and Time</label>
                     <div class="form-group">
-                        <input type="datetime-local" class="form-control form_date" id="date1" name="date1" required>
+                        <input type="datetime-local" class="form-control form_data" id="date1" name="date1" min="2021-12-25T12:00:00" max="2022-12-25T12:00:00" value="2021-12-25T12:00:00" required>
 
                         <span id="suc" class="text-success"></span>
-                    </div> -->
+                    </div>
                     <div class="text-center group" id="fed">
                         <input class="form-control button btn-primary" onclick="save(); return false;" style="background-color: #ad1deb; border: #ad1deb; " type="submit" id="submit" name="submit" value="Send ">
                     </div>
@@ -192,7 +192,7 @@ extract($edit_row);
                                     setTimeout(function() {
 
                                         document.getElementById('suc').innerHTML = '';
-
+                                        window.history.back();
                                     }, 5000);
 
                                     document.getElementById('message_error').innerHTML = '';
@@ -242,7 +242,7 @@ extract($edit_row);
                                     setTimeout(function() {
 
                                         document.getElementById('suc').innerHTML = '';
-
+                                        window.history.back();
                                     }, 5000);
 
                                     document.getElementById('name_error').innerHTML = '';
