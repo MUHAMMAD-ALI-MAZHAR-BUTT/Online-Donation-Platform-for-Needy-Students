@@ -20,7 +20,7 @@ if (isset($_POST["submit_email"])) {
     $query
   );
   if (mysqli_num_rows($qu) == 0) {
-    echo "<script>alert('This doesnt exists')</script>";
+    echo "<script>alert('This email doesnt exists')</script>";
   } else {
     $str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     $str = str_shuffle($str);

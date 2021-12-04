@@ -28,19 +28,22 @@
 
               <?php
               include 'db_connection.php';
-              $sql = "select total as tot from balance where id=1";
+              $sql = "select * from balance where id=1";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
-              $num_rows = $values['tot'];
-              echo '<h3>' . $num_rows . ' Pkr</h3>';
+              $num_rows = $values['total_in_fee'] + $values['total_in_health'] + $values['total_in_expense'];
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
               ?>
 
-              <p>Total Money received by donators</p>
+              <p>Total Money received from donors</p>
             </div>
             <div class="icon">
               <i class="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="employeescreen1.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="donationhistory.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -50,11 +53,14 @@
             <div class="inner">
               <?php
               include 'db_connection.php';
-              $sql = "select available as tot from balance where id=1";
+              $sql = "select * from balance where id=1";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
-              $num_rows = $values['tot'];
-              echo '<h3>' . $num_rows . ' Pkr</h3>';
+              $num_rows = $values['available_in_fee'] + $values['available_in_health'] + $values['available_in_expense'];
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
               ?>
 
               <p>Available Money</p>
@@ -62,7 +68,7 @@
             <div class="icon">
               <i class="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="../Customm/customerjee/Admin/customers.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="donationhistory.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -72,11 +78,14 @@
             <div class="inner">
               <?php
               include 'db_connection.php';
-              $sql = "select donated as tot from balance where id=1";
+              $sql = "select * from balance where id=1";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
-              $num_rows = $values['tot'];
-              echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
+              $num_rows = $values['donated_in_fee'] + $values['donated_in_health'] + $values['donated_in_expense'];
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
               ?>
 
               <p style="color:white">Total Money donated to students</p>
@@ -84,7 +93,7 @@
             <div class="icon">
               <i class="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="productsscreen1.php" class="small-box-footer" style="color:white !important">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="paymenthistory.php" class="small-box-footer" style="color:white !important">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -98,8 +107,10 @@
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
               $num_rows = $values['tot'];
-              echo '<h3 style="color:white">' . $num_rows . ' </h3>';
-              ?>
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' Employee(s)</h3>';     ?>
 
               <p style="color:white;">Active Employees</p>
             </div>
@@ -121,19 +132,22 @@
 
               <?php
               include 'db_connection.php';
-              $sql = "select total as tot from balance where id=1";
+              $sql = "select username as total from donators where total_donated=(SELECT MAX(total_donated) FROM donators)";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
-              $num_rows = $values['tot'];
-              echo '<h3>' . $num_rows . ' Pkr</h3>';
+              $num_rows = $values['total'];
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' </h3>';
               ?>
 
-              <p>Total Money received by donators</p>
+              <p>Donor with most donations</p>
             </div>
             <div class="icon">
               <i class="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="employeescreen1.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="donordetails.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -143,19 +157,22 @@
             <div class="inner">
               <?php
               include 'db_connection.php';
-              $sql = "select available as tot from balance where id=1";
+              $sql = "SELECT count(*) as tot from payment_history where date_comp is not NULL";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
               $num_rows = $values['tot'];
-              echo '<h3>' . $num_rows . ' Pkr</h3>';
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' Student(s)</h3>';
               ?>
 
-              <p>Available Money</p>
+              <p>Total Students helped</p>
             </div>
             <div class="icon">
               <i class="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="../Customm/customerjee/Admin/customers.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="paymenthistory.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -165,19 +182,22 @@
             <div class="inner">
               <?php
               include 'db_connection.php';
-              $sql = "select donated as tot from balance where id=1";
+              $sql = "select count(*) as tot from forms";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
               $num_rows = $values['tot'];
-              echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' form(s)</h3>';
               ?>
 
-              <p style="color:white">Total Money donated to students</p>
+              <p style="color:white">Total Forms received so far</p>
             </div>
             <div class="icon">
               <i class="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="productsscreen1.php" class="small-box-footer" style="color:white !important">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="forms.php" class="small-box-footer" style="color:white !important">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -187,19 +207,22 @@
             <div class="inner">
               <?php
               include 'db_connection.php';
-              $sql = "select count(*) as tot from emp ";
+              $sql = "select count(*) as tot from forms where status='pending'";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
               $num_rows = $values['tot'];
-              echo '<h3 style="color:white">' . $num_rows . ' </h3>';
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' form(s)</h3>';
               ?>
 
-              <p style="color:white;">Total Employees</p>
+              <p style="color:white;">Pending Forms</p>
             </div>
             <div class="icon">
               <i class="fa fa-user"></i>
             </div>
-            <a href="OnlineService.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="forms.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -214,19 +237,22 @@
 
               <?php
               include 'db_connection.php';
-              $sql = "select total as tot from balance where id=1";
+              $sql = "select count(*) as tot from payment_history where date_comp IS NULL";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
               $num_rows = $values['tot'];
-              echo '<h3>' . $num_rows . ' Pkr</h3>';
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' </h3>';
               ?>
 
-              <p>Total Money received by donators</p>
+              <p>No. of pending payments of students</p>
             </div>
             <div class="icon">
               <i class="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="employeescreen1.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="accepted.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -236,19 +262,22 @@
             <div class="inner">
               <?php
               include 'db_connection.php';
-              $sql = "select available as tot from balance where id=1";
+              $sql = "select count(*) as tot from donators";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
               $num_rows = $values['tot'];
-              echo '<h3>' . $num_rows . ' Pkr</h3>';
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' Donor(s)</h3>';
               ?>
 
-              <p>Available Money</p>
+              <p>Total Registered Donors</p>
             </div>
             <div class="icon">
               <i class="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="../Customm/customerjee/Admin/customers.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="donordetails.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -258,19 +287,23 @@
             <div class="inner">
               <?php
               include 'db_connection.php';
-              $sql = "select donated as tot from balance where id=1";
+              $sql = "select category as tot from forms where category=(SELECT MAX(category) FROM forms)";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
               $num_rows = $values['tot'];
-              echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' </h3>';
+
               ?>
 
-              <p style="color:white">Total Money donated to students</p>
+              <p style="color:white">Most Chosen Category</p>
             </div>
             <div class="icon">
               <i class="fa fa-money" aria-hidden="true"></i>
             </div>
-            <a href="productsscreen1.php" class="small-box-footer" style="color:white !important">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="forms.php" class="small-box-footer" style="color:white !important">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -280,19 +313,22 @@
             <div class="inner">
               <?php
               include 'db_connection.php';
-              $sql = "select count(*) as tot from emp where emp_leftdate='0000-00-00'";
+              $sql = "select count(*) as tot from notifications";
               $query = mysqli_query($con, $sql);
               $values = mysqli_fetch_assoc($query);
               $num_rows = $values['tot'];
-              echo '<h3 style="color:white">' . $num_rows . ' </h3>';
+              if ($num_rows == '')
+                echo '<h3 style="color:white">Null </h3>';
+              else
+                echo '<h3 style="color:white">' . $num_rows . ' Notification(s)</h3>';
               ?>
 
-              <p style="color:white;">Total Employees</p>
+              <p style="color:white;">Total Notifications received</p>
             </div>
             <div class="icon">
               <i class="fa fa-user"></i>
             </div>
-            <a href="OnlineService.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="notification.php?id=1" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
 

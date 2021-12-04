@@ -9,6 +9,50 @@ session_start();
     window.history.forward();
   }
 </script>
+<?php
+include('db_connection.php');
+if (isset($_POST["submit_email"])) {
+  $gmail = $_POST['gmail'];
+
+  $query = "SELECT * FROM emp where emp_email='$gmail'";
+  $qu = mysqli_query(
+    $con,
+    $query
+  );
+  if (mysqli_num_rows($qu) == 0) {
+    echo "<script>alert('This email doesnt exists')</script>";
+  } else {
+    $str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $str = str_shuffle($str);
+    $str = substr($str, 0, 10);
+    $recipient = $_POST['gmail'];
+    $subject = "New random password";
+    $message = "Your new password for SOP website is: $str";
+    $sender = "From: abdullahrasheed937@gmail.com";
+
+    $sql = "SELECT emp_name as total from emp where emp_email='$gmail'";
+    $query2 = mysqli_query($con, $sql);
+    $values = mysqli_fetch_assoc($query2);
+    $name = $values['total'];
+
+    $query1 = "UPDATE emp set pass='$str' where emp_email='$gmail'";
+
+
+    mysqli_query($con, $query1);
+    // PHP function to send mail
+    if (mail($recipient, $subject, $message, $sender)) {
+      echo "<script>alert('Mail successfully sent to $recipient')</script>";
+      $query = "INSERT INTO `notifications` (`name`,`email`, `type`, `message`, `status`, `date`,`type1`) VALUES ('$name'
+            , '$gmail', 'employee','Employee $name has requested for new password as old password was forgotten', 'unread', CURRENT_TIMESTAMP,'forgot')";
+
+
+      mysqli_query($con, $query);
+    } else {
+      echo "<script>alert('Error while sending mail successfully to $recipient')</script>";
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -58,9 +102,7 @@ session_start();
                   <a href="#features-sec" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#an">
                     Employee Login
                   </a>
-                  <a href="#features-sec" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#an">
-                    Forgot Password?
-                  </a>
+
 
                 </li>
                 <!-- End Slider 01 -->
@@ -172,7 +214,15 @@ session_start();
       </div>
     </div>
   </div> -->
-
+  <center> &nbsp
+    <form method="post" action="index1.php">
+      <h3>
+        <p><b align="center">Forgot Password? Enter your Email Address to get new random Password <b></p>
+      </h3>
+      <input type="text" name="gmail">
+      <input type="submit" name="submit_email">
+    </form>
+  </center>
   <div class="modal fade" id="an" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
     <div class="modal-dialog modal-sm">
       <div style="color:white;background-color:blueviolet" class="modal-content">

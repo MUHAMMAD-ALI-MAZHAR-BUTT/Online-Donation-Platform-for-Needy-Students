@@ -260,15 +260,15 @@
                             <table class="table table-striped table-bordered">
                                 <tr>
                                     <th>Total Amount Received</th>
-                                    <td><?php echo $res['total']; ?> Pkr</td>
+                                    <td><?php echo $res['total_in_fee'] + $res['total_in_health'] + $res['total_in_expense']; ?> Pkr</td>
                                 </tr>
                                 <tr>
                                     <th>Available Amount</th>
-                                    <td><?php echo $res['available']; ?> Pkr</td>
+                                    <td><?php echo $res['available_in_expense'] + $res['available_in_health'] + $res['available_in_fee']; ?> Pkr</td>
                                 </tr>
                                 <tr>
                                     <th>Amount Donated to Student</th>
-                                    <td><?php echo $res['donated']; ?> Pkr</td>
+                                    <td><?php echo $res['donated_in_fee'] + $res['donated_in_expense'] + $res['donated_in_health']; ?> Pkr</td>
                                 </tr>
                             </table>
 

@@ -32,7 +32,10 @@
                             $query = mysqli_query($dbcon, $sql);
                             $values = mysqli_fetch_assoc($query);
                             $num_rows = $values['tot'];
-                            echo '<h3>' . $num_rows . ' Pkr</h3>';
+                            if ($num_rows == '')
+                                echo '<h3>NULL</h3>';
+                            else
+                                echo '<h3>' . $num_rows . ' Pkr</h3>';
                             ?>
 
                             <p>Fee Category</p>
@@ -54,7 +57,10 @@
                             $query = mysqli_query($dbcon, $sql);
                             $values = mysqli_fetch_assoc($query);
                             $num_rows = $values['tot'];
-                            echo '<h3>' . $num_rows . ' Pkr</h3>';
+                            if ($num_rows == '')
+                                echo '<h3>NULL</h3>';
+                            else
+                                echo '<h3>' . $num_rows . ' Pkr</h3>';
                             ?>
 
                             <p>Expenses Category</p>
@@ -76,7 +82,10 @@
                             $query = mysqli_query($dbcon, $sql);
                             $values = mysqli_fetch_assoc($query);
                             $num_rows = $values['tot'];
-                            echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
+                            if ($num_rows == '')
+                                echo '<h3 style="color:white">NULL</h3>';
+                            else
+                                echo '<h3 style="color:white">' . $num_rows . ' Pkr</h3>';
                             ?>
 
                             <p style="color:white">Health Category</p>

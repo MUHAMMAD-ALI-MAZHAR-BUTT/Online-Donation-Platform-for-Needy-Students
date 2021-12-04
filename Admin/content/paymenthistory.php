@@ -68,7 +68,7 @@
                             <td><?php echo $res['student_id']; ?></td>
                             <td><?php echo $res['name']; ?></td>
                             <td><?php echo $res['amount_received']; ?></td>
-                            <td><?php echo $res['category']; ?></td>
+                            <td><?php echo $res['Category']; ?></td>
                             <td><?php echo $date1 ?></td>
 
 

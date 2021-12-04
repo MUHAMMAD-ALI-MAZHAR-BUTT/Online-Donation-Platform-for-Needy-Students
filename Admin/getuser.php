@@ -176,16 +176,38 @@ if (isset($_REQUEST['idd'])) {
 					<td><label class="control-label">Current Balance in Platform Account</label></td>
 					<?php
 					include 'db_connection.php';
-					$sql = "select available as tot from balance where id=1";
-					$query = mysqli_query($con, $sql);
-					$values = mysqli_fetch_assoc($query);
-					$num_rows = $values['tot'];
+					$s = "SELECT * from payment_history where id='$id'";
+					$q = mysqli_query($con, $s);
+					$v = mysqli_fetch_assoc($q);
+					if ($v['Category'] == 'fee') {
+						$sql = "select available_in_fee as tot from balance where id=1";
+						$query = mysqli_query($con, $sql);
+						$values = mysqli_fetch_assoc($query);
+						$num_rows = $values['tot'];
+					?> <td><input class="form-control form_data" type="text" name="balance" id="balance" value="<?php echo $num_rows; ?>" readonly /></td>
+					<?php
+					} else if ($v['Category'] == 'health') {
+						$sql = "select available_in_health as tot from balance where id=1";
+						$query = mysqli_query($con, $sql);
+						$values = mysqli_fetch_assoc($query);
+						$num_rows = $values['tot'];
+					?> <td><input class="form-control form_data" type="text" name="balance" id="balance" value="<?php echo $num_rows; ?>" readonly /></td>
+					<?php
+					} else if ($v['Category'] == 'expense') {
+						$sql = "select available_in_expense as tot from balance where id=1";
+						$query = mysqli_query($con, $sql);
+						$values = mysqli_fetch_assoc($query);
+						$num_rows = $values['tot'];
 					?>
-
-					<td><input class="form-control form_data" type="text" name="balance" id="balance" value="<?php echo $num_rows; ?>" readonly /></td>
+						<td><input class="form-control form_data" type="text" name="balance" id="balance" value="<?php echo $num_rows; ?>" readonly /></td>
+					<?php
+					}
+					?>
 				</tr>
 				<input class="form-control form_data" value="<?php echo $id ?>" name="id" id="id" type="hidden" readonly>
 				<input class="form-control form_data" value="<?php echo $row['form_id'] ?>" name="idd" id="idd" type="hidden" readonly>
+				<input class="form-control form_data" value="<?php echo $row['category'] ?>" name="category" id="category" type="hidden" readonly>
+
 				<tr>
 					<td><label class="control-label">Student Name</label></td>
 					<td><input class="form-control form_data" type="text" name="name" id="name" value="<?php echo $row['name']; ?>" readonly /></td>

@@ -213,10 +213,10 @@ $result = $con->query("SELECT img_path from gallery_img");
                             <i class="bi bi-cash-stack"></i>
                             <?php
                             include 'db_connection.php';
-                            $sql = "select total as tot from balance where id=1";
+                            $sql = "select * from balance where id=1";
                             $query = mysqli_query($con, $sql);
                             $values = mysqli_fetch_assoc($query);
-                            $num_rows = $values['tot'];
+                            $num_rows = $values['total_in_fee'] + $values['total_in_health'] + $values['total_in_expense'];
                             echo '<span data-purecounter-start="0" data-purecounter-end="' . $num_rows . '" data-purecounter-duration="10" class="purecounter"></span>';
                             ?>
 

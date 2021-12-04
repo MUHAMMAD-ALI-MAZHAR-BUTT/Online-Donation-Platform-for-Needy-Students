@@ -53,7 +53,7 @@ $query1 = "INSERT INTO `notifications` (`name`,`email`, `type`, `message`, `stat
 mysqli_query($con, $query1);
 $query2 = "UPDATE donators set total_donated=total_donated+$f,expense_donated=expense_donated+$f,no_of_times=no_of_times+1 where id='$id'";
 mysqli_query($con, $query2);
-$query3 = "UPDATE balance set total=total+$f,available=available+$f where id=1";
+$query3 = "UPDATE balance set total_in_expense=total_in_expense+$f,available_in_expense=available_in_expense+$f where id=1";
 mysqli_query($con, $query3);
 if ($conn->query($sql) === TRUE) {
 ?>

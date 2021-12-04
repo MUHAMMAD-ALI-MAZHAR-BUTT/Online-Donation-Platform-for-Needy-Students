@@ -23,6 +23,7 @@ if (isset($_POST["name"])) {
     $left = test_input($_POST["left"]);
     $number = test_input($_POST["number"]);
     $amount = test_input($_POST["amount"]);
+    $category = test_input($_POST["category"]);
     // $name_error = '';
     $amount_error = '';
 
@@ -38,9 +39,19 @@ if (isset($_POST["name"])) {
 
         $query = "UPDATE payment_history set amount_received=amount_received+'$amount',req_amount=req_amount-'$amount' where id=$id";
         mysqli_query($con, $query);
-        $query1 = "UPDATE balance set available=available-'$amount',donated=donated+'$amount' ";
-        mysqli_query($con, $query1);
-        $success = "Amount Donated Successfully at account number $number, page will reload in 10 seconds";
+        if ($category == 'fee') {
+            $query1 = "UPDATE balance set available_in_fee=available_in_fee-'$amount',donated_in_fee=donated_in_fee+'$amount' ";
+            mysqli_query($con, $query1);
+            $success = "Amount Donated Successfully at account number $number, page will reload in 10 seconds";
+        } else if ($category == 'health') {
+            $query1 = "UPDATE balance set available_in_health=available_in_health-'$amount',donated_in_health=donated_in_health+'$amount' ";
+            mysqli_query($con, $query1);
+            $success = "Amount Donated Successfully at account number $number, page will reload in 10 seconds";
+        } else if ($category == 'category') {
+            $query1 = "UPDATE balance set available_in_expense=available_in_expense-'$amount',donated_in_expense=donated_in_expense+'$amount' ";
+            mysqli_query($con, $query1);
+            $success = "Amount Donated Successfully at account number $number, page will reload in 10 seconds";
+        }
     }
 
 
