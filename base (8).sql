@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2021 at 05:10 PM
+-- Generation Time: Dec 05, 2021 at 07:32 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -48,31 +48,23 @@ INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_password`) VALUES
 
 CREATE TABLE `balance` (
   `id` int(11) NOT NULL,
-  `total` bigint(20) NOT NULL,
-  `available` bigint(20) NOT NULL,
-  `donated` bigint(20) NOT NULL
+  `total_in_fee` bigint(20) NOT NULL,
+  `available_in_fee` bigint(20) NOT NULL,
+  `donated_in_fee` bigint(20) NOT NULL,
+  `total_in_health` bigint(20) NOT NULL,
+  `available_in_health` bigint(20) NOT NULL,
+  `donated_in_health` bigint(20) NOT NULL,
+  `total_in_expense` bigint(20) NOT NULL,
+  `available_in_expense` bigint(20) NOT NULL,
+  `donated_in_expense` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `balance`
 --
 
-INSERT INTO `balance` (`id`, `total`, `available`, `donated`) VALUES
-(1, 500, 400, 100);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `category`
---
-
-CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `stu_id` int(11) NOT NULL,
-  `amount` bigint(20) NOT NULL,
-  `required` bigint(20) NOT NULL,
-  `status` enum('complete','incomplete','','') NOT NULL DEFAULT 'incomplete'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `balance` (`id`, `total_in_fee`, `available_in_fee`, `donated_in_fee`, `total_in_health`, `available_in_health`, `donated_in_health`, `total_in_expense`, `available_in_expense`, `donated_in_expense`) VALUES
+(1, 500, 312, 188, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -153,16 +145,6 @@ INSERT INTO `city` (`city_id`, `city_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `donations`
---
-
-CREATE TABLE `donations` (
-  `id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `donation_record`
 --
 
@@ -171,6 +153,11 @@ CREATE TABLE `donation_record` (
   `datetime` datetime DEFAULT NULL,
   `category` enum('fee','health','expense') NOT NULL,
   `donator_id` int(11) NOT NULL,
+  `Holder_Name` text NOT NULL,
+  `Card_Number` text NOT NULL,
+  `Card_Expiry_Month` int(11) NOT NULL,
+  `Expiry_Year` int(11) NOT NULL,
+  `cvc` int(150) NOT NULL,
   `amount` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -178,8 +165,15 @@ CREATE TABLE `donation_record` (
 -- Dumping data for table `donation_record`
 --
 
-INSERT INTO `donation_record` (`id`, `datetime`, `category`, `donator_id`, `amount`) VALUES
-(1, NULL, 'fee', 1, 70);
+INSERT INTO `donation_record` (`id`, `datetime`, `category`, `donator_id`, `Holder_Name`, `Card_Number`, `Card_Expiry_Month`, `Expiry_Year`, `cvc`, `amount`) VALUES
+(1, NULL, 'fee', 1, '', '', 0, 0, 0, 70),
+(2, '2021-12-01 21:41:39', 'fee', 17, 'sdsd', '4929 0184 3368 1188', 3, 2021, 123, 5677),
+(3, '2021-12-01 21:45:01', 'health', 17, 'ddww', '4929 0184 3368 1188', 1, 2021, 1111, 2223),
+(4, '2021-12-01 22:08:28', 'fee', 17, 'scwdwdwd', '4929 0184 3368 1188', 1, 2021, 111, 34343),
+(5, '2021-12-01 22:09:13', 'fee', 17, 'scwdwdwd', '4929 0184 3368 1188', 1, 2021, 111, 34343),
+(6, '2021-12-01 22:09:53', 'fee', 17, 'scwdwdwd', '4929 0184 3368 1188', 1, 2021, 111, 34343),
+(7, '2021-12-02 22:27:01', 'fee', 1, 'adhadad', '4929 0184 3368 1188', 1, 2021, 123, 5678),
+(8, '2021-12-03 12:14:36', 'fee', 1, 'ddwwd', '4929 0184 3368 1188', 1, 2021, 234, 55353);
 
 -- --------------------------------------------------------
 
@@ -191,7 +185,6 @@ CREATE TABLE `donators` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `phone` bigint(20) NOT NULL,
   `password` varchar(500) NOT NULL,
   `create_datetime` datetime NOT NULL,
   `last_active` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -206,19 +199,11 @@ CREATE TABLE `donators` (
 -- Dumping data for table `donators`
 --
 
-INSERT INTO `donators` (`id`, `username`, `email`, `phone`, `password`, `create_datetime`, `last_active`, `total_donated`, `fee_donated`, `expense_donated`, `health_donated`, `no_of_times`) VALUES
-(1, 'abc', 'a@gmail.com', 3446789101, '1', '2021-10-10 13:23:51', '2021-11-24 17:26:56', 0, 0, 0, 0, 0),
-(2, 'jan', 'legend@gmail.com', 3221111111, '12', '2021-10-10 14:18:52', '2021-11-19 17:26:14', 0, 0, 0, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `donor`
---
-
-CREATE TABLE `donor` (
-  `donor_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `donators` (`id`, `username`, `email`, `password`, `create_datetime`, `last_active`, `total_donated`, `fee_donated`, `expense_donated`, `health_donated`, `no_of_times`) VALUES
+(1, 'abc', 'a@gmail.com', '1', '2021-10-10 13:23:51', '2021-12-03 12:14:36', 61031, 61031, 0, 0, 2),
+(2, 'jan', 'a@gmail.com', '29a7a3e48674800c30183650306fe2cd', '2021-10-10 14:18:52', '2021-12-01 21:09:57', 0, 0, 0, 0, 0),
+(17, 'abcd', 'a@gmail.com', '29a7a3e48674800c30183650306fe2cd', '2021-12-01 15:19:23', '2021-12-01 21:09:57', 0, 0, 0, 0, 0),
+(21, 'asas', 'a@gmail.com', '29a7a3e48674800c30183650306fe2cd', '2021-12-01 16:45:04', '2021-12-01 21:09:57', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -252,17 +237,7 @@ INSERT INTO `emp` (`emp_id`, `emp_name`, `emp_email`, `emp_phone`, `emp_joindate
 (39, 'abaa', 'aa@gmail.com', 3446791011, '2021-11-10', 'A0SjB3rL5i', 0, 0, NULL),
 (40, 'ahah', 'eme@gmail.com', 3115678191, '2021-11-10', '7wAbXWdCYU', 0, 0, NULL),
 (41, 'ahsadb', 'feww@gmail.com', 3125687793, '2021-11-12', 'Rznly8BWo4', 0, 0, NULL),
-(42, 'abb', 'dhaa@gmail.com', 3005679084, '2021-11-12', 'DYZh4Pye2x', 0, 0, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employee`
---
-
-CREATE TABLE `employee` (
-  `employee_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+(42, 'abb', 'dhaa@gmail.com', 3005679084, '2021-11-12', '9GfdLZiuKD', 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -298,7 +273,9 @@ INSERT INTO `feedback` (`feedback_id`, `name`, `email`, `subject`, `message`, `s
 (35, 'jan', 'ali123mazhar@gmail.com', 'sds', 'dahaa', 'false', NULL, NULL),
 (36, 'jan', 'ali123mazhar@gmail.com', 'ssd', 'feggrr', 'true', 'EFEFEFFEEF', '2021-11-26 22:46:13'),
 (37, 'jan', 'ali123mazhar@gmail.com', 'fefefe', 'eggge', 'true', 'sjsdsdksdkdskddkdkdalldaldadlladladladldaladldaladladkddkadaddwd wwd  dww wddw dw dw wdw wdwdowdwd wd dw wd wdowdo wd wd dwwd dw wd  dw', NULL),
-(38, 'SDD', 'as@gmail.com', 'ffw', 'wdwdwd', 'false', NULL, '2021-11-21 00:32:37');
+(38, 'SDD', 'as@gmail.com', 'ffw', 'wdwdwd', 'false', NULL, '2021-11-21 00:32:37'),
+(39, 'abcd', 'a@gmail.com', 'ddwdwwd', 'edwwdwdd', 'false', NULL, NULL),
+(40, 'abcd', 'a@gmail.com', 'wdddw', 'dwdwwdwdwdwd', 'false', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -310,8 +287,8 @@ CREATE TABLE `fee_category` (
   `DonatorName` text NOT NULL,
   `Holder_Name` text NOT NULL,
   `Card_Number` text NOT NULL,
-  `Card_Expiry_Month` int(100) NOT NULL,
-  `Expiry_Year` int(100) NOT NULL,
+  `Card_Expiry_Month` int(4) NOT NULL,
+  `Expiry_Year` int(11) NOT NULL,
   `Cvc` int(255) NOT NULL,
   `Amount` int(11) NOT NULL,
   `Date` text NOT NULL,
@@ -323,36 +300,8 @@ CREATE TABLE `fee_category` (
 --
 
 INSERT INTO `fee_category` (`DonatorName`, `Holder_Name`, `Card_Number`, `Card_Expiry_Month`, `Expiry_Year`, `Cvc`, `Amount`, `Date`, `Time`) VALUES
-('', 'Ali', '3782 822463 10005', 1, 2021, 1234, 50000, '2021-10-12', '10:58am'),
-('', 'j', '3782 822463 10005', 1, 2021, 8377, 900, '2021-10-12', '12:37pm'),
-('', 'j', '3782 822463 10005', 1, 2021, 8377, 900, '2021-10-12', '12:37pm'),
-('', 'j', '3782 822463 10005', 1, 2021, 8377, 900, '2021-10-12', '12:37pm'),
-('', '', '', 0, 0, 0, 0, '2021-10-12', '12:37pm'),
-('', '', '', 0, 0, 0, 0, '2021-10-12', '12:38pm'),
-('', '', '', 0, 0, 0, 0, '2021-10-12', '12:38pm'),
-('', '', '', 0, 0, 0, 0, '2021-10-12', '12:39pm'),
-('', 'jj', '3782 822463 10005', 1, 2021, 1234, 2147483647, '2021-10-12', '12:39pm'),
-('', 'jj', '3782 822463 10005', 1, 2021, 1234, 2147483647, '2021-10-12', '12:40pm'),
-('', '', '', 0, 0, 0, 0, '2021-10-12', '12:40pm'),
-('', 'w', '3782 822463 10005', 1, 2021, 1234, 900, '2021-10-12', '12:42pm'),
-('abc', 'w', '3782 822463 10005', 1, 2021, 9999, 900, '2021-10-12', '12:55pm'),
-('abc', 'w', '3782 822463 10005', 1, 2021, 9999, 900, '2021-10-12', '12:56pm'),
-('abc', 'w', '3782 822463 10005', 1, 2021, 9999, 900, '2021-10-12', '12:56pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '12:56pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '12:58pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:00pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:00pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:01pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:01pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:02pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:02pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:02pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:02pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:02pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:02pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:03pm'),
-('abc', '', '', 0, 0, 0, 0, '2021-10-12', '01:05pm'),
-('abc', 'dadada', '3782 822463 10005', 4, 2034, 3442, 900, '2021-11-24', '01:29pm');
+('Ali', 'Ali', '4929 0184 3368 1188', 1, 2021, 5432, 2147483647, '2021-11-23', '09:35am'),
+('abc', 'Efficient Learning World', '5532 2974 9115 4785', 10, 2021, 9999, 9000000, '2021-11-30', '01:51pm');
 
 -- --------------------------------------------------------
 
@@ -390,8 +339,8 @@ CREATE TABLE `forms` (
 --
 
 INSERT INTO `forms` (`form_id`, `student_id`, `emp_id`, `status`, `informed`, `date_of_reject`, `date_of_accept`, `date_of_complete`, `date_filled`, `category`, `amount_required`, `cnic`, `dob`, `age`, `message`, `institute_name`, `father`, `occupation`, `Monthly_income`, `city_id`, `study_level`, `easypaisa_acc`) VALUES
-(2, 2, 2, 'rejected', 'true', '2021-11-27', NULL, NULL, '2021-11-01', NULL, 0, '', '0000-00-00', 0, '', '', '', 'n', 0, 1, 'secondary', 0),
-(32, 1, 42, 'completed', 'false', '2021-11-27', NULL, NULL, '2021-10-26', 'expense', 3442, '35202-9815543-3', '2010-01-01', 11, 'dwidwi  dwi wd iwd iwd iwdidw iwd wdw', 'fsfwfwwf', 'ssds', 'dwwwd', 42242, 19, 'undergrad', 3446791011);
+(2, 2, 2, 'pending', 'true', '2021-11-27', NULL, '2021-12-03', '2021-11-01', 'fee', 456, '', '0000-00-00', 0, '', '', '', 'n', 0, 1, 'secondary', 3446791011),
+(32, 1, 42, 'rejected', 'false', '2021-11-27', NULL, NULL, '2021-10-25', 'expense', 3442, '35202-9815543-3', '2010-01-01', 11, 'dwidwi  dwi wd iwd iwd iwdidw iwd wdw', 'fsfwfwwf', 'ssds', 'dwwwd', 42242, 19, 'undergrad', 3446791011);
 
 -- --------------------------------------------------------
 
@@ -434,6 +383,14 @@ CREATE TABLE `health` (
   `Date` text NOT NULL,
   `Time` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `health`
+--
+
+INSERT INTO `health` (`DonatorName`, `Holder_Name`, `Card_Number`, `Card_Expiry_Month`, `Expiry_Year`, `Cvc`, `Amount`, `Date`, `Time`) VALUES
+('abc', 'jani', '5532 2974 9115 4785', 11, 2021, 1234, 900, '2021-11-30', '01:48pm'),
+('abc', 'jani', '5532 2974 9115 4785', 10, 2021, 9999, 9000, '2021-11-30', '01:49pm');
 
 -- --------------------------------------------------------
 
@@ -519,7 +476,19 @@ INSERT INTO `notifications` (`id`, `name`, `email`, `type`, `message`, `status`,
 (52, '', 'email@gmail.co', 'employee', 'Employee  has requested for new password as old password was forgotten', 'unread', '2021-11-23 21:36:07', 'forgot'),
 (53, '', 'email@gmail.co', 'employee', 'Employee  has requested for new password as old password was forgotten', 'unread', '2021-11-23 21:36:13', 'forgot'),
 (54, '', 'email@gmail.co', 'employee', 'Employee  has requested for new password as old password was forgotten', 'unread', '2021-11-23 21:36:19', 'forgot'),
-(55, 'Name', 'email@gmail.co', 'employee', 'Employee Name has requested for new password as old password was forgotten', 'read', '2021-11-23 21:36:52', 'forgot');
+(55, 'Name', 'email@gmail.co', 'employee', 'Employee Name has requested for new password as old password was forgotten', 'read', '2021-11-23 21:36:52', 'forgot'),
+(56, 'asas', 'ba@gmail.com', 'donor', 'Donor  has created account on the Platform', 'unread', '2021-12-01 20:45:04', 'newacc'),
+(57, '3447418403fc4780091e5a804471a00f', 'a@gmail.com', 'donor', 'Donor  has changed account settings', 'unread', '2021-12-01 21:09:52', 'account'),
+(58, '29a7a3e48674800c30183650306fe2cd', 'a@gmail.com', 'donor', 'Donor  has changed account settings', 'unread', '2021-12-01 21:09:57', 'account'),
+(59, 'root', 'a@gmail.com', 'donor', 'Donor abcd has donated 34343 rupees on the Platform in Fee Category', 'unread', '2021-12-01 22:09:13', 'donation'),
+(60, 'root', 'a@gmail.com', 'donor', 'Donor abcd has donated 34343 rupees on the Platform in Fee Category', 'unread', '2021-12-01 22:09:53', 'donation'),
+(61, 'root', 'a@gmail.com', 'donor', 'Donor abc has donated 5678 rupees on the Platform in Fee Category', 'unread', '2021-12-02 22:27:01', 'donation'),
+(62, 'abd', 'abd@gmail.com', 'student', 'Student abd has been accepted for grant by employee Nameww', 'unread', '2021-12-03 12:12:54', 'accepted'),
+(63, 'abc', 'a@gmail.com', 'donor', 'Donor abc has donated 55353 rupees on the Platform in Fee Category', 'unread', '2021-12-03 12:14:36', 'donation'),
+(64, 'abd', 'abd@gmail.com', 'student', 'Student abd has been accepted for grant by employee Nameww', 'unread', '2021-12-03 12:39:25', 'accepted'),
+(65, 'abd', 'abd@gmail.com', 'student', 'Student abd has been accepted for grant by employee Nameww', 'unread', '2021-12-03 12:43:07', 'accepted'),
+(66, 'abd', 'abd@gmail.com', 'student', 'Student abd has been accepted for grant by employee Nameww', 'unread', '2021-12-03 17:46:43', 'accepted'),
+(67, 'abb', 'dhaa@gmail.com', 'employee', 'Employee abb has requested for new password as old password was forgotten', 'unread', '2021-12-04 23:32:05', 'forgot');
 
 -- --------------------------------------------------------
 
@@ -534,15 +503,18 @@ CREATE TABLE `payment_history` (
   `date_comp` date DEFAULT NULL,
   `amount_received` int(11) NOT NULL,
   `req_amount` bigint(20) NOT NULL DEFAULT 0,
-  `category` enum('fee','expense','health') NOT NULL
+  `Category` enum('fee','expense','health') NOT NULL,
+  `easypaisa_acc` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `payment_history`
 --
 
-INSERT INTO `payment_history` (`id`, `form_id`, `student_id`, `date_comp`, `amount_received`, `req_amount`, `category`) VALUES
-(2, 2, 2, NULL, 0, 9, 'fee');
+INSERT INTO `payment_history` (`id`, `form_id`, `student_id`, `date_comp`, `amount_received`, `req_amount`, `Category`, `easypaisa_acc`) VALUES
+(2, 2, 2, '2021-12-03', 141, 0, 'fee', 0),
+(3, 2, 2, '2021-12-04', 0, 0, 'expense', 0),
+(4, 2, 2, NULL, 0, 456, 'fee', 3446791011);
 
 -- --------------------------------------------------------
 
@@ -572,7 +544,7 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`id`, `name`, `email`, `phone`, `password`, `create_datetime`, `last_active`, `no_of_forms`, `accepted_no`, `rejected_no`, `cnic`, `dob`, `age`) VALUES
 (1, 'jan', 'ali123mazhar@gmail.com', 3456789016, '1', '2021-10-10 09:58:44', '2021-11-26 14:37:16', 38, 0, 0, '35202-9815543-3', '2010-01-01', 11),
-(2, 'abd', 'abd@gmail.com', 3446791110, 'ausHo1cCIV', '2021-11-12 11:33:24', '2021-11-27 14:53:13', 2, 0, 4, '35202-9716610-1', '2010-01-01', 11);
+(2, 'abd', 'abd@gmail.com', 3446791110, 'ausHo1cCIV', '2021-11-12 11:33:24', '2021-12-03 12:46:43', 2, 1, 4, '35202-9716610-1', '2010-01-01', 11);
 
 -- --------------------------------------------------------
 
@@ -592,6 +564,13 @@ CREATE TABLE `studyexpenses` (
   `Time` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `studyexpenses`
+--
+
+INSERT INTO `studyexpenses` (`DonatorName`, `Holder_Name`, `Card_Number`, `Card_Expiry_Month`, `Expiry_Year`, `Cvc`, `Amount`, `Date`, `Time`) VALUES
+('abcd', 'aadoadadda', '4929 0184 3368 1188', 1, 2021, 122, 6788, '2021-12-01', '04:19pm');
+
 -- --------------------------------------------------------
 
 --
@@ -599,23 +578,23 @@ CREATE TABLE `studyexpenses` (
 --
 
 CREATE TABLE `stu_notification` (
-  `id` int(11) NOT NULL,
+  `idd` int(11) NOT NULL,
   `stu_id` int(11) NOT NULL,
-  `emp_id` int(11) NOT NULL,
+  `emp_id` int(11) DEFAULT NULL,
   `emp_name` varchar(500) NOT NULL,
   `dt` datetime DEFAULT NULL,
   `message` varchar(5000) NOT NULL,
   `venue` varchar(5000) NOT NULL,
   `status` enum('read','unread','','') NOT NULL,
-  `date1` datetime NOT NULL,
-  `type` enum('i','s','','') NOT NULL
+  `date1` datetime DEFAULT NULL,
+  `type` enum('i','s','a','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `stu_notification`
 --
 
-INSERT INTO `stu_notification` (`id`, `stu_id`, `emp_id`, `emp_name`, `dt`, `message`, `venue`, `status`, `date1`, `type`) VALUES
+INSERT INTO `stu_notification` (`idd`, `stu_id`, `emp_id`, `emp_name`, `dt`, `message`, `venue`, `status`, `date1`, `type`) VALUES
 (1, 1, 2, 'ddd', '2021-11-21 00:03:05', 'dddd', 'ddddddd', 'unread', '0000-00-00 00:00:00', 'i'),
 (2, 1, 2, 'Nameww', '2021-11-21 00:18:06', 'hgh', 'jjj', 'unread', '0000-00-00 00:00:00', 'i'),
 (3, 1, 2, '', '2021-11-22 19:25:40', 'You have been rejected for grant', 'NULL', 'unread', '0000-00-00 00:00:00', 's'),
@@ -627,7 +606,7 @@ INSERT INTO `stu_notification` (`id`, `stu_id`, `emp_id`, `emp_name`, `dt`, `mes
 (9, 2, 2, 'Nameww', '2021-11-23 20:17:46', 'ddwd', 'wdw', 'unread', '0000-00-00 00:00:00', 'i'),
 (10, 2, 2, 'Nameww', '2021-11-23 20:19:26', 'dwdw', 'wdwd', 'unread', '0000-00-00 00:00:00', 'i'),
 (11, 2, 2, 'Nameww', '2021-11-23 20:36:06', 'ddwwd', 'wwdwd', 'unread', '0000-00-00 00:00:00', 'i'),
-(12, 1, 2, 'Nameww', '2021-11-23 20:37:39', 'You have been rejected for grant', 'NULL', 'unread', '0000-00-00 00:00:00', 's'),
+(12, 1, 2, 'Nameww', '2021-11-23 20:37:39', 'You have been rejected for grant', 'NULL', 'read', '0000-00-00 00:00:00', 's'),
 (13, 2, 2, 'Nameww', '2021-11-24 20:32:44', 'wdwd', 'wdwddw', 'unread', '0000-00-00 00:00:00', 'i'),
 (14, 2, 2, 'Nameww', '2021-11-24 20:32:51', 'wdwd', 'wdwddw', 'unread', '0000-00-00 00:00:00', 'i'),
 (15, 2, 2, 'Nameww', '2021-11-24 20:34:33', 'dswd', 'wddw', 'unread', '0000-00-00 00:00:00', 'i'),
@@ -640,7 +619,25 @@ INSERT INTO `stu_notification` (`id`, `stu_id`, `emp_id`, `emp_name`, `dt`, `mes
 (22, 2, 2, 'Nameww', '2021-11-27 12:20:35', 'You have been rejected for grant', 'NULL', 'unread', '0000-00-00 00:00:00', 's'),
 (23, 2, 2, 'Nameww', '2021-11-27 12:22:14', 'You have been rejected for grant', 'NULL', 'unread', '0000-00-00 00:00:00', 's'),
 (24, 2, 2, 'Nameww', '2021-11-27 12:25:03', 'You have been rejected for grant', 'NULL', 'unread', '0000-00-00 00:00:00', 's'),
-(25, 2, 2, 'Nameww', '2021-11-27 19:53:13', 'You have been rejected for grant', 'NULL', 'unread', '0000-00-00 00:00:00', 's');
+(25, 2, 2, 'Nameww', '2021-11-27 19:53:13', 'You have been rejected for grant', 'NULL', 'unread', '0000-00-00 00:00:00', 's'),
+(26, 2, 2, 'Nameww', '2021-12-03 12:07:26', 'You have been Accepted for grant', 'NULL', 'unread', NULL, 's'),
+(27, 2, 2, 'Nameww', '2021-12-03 12:11:55', 'You have been Accepted for grant', 'NULL', 'unread', NULL, 's'),
+(28, 2, 2, 'Nameww', '2021-12-03 12:12:54', 'You have been Accepted for grant', 'NULL', 'unread', NULL, 's'),
+(29, 2, 2, 'Nameww', '2021-12-03 12:39:25', 'You have been Accepted for grant', 'NULL', 'unread', NULL, 's'),
+(30, 2, 2, 'Nameww', '2021-12-03 12:43:07', 'You have been Accepted for grant', 'NULL', 'unread', NULL, 's'),
+(31, 2, 2, 'Nameww', '2021-12-03 17:46:43', 'You have been Accepted for grant', 'NULL', 'unread', NULL, 's'),
+(35, 2, 1, 'NULL', '2021-12-03 18:48:14', 'You have received your full grant', 'NULL', 'unread', NULL, 'a'),
+(37, 2, 1, 'NULL', '2021-12-03 18:49:52', 'You have received your full grant', 'NULL', 'unread', NULL, 'a'),
+(38, 2, 2, 'Nameww', '2021-12-03 19:17:11', 'sws', 'aaas', 'unread', NULL, 'i'),
+(39, 2, 2, 'Nameww', '2021-12-03 19:17:46', 'wwddwwdw', 'wddw', 'unread', NULL, 'i'),
+(40, 2, 2, 'Nameww', '2021-12-03 19:17:52', 'wwddwwdw', 'wddw', 'unread', NULL, 'i'),
+(41, 2, 2, 'Nameww', '2021-12-03 19:20:58', 'wddw', 'wdwd', 'unread', '2021-12-25 12:00:00', 'i'),
+(42, 2, 2, 'Nameww', '2021-12-03 19:21:02', 'wddw', 'wdwd', 'unread', '2021-12-25 12:00:00', 'i'),
+(43, 2, 2, 'Nameww', '2021-12-03 19:21:47', 'bib', 'ibib', 'unread', '2021-12-25 12:00:00', 'i'),
+(44, 2, 2, 'Nameww', '2021-12-03 19:21:51', 'bib', 'ibib', 'unread', '2021-12-25 12:00:00', 'i'),
+(45, 2, 2, 'Nameww', '2021-12-03 19:23:54', 'ddw', 'wdwd', 'unread', '2021-12-25 12:00:00', 'i'),
+(46, 2, 2, 'Nameww', '2021-12-03 19:25:05', 'dss', 'sdd', 'unread', '2021-12-25 12:00:00', 'i'),
+(47, 2, 2, 'Nameww', '2021-12-03 19:25:09', 'dss', 'sdd', 'unread', '2021-12-25 12:00:00', 'i');
 
 --
 -- Indexes for dumped tables
@@ -659,23 +656,10 @@ ALTER TABLE `balance`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `category`
---
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `stu_id` (`stu_id`);
-
---
 -- Indexes for table `city`
 --
 ALTER TABLE `city`
   ADD PRIMARY KEY (`city_id`);
-
---
--- Indexes for table `donations`
---
-ALTER TABLE `donations`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `donation_record`
@@ -692,22 +676,10 @@ ALTER TABLE `donators`
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- Indexes for table `donor`
---
-ALTER TABLE `donor`
-  ADD PRIMARY KEY (`donor_id`);
-
---
 -- Indexes for table `emp`
 --
 ALTER TABLE `emp`
   ADD PRIMARY KEY (`emp_id`);
-
---
--- Indexes for table `employee`
---
-ALTER TABLE `employee`
-  ADD PRIMARY KEY (`employee_id`);
 
 --
 -- Indexes for table `feedback`
@@ -761,7 +733,7 @@ ALTER TABLE `student`
 -- Indexes for table `stu_notification`
 --
 ALTER TABLE `stu_notification`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`idd`),
   ADD KEY `stu_id` (`stu_id`),
   ADD KEY `emp_id` (`emp_id`);
 
@@ -782,40 +754,22 @@ ALTER TABLE `balance`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `category`
---
-ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `city`
 --
 ALTER TABLE `city`
   MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
--- AUTO_INCREMENT for table `donations`
---
-ALTER TABLE `donations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `donation_record`
 --
 ALTER TABLE `donation_record`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `donators`
 --
 ALTER TABLE `donators`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT for table `donor`
---
-ALTER TABLE `donor`
-  MODIFY `donor_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `emp`
@@ -824,16 +778,10 @@ ALTER TABLE `emp`
   MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
--- AUTO_INCREMENT for table `employee`
---
-ALTER TABLE `employee`
-  MODIFY `employee_id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `feedback_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `feedback_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `forms`
@@ -857,13 +805,13 @@ ALTER TABLE `latest_news`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `payment_history`
 --
 ALTER TABLE `payment_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -875,17 +823,11 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `stu_notification`
 --
 ALTER TABLE `stu_notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `idd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `category`
---
-ALTER TABLE `category`
-  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`stu_id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `donation_record`
