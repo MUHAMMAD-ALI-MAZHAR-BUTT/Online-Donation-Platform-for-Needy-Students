@@ -498,7 +498,7 @@ extract($edit_row);
 
                                 <textarea class="form-control form_data" name="message" id="message" rows="5" placeholder="Enter Message" required></textarea>
                                 <span id="message_error" style="color:#EED202"></span>
-                                <span id="suc" style="color:#00ff00"></span>
+
                             </div>
                             <div class="form-group">
 
@@ -544,20 +544,8 @@ extract($edit_row);
 
                     if (response.success != '') {
 
-
-                        document.getElementById('suc').innerHTML = response.success;
-
-                        setTimeout(function() {
-
-                            document.getElementById('suc').innerHTML = '';
-                            $('#su').modal('hide');
-
-                            location.reload();
-                        }, 5000);
-
-
-                        document.getElementById('subject_error').innerHTML = '';
-                        document.getElementById('message_error').innerHTML = '';
+                        alert(response.success);
+                        location.reload();
 
 
                     } else {

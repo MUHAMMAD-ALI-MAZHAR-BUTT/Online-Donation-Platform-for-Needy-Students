@@ -475,19 +475,8 @@ extract($edit_row);
                     if (response.success != '') {
 
 
-                        document.getElementById('suc').innerHTML = response.success;
-
-                        setTimeout(function() {
-
-                            document.getElementById('suc').innerHTML = '';
-                            $('#su').modal('hide');
-
-                            location.reload();
-                        }, 5000);
-
-
-                        document.getElementById('subject_error').innerHTML = '';
-                        document.getElementById('message_error').innerHTML = '';
+                        alert(response.success);
+                        location.reload();
 
 
                     } else {

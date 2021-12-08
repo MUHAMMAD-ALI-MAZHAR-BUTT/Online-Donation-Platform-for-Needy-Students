@@ -81,52 +81,52 @@ if (isset($_POST['user_save'])) {
     if ($password !== $cpassword) {
         $pass_err = "dfdd";
         echo "<script>alert('Passwords doesnt match')</script>";
-        echo "<script>window.open('index.php','_self')</script>";
+        echo "<script>history.back()</script>";
     }
     if (empty($_POST["name"])) {
         $name_err = 'Name should not be empty';
         echo "<script>alert('Name should not be empty')</script>";
-        echo "<script>window.open('index.php','_self')</script>";
+        echo "<script>history.back()</script>";
     } else {
         $name = test_input($_POST["name"]);
         // check for correctness of name or validate our name test_input
         if (!preg_match("/^[a-zA-z ]*$/", $name)) {
             $name_err = "Name is not in valid format, can contain only letters.";
             echo "<script>alert('Name is not in valid format, can contain only letters.')</script>";
-            echo "<script>window.open('index.php','_self')</script>";
+            echo "<script>history.back()</script>";
         }
     }
     if (empty($_POST["phone"])) {
         $phone_err = 'Phone number should not be empty';
         echo "<script>alert('Phone number should not be empty')</script>";
-        echo "<script>window.open('index.php','_self')</script>";
+        echo "<script>history.back()</script>";
     } else {
         $phone = test_input($_POST["phone"]);
         // check for correctness of name or validate our name test_input
         if (!preg_match($pattern, $phone)) {
             $phone_err = "Phone Number is not in valid format, follow 03XXXXXXXXX format";
             echo "<script>alert(' Phone Number is not in valid format, follow 03XXXXXXXXX format')</script>";
-            echo "<script>window.open('index.php','_self')</script>";
+            echo "<script>history.back()</script>";
         }
     }
 
     if (empty($_POST["email"])) {
         $email_err = "Email cannot be left blank.";
         echo "<script>alert('Email cannot be left blank.')</script>";
-        echo "<script>window.open('index.php','_self')</script>";
+        echo "<script>history.back()</script>";
     } else {
         $email = test_input($_POST["email"]);
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $email_err = "Email format is not correct.";
             echo "<script>alert('Email format is not correct.')</script>";
-            echo "<script>window.open('index.php','_self')</script>";
+            echo "<script>history.back()</script>";
         }
     }
 
     if (empty($password) || empty($cpassword)) {
         $pass_err = "Passwords should not be empty";
         echo "<script>alert('Passwords should not be empty')</script>";
-        echo "<script>window.open('index.php','_self')</script>";
+        echo "<script>history.back()</script>";
     }
     if (isset($_POST['user_save']) and ($name_err == "" and $email_err == "" and $phone_err == "" and $pass_err == "")) {
 
@@ -141,7 +141,7 @@ if (isset($_POST['user_save'])) {
 
         if (mysqli_num_rows($qu) != 0) {
             echo "<script>alert('This Mobile Number already exists!')</script>";
-            echo "<script>window.open('index.php','_self')</script>";
+            echo "<script>history.back()</script>";
         } else {
             $query = "SELECT * FROM student where email='$email' and id<>'$id'";
             $qu = mysqli_query($dbcon, $query);
@@ -150,7 +150,7 @@ if (isset($_POST['user_save'])) {
                 mysqli_num_rows($qu) != 0
             ) {
                 echo "<script>alert('This Email already exists!')</script>";
-                echo "<script>window.open('index.php','_self')</script>";
+                echo "<script>history.back()</script>";
             } else {
 
                 $update_profile = "update student set password='$password', name='$name', email='$email', phone='$phone' where id='$id'";
@@ -161,10 +161,10 @@ if (isset($_POST['user_save'])) {
 
 
                     echo "<script>alert('Account successfully updated!')</script>";
-                    echo "<script>window.open('index.php','_self')</script>";
+                    echo "<script>history.back()</script>";
                 } else {
                     echo "<script>alert('Error Found!')</script>";
-                    echo "<script>window.open('index.php','_self')</script>";
+                    echo "<script>history.back()</script>";
                 }
             }
         }

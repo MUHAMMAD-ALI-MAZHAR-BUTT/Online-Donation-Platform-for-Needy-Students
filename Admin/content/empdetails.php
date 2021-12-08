@@ -83,6 +83,7 @@
                     while ($res = mysqli_fetch_array($query)) {
                         $date = date('F j, Y', strtotime($res['emp_joindate']));
                         $date1 = date('F j, Y', strtotime($res['emp_leftdate']));
+                        $emp_id = $res['emp_id'];
                     ?>
 
                         <tr>
@@ -92,8 +93,20 @@
                             <td><?php echo $res['emp_email']; ?></td>
                             <td>0<?php echo $res['emp_phone']; ?></td>
                             <td><?php echo $date ?></td>
-                            <td><?php echo $res['total_students']; ?></td>
-                            <td><?php echo $res['active_students']; ?></td>
+
+                            <td><?php
+                                $q = "Select * from forms where emp_id='$emp_id'";
+                                $s = mysqli_query($con, $q);
+                                $nums = mysqli_num_rows($s);
+                                echo $nums;
+                                ?>
+                            </td>
+                            <td><?php
+                                $q = "Select * from forms where emp_id='$emp_id' and status='pending'";
+                                $s = mysqli_query($con, $q);
+                                $nums = mysqli_num_rows($s);
+                                echo $nums;
+                                ?></td>
 
                             <!-- <td>
                                 <a href="updateemp.php?id=<?php echo $res['emp_id']; ?>" title="Edit Employee"> <i class="fas fa-edit" style="color:#ad1deb"></i></a>

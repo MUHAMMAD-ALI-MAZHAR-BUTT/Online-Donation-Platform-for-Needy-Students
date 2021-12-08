@@ -17,6 +17,10 @@ if (isset($_POST['upload'])) {
             move_uploaded_file($_FILES['image']['tmp_name'], $path);
             echo '<script language="javascript">';
             echo 'alert("Image Uploaded Successfully")';
+            echo '<script>';
+            echo     'function my() {';
+            echo   'document.getElementById("blank").value = ""; }';
+            echo  '</script>';
             echo '</script>';
         } else {
             echo '<script language="javascript">';
@@ -55,7 +59,7 @@ $result = $con->query("SELECT img_path from gallery_img")
                 <h4 class="text-center text-light p-1">Select Image to Upload</h4>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input type="file" name="image" class="form-control p-1" required>
+                        <input id='blank' type="file" name="image" class="form-control p-1" required>
                     </div>
                     <div class="form-group">
                         <div class="row">
