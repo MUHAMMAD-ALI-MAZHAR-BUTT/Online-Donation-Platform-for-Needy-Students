@@ -1,7 +1,7 @@
 <?php
 
 require_once 'dbconfig.php';
-
+include('db_connection.php');
 if (isset($_REQUEST['id'])) {
 
 	$id = intval($_REQUEST['id']);
@@ -159,11 +159,9 @@ if (isset($_REQUEST['idd'])) {
 
 	$id = intval($_REQUEST['idd']);
 	$query = "SELECT * FROM payment_history inner join forms on payment_history.form_id=forms.form_id inner join student on payment_history.student_id=student.id
-	  WHERE payment_history.id=$id";
-	$stmt = $DBcon->prepare($query);
-	$stmt->execute(array(':idd' => $id));
-	$row = $stmt->fetch(PDO::FETCH_ASSOC);
-	extract($row);
+	  WHERE payment_history.Id=$id";
+	$s = mysqli_query($con, $query);
+	$row = mysqli_fetch_array($s);
 
 ?>
 	<!-- <form method="POST" action="sendform.php"> -->
@@ -176,7 +174,7 @@ if (isset($_REQUEST['idd'])) {
 					<td><label class="control-label">Current Balance in Platform Account</label></td>
 					<?php
 					include 'db_connection.php';
-					$s = "SELECT * from payment_history where id='$id'";
+					$s = "SELECT * from payment_history where Id='$id'";
 					$q = mysqli_query($con, $s);
 					$v = mysqli_fetch_assoc($q);
 					if ($v['Category'] == 'fee') {

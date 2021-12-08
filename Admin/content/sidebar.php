@@ -67,7 +67,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="studetails.php" class="nav-link">
+              <a href="studetails.php?id=1" class="nav-link">
                 <i class="fas fa-user-graduate"></i>
                 <p>
                   Details of Student
@@ -76,7 +76,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="feedbacks.php" class="nav-link">
+              <a href="feedbacks.php?id=1" class="nav-link">
+
                 <i class="fas fa-sticky-note"></i>
                 <p>
                   Feedbacks
@@ -85,7 +86,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="donationhistory.php" class="nav-link">
+              <a href="donationhistory.php?id=1" class="nav-link">
                 <i class="fab fa-amazon-pay"></i>
                 <p>
                   Donation history of donors
@@ -94,7 +95,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="paymenthistory.php" class="nav-link">
+              <a href="paymenthistory.php?id=1" class="nav-link">
                 <i class="fas fa-image"></i>
                 <p>
                   Payment History
@@ -130,7 +131,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="accepted.php" class="nav-link">
+              <a href="accepted.php?id=1" class="nav-link">
                 <i class="fas fa-user-graduate"></i>
                 <p>
                   Accepted students list
@@ -139,7 +140,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="forms.php" class="nav-link">
+              <a href="forms.php?id=1" class="nav-link">
                 <i class="fa fa-check-square"></i>
                 <p>
                   Forms of all students

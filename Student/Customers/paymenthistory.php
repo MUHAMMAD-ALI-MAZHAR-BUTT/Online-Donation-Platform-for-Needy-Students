@@ -186,7 +186,8 @@ extract($edit_row);
             <div class="table-responsive">
                 <?php
                 $connect = mysqli_connect("localhost", "root", "", "base");
-                $query = "SELECT * FROM payment_history where student_id='$id'";
+                $query = "select * from payment_history inner join forms on payment_history.form_id=forms.form_id inner join 
+                    student on payment_history.student_id=student.id where date_comp IS NOT NULL and payment_history.student_id='$id' order by payment_history.date_comp desc ";
                 $result = mysqli_query($connect, $query);
                 if (mysqli_num_rows($result) > 0) {
                 ?>
@@ -194,46 +195,34 @@ extract($edit_row);
 
                         <thead>
                             <tr>
-                                <th>Feedback ID</th>
-
-                                <th>Subject</th>
-                                <th>Message</th>
-                                <th>Response</th>
+                                <th>Id</th>
+                                <th>Form Id</th>
+                                <th>Amount Received</th>
+                                <th>Category</th>
+                                <th>Date fully received</th>
 
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             include("config.php");
-                            $stmt = $DB_con->prepare("SELECT * FROM feedback where email='$email' ");
+                            $stmt = $DB_con->prepare("select * from payment_history inner join forms on payment_history.form_id=forms.form_id inner join 
+                    student on payment_history.student_id=student.id where date_comp IS NOT NULL and payment_history.student_id='$id' order by payment_history.date_comp desc  ");
                             $stmt->execute();
 
 
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                 extract($row);
-
+                                $date1 = date('F j, Y', strtotime($row['date_comp']));
 
                             ?>
                                 <tr>
-                                    <td><?php echo $row['feedback_id']; ?></td>
+                                    <td><?php echo $row['id']; ?></td>
+                                    <td><?php echo $row['form_id']; ?></td>
 
-
-                                    <td><?php echo $row['subject']; ?></td>
-                                    <td><?php echo $row['message']; ?></td>
-                                    <td>
-                                        <?php
-                                        if ($row['status'] == 'false') {
-                                        ?>
-                                            <p class="text-danger">No response Yet</p>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <?php echo $row['reply']; ?>
-                                        <?php
-                                        }
-                                        ?>
-
-                                    </td>
+                                    <td><?php echo $row['amount_received']; ?></td>
+                                    <td><?php echo $row['Category']; ?></td>
+                                    <td><?php echo $date1 ?></td>
 
 
 

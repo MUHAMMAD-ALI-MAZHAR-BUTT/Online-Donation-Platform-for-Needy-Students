@@ -24,8 +24,24 @@
           <ul class="navbar-nav ml-auto">
 
               <li class="nav-item" style="margin-right:10px">
-                  <a href="#" data-toggle="modal" data-target="#setAccountt" style="color:white;" class="btn btn-warning btn-sm">Resign
-                  </a>
+                  <?php
+                    include("db_connection.php");
+                    $selectquery = "select * from forms where emp_id='$emp_id' and status='pending'";
+                    $res = mysqli_query($dbcon, $selectquery);
+                    if (mysqli_num_rows($res) == 0) {
+                    ?>
+                      <a href="#" data-toggle="modal" data-target="#setAccountt" style="color:white;" class="btn btn-warning btn-sm">Resign
+                      </a>
+                  <?php
+
+                    } else {
+                    ?>
+                      <a href="#" data-toggle="modal" data-target="#se" style="color:white;" class="btn btn-warning btn-sm">Resign
+                      </a>
+                  <?php
+                    }
+                    ?>
+
 
               </li>
               <li class="nav-item">
@@ -87,6 +103,19 @@
               </div>
           </div>
       </div>
+      <div class="modal fade" id="se" tabindex="-1" role="dialog" aria-labelledby="myMediulModalLabel">
+          <div class="modal-dialog modal-md">
+              <div class="modal-content">
+                  <div class="modal-header">
+
+                      <h2 class="modal-title" id="myModalLabel">Cannot resign as some students form status are still pending</h2>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+
 
       <?php
 

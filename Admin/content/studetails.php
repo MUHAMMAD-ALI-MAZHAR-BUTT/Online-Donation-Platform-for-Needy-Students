@@ -52,7 +52,18 @@
 
                     <?php
                     include 'db_connection.php';
-                    $selectquery = "select * from student ";
+
+
+                    $conn = mysqli_connect("localhost", "root", "");
+                    mysqli_select_db($conn, "base");
+                    $start = 0;
+                    $limit = 8;
+
+                    if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $start = ($id - 1) * $limit;
+                    }
+                    $selectquery = "select * from student LIMIT $start, $limit";
 
                     $query = mysqli_query($con, $selectquery);
 
@@ -86,6 +97,7 @@
 
                     <?php
                     }
+
                     ?>
                     <div id="view-student" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                         <div class="modal-dialog modal-lg">
@@ -149,6 +161,36 @@
                 </tbody>
             </table>
         <?php
+            echo "<br><div class='container'>";
+
+            $rows = mysqli_num_rows(mysqli_query($conn, "select * from student"));
+            $total = ceil($rows / $limit);
+            // echo "<br /><ul class='pager'>";
+            // if ($id > 1) {
+            //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+            // }
+            // if ($id != $total) {
+            //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+            // }
+            // echo "</ul>";
+
+
+            echo "<ul class='pagination justify-content-center'>";
+            if ($id > 1) {
+                echo "<li class='page-item'><a style='color:#ad1deb ' class='page-link' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+            }
+            for ($i = 1; $i <= $total; $i++) {
+                if ($i == $id) {
+                    echo "<li class='page-item active'><a style='background-color:#ad1deb; border-color:#ad1deb' class='page-link' >" . $i . "</a></li>";
+                } else {
+                    echo "<li class='page-item'><a style='color:#ad1deb; ' class='page-link' href='?id=" . $i . "'>" . $i . "</a></li>";
+                }
+            }
+            if ($id != $total) {
+                echo "<li class='page-item'><a style='color:#ad1deb;' class='page-link' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+            }
+            echo "</ul>";
+            echo "</div>";
         }
 
         ?>

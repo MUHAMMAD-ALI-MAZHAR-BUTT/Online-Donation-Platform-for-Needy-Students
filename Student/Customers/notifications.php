@@ -192,8 +192,8 @@ extract($edit_row);
                     $limit = 6;
 
                     if (isset($_GET['id'])) {
-                        $id = $_GET['id'];
-                        $start = ($id - 1) * $limit;
+                        $idd = $_GET['id'];
+                        $start = ($idd - 1) * $limit;
                     }
 
                     $query = mysqli_query($conn, "select * from stu_notification inner join student on stu_notification.stu_id=student.id inner join emp on stu_notification.emp_id=emp.emp_id where stu_id='$id' 
@@ -319,19 +319,19 @@ extract($edit_row);
                     $rows = mysqli_num_rows(mysqli_query($conn, "select * from stu_notification where stu_id='$id'"));
                     $total = ceil($rows / $limit);
                     echo "<br /><ul class='pager'>";
-                    if ($id > 1) {
-                        echo "<li><a style='color:white;background-color : #ad1deb; border:#ad1deb;' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+                    if ($idd > 1) {
+                        echo "<li><a style='color:white;background-color : #ad1deb; border:#ad1deb;' href='?id=" . ($idd - 1) . "'>Previous Page</a><li>";
                     }
                     echo "&nbsp;";
-                    if ($id != $total) {
-                        echo "<li><a style='color:white;background-color : #ad1deb; border:#ad1deb;' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+                    if ($idd != $total) {
+                        echo "<li><a style='color:white;background-color : #ad1deb; border:#ad1deb;' href='?id=" . ($idd + 1) . "' class='pager'>Next Page</a></li>";
                     }
                     echo "</ul>";
 
 
                     echo "<center><ul class='pagination pagination-lg'>";
                     for ($i = 1; $i <= $total; $i++) {
-                        if ($i == $id) {
+                        if ($i == $idd) {
                             echo "<li class='pagination active'><a style='color:white;background-color : #ad1deb;'>" . $i . "</a></li>";
                         } else {
                             echo "<li><a style='color:#ad1deb;' href='?id=" . $i . "'>" . $i . "</a></li>";

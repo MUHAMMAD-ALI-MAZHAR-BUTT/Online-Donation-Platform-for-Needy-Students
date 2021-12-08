@@ -174,9 +174,9 @@ if (isset($_POST["father"])) {
             $current_date = date('Y-m-d');
             $query = "
             INSERT INTO forms 
-            (student_id, emp_id, date_filled,category,amount_required,cnic,dob,age,study_level,message,institute_name,father,occupation,Monthly_income,city_id) 
+            (student_id, emp_id, date_filled,category,amount_required,cnic,dob,age,study_level,message,institute_name,father,occupation,Monthly_income,city_id,easypaisa_acc) 
             VALUES ('$id', '$emp_id', '$current_date','$category','$amount_required','$cnic','$dob','$age','$study_level','$message1',
-            '$institute_name','$father','$occupation','$Monthly_income','$city_id')
+            '$institute_name','$father','$occupation','$Monthly_income','$city_id','$easypaisa_acc')
              ";
             // $query = "
             // INSERT INTO forms 

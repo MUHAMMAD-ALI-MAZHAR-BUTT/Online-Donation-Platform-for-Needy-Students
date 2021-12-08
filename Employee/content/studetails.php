@@ -86,12 +86,14 @@
                                 <a href="#" data-toggle="modal" data-target="#view" data-id="<?php echo $res['form_id']; ?>" id="get" type="btn" class="material-icons" title="View Form Detail"><i class="fa fa-list" style="color:#ad1deb;"></i></a>&nbsp;
                                 &nbsp;&nbsp;
                                 <?php
-                                if ($res['status'] == 'pending') {
+                                if ($res['status'] == 'pending' & $res['informed'] == 'true') {
                                 ?>
                                     <a href="update.php?id=<?php echo $res['form_id']; ?>" class="material-icons" title="Edit Status"> <i class="fas fa-edit" style="color:#ad1deb;"></i></a>
                                 <?php
-                                } else {
+                                } else if ($res['status'] == 'pending' & $res['informed'] == 'false') {
                                 ?>
+                                    <a href="#" data-toggle="modal" data-target="#v" type="btn" class="material-icons" title="Edit Status"><i class="fas fa-edit" style="color:#ad1deb;"></i></a>&nbsp;
+
                                 <?php
                                 }
 
@@ -105,6 +107,22 @@
                     <?php
                     }
                     ?>
+                    <div id="v" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title">
+                                        <i class="glyphicon glyphicon-user"></i> Cannot edit status as student not yet interviewed or informed about interview
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div><!-- /.modal -->
                     <div id="view" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                         <div class="modal-dialog">
                             <div class="modal-content">

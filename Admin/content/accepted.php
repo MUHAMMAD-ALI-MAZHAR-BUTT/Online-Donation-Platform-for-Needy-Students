@@ -15,7 +15,7 @@
         </div>
         <?php
         include('db_connection.php');
-        $selectquery = "select * from payment_history order by id desc";
+        $selectquery = "select * from payment_history order by Id desc";
         $res = mysqli_query($con, $selectquery);
         if (mysqli_num_rows($res) == 0) {
         ?>
@@ -49,13 +49,22 @@
 
                     <?php
                     include 'db_connection.php';
+                    $conn = mysqli_connect("localhost", "root", "");
+                    mysqli_select_db($conn, "base");
+                    $start = 0;
+                    $limit = 9;
+
+                    if (isset($_GET['id'])) {
+                        $id = $_GET['id'];
+                        $start = ($id - 1) * $limit;
+                    }
                     $selectquery = "select * from payment_history inner join forms on payment_history.form_id=forms.form_id inner join 
-                    student on payment_history.student_id=student.id order by payment_history.id desc";
+                    student on payment_history.student_id=student.id order by payment_history.Id desc LIMIT $start, $limit";
                     $select = "select * from payment_history ";
                     $query1 = mysqli_query($con, $select);
                     while ($res1 = mysqli_fetch_array($query1)) {
                         if ($res1['req_amount'] == 0 & $res1['date_comp'] == NULL) {
-                            $q = "UPDATE payment_history set date_comp=CURRENT_TIMESTAMP where id='$res1[id]'";
+                            $q = "UPDATE payment_history set date_comp=CURRENT_TIMESTAMP where Id='$res1[Id]'";
                             mysqli_query($con, $q);
                             $q1 = "UPDATE forms set date_of_complete=CURRENT_TIMESTAMP,forms.status='completed' where form_id='$res1[form_id]'";
                             mysqli_query($con, $q1);
@@ -77,7 +86,7 @@
                     ?>
 
                         <tr>
-                            <td><?php echo $res['id']; ?></td>
+                            <td><?php echo $res['Id']; ?></td>
                             <td><?php echo $res['form_id']; ?></td>
                             <td><?php echo $res['student_id']; ?></td>
                             <td><?php echo $res['name']; ?></td>
@@ -95,7 +104,7 @@
                                 <?php
                                 } else {
                                 ?>
-                                    <a data-toggle="modal" data-target="#view-modal" data-id="<?php echo $res['id']; ?>" id="getUser" class="btn btn-success" style="background-color:#ad1deb; border:#ad1deb;"><i class="fas fa-money-bill"></i> <span>Send Money</span></a>
+                                    <a data-toggle="modal" data-target="#view-modal" data-id="<?php echo $res['Id']; ?>" id="getUser" class="btn btn-success" style="background-color:#ad1deb; border:#ad1deb;"><i class="fas fa-money-bill"></i> <span>Send Money</span></a>
 
                                 <?php
                                 }
@@ -173,6 +182,37 @@
                 </tbody>
             </table>
         <?php
+            echo "<br><div class='container'>";
+
+            $rows = mysqli_num_rows(mysqli_query($conn, "select * from payment_history inner join forms on payment_history.form_id=forms.form_id inner join 
+                    student on payment_history.student_id=student.id order by payment_history.Id desc "));
+            $total = ceil($rows / $limit);
+            // echo "<br /><ul class='pager'>";
+            // if ($id > 1) {
+            //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+            // }
+            // if ($id != $total) {
+            //     echo "<li><a style='color:white;background-color : #ad1deb' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+            // }
+            // echo "</ul>";
+
+
+            echo "<ul class='pagination justify-content-center'>";
+            if ($id > 1) {
+                echo "<li class='page-item'><a style='color:#ad1deb ' class='page-link' href='?id=" . ($id - 1) . "'>Previous Page</a><li>";
+            }
+            for ($i = 1; $i <= $total; $i++) {
+                if ($i == $id) {
+                    echo "<li class='page-item active'><a style='background-color:#ad1deb; border-color:#ad1deb' class='page-link' >" . $i . "</a></li>";
+                } else {
+                    echo "<li class='page-item'><a style='color:#ad1deb; ' class='page-link' href='?id=" . $i . "'>" . $i . "</a></li>";
+                }
+            }
+            if ($id != $total) {
+                echo "<li class='page-item'><a style='color:#ad1deb;' class='page-link' href='?id=" . ($id + 1) . "' class='pager'>Next Page</a></li>";
+            }
+            echo "</ul>";
+            echo "</div>";
         }
 
         ?>

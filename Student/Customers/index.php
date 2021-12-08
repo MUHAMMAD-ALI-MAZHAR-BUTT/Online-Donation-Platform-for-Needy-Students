@@ -163,11 +163,13 @@ extract($edit_row);
         <div id="page-wrapper">
             <div class="alert alert-info">
 
-                &nbsp; &nbsp; What are you waiting for guyz. It 50% off on all the products.Its special discount season for all
-                the customers.We team of talented designers making our Pakistan neat & clean.There's this notion that to grow a business, you have to be ruthless.
-                But we know there's a better way to grow. One where what's good for the bottom line is also good for customers.
-                We believe businesses can grow with a conscience, and succeed with a soul —
-                and that they can do it with inbound. That's why we've created a app to help businesses and waste management system grow better every day.<br>
+                &nbsp; &nbsp; Welcome to the Online Donation Platform for needy Students. One of the quickest and most obvious ways to Pakistan top notch but needy students.
+                This is one of the biggest platforms for assisting needy students
+                who cannot afford their finance. They can visit and after the creation of an account, they can submit their online
+                application through this platform and after validation and authentication of their documents during their interview call
+                they will receive the money they deserve through Easypaisa.
+                Note: Make sure the candidate must have a valid Easypaisa account for receiving money through our platform.If the candidate don't
+                have any Easypaisa account he/she can give any of his/her guardians Easypaisa account number..<br>
 
             </div>
             <br>

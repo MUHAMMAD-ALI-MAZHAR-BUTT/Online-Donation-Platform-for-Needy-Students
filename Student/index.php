@@ -265,20 +265,11 @@ if (isset($_POST["submit_email"])) {
 
                     // document.getElementById('suc').innerHTML = response.success;
 
-                    setTimeout(function() {
 
-                      // document.getElementById('suc').innerHTML = '';
 
-                      $('#su').modal('hide');
-                      alert(response.success);
-                      location.reload();
-                    }, 2000);
-
-                    document.getElementById('name_error').innerHTML = '';
-
-                    document.getElementById('email_error').innerHTML = '';
-                    document.getElementById('phone_error').innerHTML = '';
-                    document.getElementById('pass_error').innerHTML = '';
+                    // document.getElementById('suc').innerHTML = '';
+                    alert("Account successfully created");
+                    location.reload();
 
 
                   } else {

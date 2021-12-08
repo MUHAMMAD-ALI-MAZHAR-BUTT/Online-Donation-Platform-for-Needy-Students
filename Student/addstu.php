@@ -107,19 +107,19 @@ if (isset($_POST["name"])) {
 		VALUES ('$name', '$email', '$phone','$password','$create_datetime')
 		";
 
-        $statement = $connect->prepare($query);
-        $mail_error = '';
-        if ($statement->execute($data)) {
+        mysqli_query($con, $query);
 
-            $success =
-                "Account successfully created, Now you can login ";
-            $query = "INSERT INTO `notifications` (`name`,`email`, `type`, `message`, `status`, `date`,`type1`) VALUES ('$name'
+
+
+        $success =
+            "Account successfully created, Now you can login ";
+
+        $query1 = "INSERT INTO `notifications` (`name`,`email`, `type`, `message`, `status`, `date`,`type1`) VALUES ('$name'
             , '$email', 'student','Student $name has created account on the Platform', 'unread', CURRENT_TIMESTAMP,'newacc')";
 
 
 
-            mysqli_query($dbcon, $query);
-        }
+        mysqli_query($con, $query1);
     }
 
     $output = array(
