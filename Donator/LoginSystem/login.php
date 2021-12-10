@@ -57,9 +57,12 @@
             }
         } else {
             echo "<div class='form'>
-                  <h3>Incorrect Username/password.</h3><br/>
-                  <p class='link'>Click here to <a href='login.php?continue=$g'>Login</a> again.</p>
-                  <b> <p class='link'>Click here to <a href='forget.php' style='color:red;'>Forget Password</a> Request</p></b>
+                  <h3>Incorrect Username/password.</h3><br/>";
+            if (empty($g))
+                echo "<p class='link'>Click here to <a href='login.php>Login</a> again.</p>";
+            else
+                echo "<p class='link'>Click here to <a href='login.php?continue=$g'>Login</a> again.</p>";
+            echo "<b> <p class='link'>Click here to <a href='forget.php' style='color:red;'>Forget Password</a> Request</p></b>
                   </div>";
         }
     } else {

@@ -35,8 +35,10 @@ if (isset($_POST['user_login'])) {
     } else {
         $g = $_GET['continue'];
         echo "<script>alert('Email or password is incorrect')</script>";
-        echo "<script>window.open('index.php?continue=$g','_self')</script>";
-
+        if (empty($g))
+            echo "<script>window.open('index.php','_self')</script>";
+        else
+            echo "<script>window.open('index.php?continue=$g','_self')</script>";
         exit();
     }
 }

@@ -331,7 +331,10 @@ if (isset($_POST['admin_login'])) {
   } else {
     $g = $_GET['continue'];
     echo "<script>alert('Username or Password is incorrect!')</script>";
-    echo "<script>window.open('adminn.php?continue=$g','_self')</script>";
+    if (empty($g))
+      echo "<script>window.open('adminn.php','_self')</script>";
+    else
+      echo "<script>window.open('adminn.php?continue=$g','_self')</script>";
 
     exit();
   }

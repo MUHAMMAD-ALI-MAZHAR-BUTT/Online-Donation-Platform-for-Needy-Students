@@ -152,7 +152,7 @@ if (isset($_POST["submit_email"])) {
   <center> &nbsp
     <form method="post" action="index.php">
       <h3>
-        <p><b align="center">Forgot Password? Enter your Email Address to get new random Password <b></p>
+        <p><b align="center">Forgot Password? Enter your Email Address to get new random Passwordd <b></p>
       </h3>
       <input type="text" name="gmail">
       <input type="submit" name="submit_email">
