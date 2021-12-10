@@ -172,7 +172,7 @@ font-size: 16px;"><?php echo $_SESSION['username']; ?>&nbsp; Online Donation Sys
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputPassword4">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4" name="b" value="<?php echo md5($password); ?>" required>
+                            <input type="password" class="form-control" id="inputPassword4" name="b" value="<?php echo $password ?>" required>
                             <input type="checkbox" onclick="mFunction()">Show Password
                             <script>
                                 function mFunction() {
@@ -187,7 +187,7 @@ font-size: 16px;"><?php echo $_SESSION['username']; ?>&nbsp; Online Donation Sys
                         </div>
                         <div class="form-group col-md-12">
                             <label for="inputPassword4">Confirm Password</label>
-                            <input type="password" class="form-control" id="inputPassword5" name="c" value="<?php echo md5($password); ?>" required>
+                            <input type="password" class="form-control" id="inputPassword5" name="c" value="<?php echo $password ?>" required>
                             <input type="checkbox" onclick="myFunction()">Show Password
                             <script>
                                 function myFunction() {

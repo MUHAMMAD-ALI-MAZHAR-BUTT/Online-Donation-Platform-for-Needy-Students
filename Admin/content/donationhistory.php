@@ -52,10 +52,16 @@
                     $start = 0;
                     $limit = 10;
 
-                    if (isset($_GET['id'])) {
-                        $id = $_GET['id'];
+                    if (!empty($_GET)) {
+                        if (isset($_GET['id'])) {
+                            $id = $_GET['id'];
+                            $start = ($id - 1) * $limit;
+                        }
+                    } else {
+                        $id = 1;
                         $start = ($id - 1) * $limit;
                     }
+
                     $selectquery = "select * from donation_record LIMIT $start, $limit";
 
                     $query = mysqli_query($con, $selectquery);

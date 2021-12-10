@@ -53,8 +53,13 @@
                     $start = 0;
                     $limit = 9;
 
-                    if (isset($_GET['id'])) {
-                        $id = $_GET['id'];
+                    if (!empty($_GET)) {
+                        if (isset($_GET['id'])) {
+                            $id = $_GET['id'];
+                            $start = ($id - 1) * $limit;
+                        }
+                    } else {
+                        $id = 1;
                         $start = ($id - 1) * $limit;
                     }
                     $selectquery = "select * from feedback order by feedback_id DESC LIMIT $start, $limit";

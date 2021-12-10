@@ -31,8 +31,13 @@
             $start = 0;
             $limit = 6;
 
-            if (isset($_GET['id'])) {
-                $id = $_GET['id'];
+            if (!empty($_GET)) {
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    $start = ($id - 1) * $limit;
+                }
+            } else {
+                $id = 1;
                 $start = ($id - 1) * $limit;
             }
 
